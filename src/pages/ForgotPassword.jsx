@@ -34,9 +34,8 @@ export default function ForgotPassword() {
           });
           return navigate("/");
         }
-        console.log(res)
+        console.log(res);
       });
-      
     } else {
       Swal.fire({
         title: "Oops...",
@@ -138,7 +137,7 @@ export default function ForgotPassword() {
                     </div>
                   </div>
                   <div class="col-lg-6 d-flex align-items-center gradient-custom-2 card-phone">
-                    <div class="text-white px-3 py-4 p-md-5 mx-md-4">
+                    <div class="text-white px-3 py-4 p-md-5 mx-md-4 real">
                       <h4>Ramah Di kantong, Memudahkan anda</h4>
                       <p>
                         <img src={Banner} alt="" width={350} />

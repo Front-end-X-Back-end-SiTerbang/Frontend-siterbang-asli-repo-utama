@@ -41,12 +41,12 @@ export default function Reset() {
             });
             return navigate("/login");
           }
-          console.log(res)
+          console.log(res);
         });
-        console.log(result)
+        console.log(result);
       }
     });
-    
+
     setIsLoading(false);
 
     // e.preventDefault();
@@ -59,12 +59,9 @@ export default function Reset() {
     //   }
     //   console.log(res)
     // });
-    
+
     // setIsLoading(false);
-
   };
-
-
 
   return (
     <>
@@ -130,7 +127,7 @@ export default function Reset() {
                     </div>
                   </div>
                   <div class="col-lg-6 d-flex align-items-center gradient-custom-2 card-phone">
-                    <div class="text-white px-3 py-4 p-md-5 mx-md-4">
+                    <div class="text-white px-3 py-4 p-md-5 mx-md-4 real">
                       <h4>Ramah Di kantong, Memudahkan anda</h4>
                       <p>
                         <img src={Banner} alt="" width={350} />
