@@ -15,7 +15,7 @@ export default function ForgotPassword() {
     confirmPassword: "",
   });
   useEffect(() => {
-    document.title = `${process.env.REACT_APP_APP_NAME} - Reset Password`;
+    document.title = `Reset Password`;
     window.scrollTo(0, 0);
   }, []);
   const { token } = useParams();
