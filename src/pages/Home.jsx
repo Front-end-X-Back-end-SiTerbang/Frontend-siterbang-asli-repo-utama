@@ -7,9 +7,12 @@ import Footer from "../component/Footer";
 import Navbar2 from "../component/Navbar2"
 import Header from "../component/MainSection"
 
-import { Container, Grid } from "@material-ui/core";
+// import { Container, Grid } from "@material-ui/core";
 import styles from "./landingPage.module.css";
 import {CarouselMitra} from "../component/CarouselMitra"
+// Update 
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
 
 function Home() {
   return (

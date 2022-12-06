@@ -1,9 +1,12 @@
-import { Container, Typography } from "@material-ui/core";
+// import { Container, Typography } from "@material-ui/core";
 import React, { useContext } from "react";
 import styles from "./CarouselMitra.module.css";
 import InfiniteCarousel from "react-leaf-carousel";
 // import { AppContext } from "../../../../context/Provider";
 import { Link } from "react-router-dom";
+//UPDATE MUI
+import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography'
 
 export const CarouselMitra = () => {
   // const { setSearchedCity } = useContext(AppContext);
