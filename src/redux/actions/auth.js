@@ -8,7 +8,6 @@ export const login = async (data, setErrors) => {
     );
 
     localStorage.setItem("token", res.data.data.token);
-    localStorage.setItem("email", res.data.data.email);
     return true;
   } catch (error) {
     setErrors(error.response.data.message);
@@ -31,9 +30,7 @@ export const forgot = async (data, setErrors) => {
     );
     return true;
   } catch (error) {
-    console.log(data);
-
-    throw error;
+    setErrors(error.response.data.message);
   }
 };
 
@@ -45,18 +42,12 @@ export const reset = async (token, data, setErrors) => {
     );
     return true;
   } catch (error) {
-    // if (error.response) {
-    //   if (Array.isArray(error.response.data.error)) {
-    //     setErrors(error.response.data.error);
-    //   } else {
-    //     setErrors([{ msg: error.response.data.error }]);
-    //   }
-    // } else {
-    //   setErrors([{ msg: error.message }]);
-    // }
-
-    // return false;
-
+    setErrors(error.response.data.message);
     throw error;
   }
+};
+
+// handle logout
+export const logout = () => {
+  localStorage.removeItem("token");
 };

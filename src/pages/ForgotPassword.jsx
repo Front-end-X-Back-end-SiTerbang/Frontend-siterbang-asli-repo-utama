@@ -12,7 +12,7 @@ export default function ForgotPassword() {
   const [isLoading, setIsLoading] = useState(false);
   const [form, setForm] = useState({
     password: "",
-    confirmPassword: "",
+    confirm_new_password: "",
   });
   useEffect(() => {
     document.title = `Reset Password`;
@@ -24,7 +24,7 @@ export default function ForgotPassword() {
     e.preventDefault();
     setErrors([]);
     setIsLoading(true);
-    if (form.password === form.confirmPassword) {
+    if (form.password === form.confirm_new_password) {
       reset(token, form, setErrors).then((res) => {
         if (res === true) {
           Swal.fire({
@@ -32,7 +32,7 @@ export default function ForgotPassword() {
             text: "you success to reset password, now you can login",
             icon: "success",
           });
-          return navigate("/");
+          return navigate("/login");
         }
         console.log(res);
       });
@@ -65,8 +65,8 @@ export default function ForgotPassword() {
                         <div class="form-outline mb-4">
                           <input
                             type="password"
-                            id="email"
-                            name="email"
+                            id="new_password"
+                            name="new_password"
                             class="form-control input-login"
                             placeholder="New Password"
                             onChange={(e) =>
@@ -77,14 +77,14 @@ export default function ForgotPassword() {
                         <div class="form-outline mb-4">
                           <input
                             type="password"
-                            id="email"
-                            name="email"
+                            id="confirm_new_password"
+                            name="confirm_new_password"
                             class="form-control input-login"
-                            placeholder="New Password"
+                            placeholder="Confirm New Password"
                             onChange={(e) =>
                               setForm({
                                 ...form,
-                                confirmPassword: e.target.value,
+                                confirm_new_password: e.target.value,
                               })
                             }
                           />
@@ -140,7 +140,7 @@ export default function ForgotPassword() {
                     <div class="text-white px-3 py-4 p-md-5 mx-md-4 real">
                       <h4>Ramah Di kantong, Memudahkan anda</h4>
                       <p>
-                        <img src={Banner} alt="" width={350} />
+                        <img src={Banner} alt="" width={400} />
                       </p>
                     </div>
                   </div>

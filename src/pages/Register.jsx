@@ -5,35 +5,56 @@ import "../assets/css/styleku.css";
 import { useNavigate } from "react-router-dom";
 import { register } from "../redux/actions/auth";
 import Swal from "sweetalert2";
+import { toast } from "react-toastify";
 
 function Register() {
   const navigate = useNavigate();
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    password: "",
-  });
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPw, setConfirmPw] = useState("");
+
   useEffect(() => {
-    document.title = `${process.env.REACT_APP_APP_NAME} - Register`;
+    document.title = `Register`;
     window.scrollTo(0, 0);
   }, []);
   const onSubmitted = (e) => {
     e.preventDefault();
-    setErrors([]);
-    setIsLoading(true);
-    register(form, setErrors).then((res) => {
-      if (res === true) {
-        Swal.fire({
-          title: "Register Success",
-          text: "Please check your email to activate your account",
-          icon: "success",
-        });
-        return navigate("/login");
-      }
-    });
-    setIsLoading(false);
+    if (name === "") {
+      toast.error("Nama is required");
+      return;
+    }
+    if (email === "") {
+      toast.error("Email is required");
+      return;
+    }
+    if (password === "") {
+      toast.error("Password is required");
+      return;
+    }
+    if (email !== "" && password !== "") {
+      const data = {
+        email,
+        password,
+        name,
+        confirmPw,
+      };
+      setErrors([]);
+      setIsLoading(true);
+      register(data, setErrors).then((res) => {
+        if (res === true) {
+          Swal.fire({
+            title: "Register Success",
+            text: "Please check your email to activate your account",
+            icon: "success",
+          });
+          return navigate("/login");
+        }
+      });
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -59,9 +80,7 @@ function Register() {
                             name="name"
                             class="form-control input-login"
                             placeholder="Name"
-                            onChange={(e) =>
-                              setForm({ ...form, name: e.target.value })
-                            }
+                            onChange={(e) => setName(e.target.value)}
                           />
                         </div>
                         <div class="form-outline mb-4">
@@ -71,9 +90,7 @@ function Register() {
                             name="email"
                             class="form-control input-login"
                             placeholder="Email"
-                            onChange={(e) =>
-                              setForm({ ...form, email: e.target.value })
-                            }
+                            onChange={(e) => setEmail(e.target.value)}
                           />
                         </div>
 
@@ -84,9 +101,7 @@ function Register() {
                             name="password"
                             class="form-control input-login"
                             placeholder="Password"
-                            onChange={(e) =>
-                              setForm({ ...form, password: e.target.value })
-                            }
+                            onChange={(e) => setPassword(e.target.value)}
                           />
                         </div>
 
@@ -96,13 +111,8 @@ function Register() {
                             id="confirm_password"
                             name="confirm_password"
                             class="form-control input-login"
-                            placeholder="confirm_password"
-                            onChange={(e) =>
-                              setForm({
-                                ...form,
-                                confirm_password: e.target.value,
-                              })
-                            }
+                            placeholder="confirm password"
+                            onChange={(e) => setConfirmPw(e.target.value)}
                           />
                         </div>
                         <h6 className="err">{errors}</h6>
@@ -145,7 +155,7 @@ function Register() {
                     <div class="text-white px-3 py-4 p-md-5 mx-md-4 real">
                       <h4>Ramah Di kantong, Memudahkan anda</h4>
                       <p>
-                        <img src={Banner} alt="" width={350} />
+                        <img src={Banner} alt="" width={400} />
                       </p>
                     </div>
                   </div>

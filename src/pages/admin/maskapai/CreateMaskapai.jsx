@@ -1,12 +1,38 @@
-import LogoAdmin from "../../../assets/admin-img/undraw_metrics_re_6g90.svg";
-import "../../../assets/css/styleku.css";
-import Logo from "../../../assets/admin-img/undraw_aircraft_re_m05i.svg";
-import TableMaskapai from "../maskapai/TableMaskapai";
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-function Maskapai() {
-  const navigate = useNavigate();
+import LogoAdmin from "../../../assets/admin-img/undraw_metrics_re_6g90.svg";
+import Logo from "../../../assets/admin-img/undraw_aircraft_re_m05i.svg";
+import { createAirline } from "../../../redux/actions/airlineActions";
+import { toast } from "react-toastify";
 
+function CreateMaskapai() {
+  const navigate = useNavigate();
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [error, setError] = useState([]);
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    if (name === "") {
+      toast.error("Nama Maskapai Is Required");
+      return;
+    }
+    if (phone === "") {
+      toast.error("Nomor Telepon Is Required");
+      return;
+    }
+    if (name !== "" && phone !== "") {
+      const body = {
+        name,
+        phone,
+      };
+      const createAirlineStatus = await createAirline(body, setError);
+      if (createAirlineStatus) {
+        toast.success("Berhasil Menambahkan Data Maskapai");
+        return navigate("/maskapai");
+      }
+    }
+  };
   return (
     <React.Fragment>
       <div className="main-container d-flex">
@@ -52,7 +78,7 @@ function Maskapai() {
           </ul>
         </div>
         <div className="content">
-          <nav className="navbar navbar-expand-lg bg-light">
+          <nav className="navbar navbar-expand-lg bg-white">
             <div className="container">
               <div className="d-flex justify-content-between d-block">
                 <img
@@ -103,7 +129,65 @@ function Maskapai() {
             </div>
           </nav>
           <div className="dashboard-content px-3 pt-4 my-content">
-            <TableMaskapai />
+            <div className="card">
+              <div className="card-header">
+                <div className="card-title text-center">Tambahkan Maskapai</div>
+                <div className="ms-3">
+                  <button
+                    className="btn btn-danger btn-sm"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigate("/maskapai");
+                    }}
+                  >
+                    Back
+                  </button>
+                </div>
+              </div>
+              <div className="card-body">
+                <form onSubmit={(e) => onSubmit(e)}>
+                  <div className="row mb-3">
+                    <div className="col-lg-3">
+                      <label className="form-label">Nama Maskapai</label>
+                    </div>
+                    <div className="col-lg-9">
+                      <input
+                        type="text"
+                        className="form-control"
+                        name="airline"
+                        placeholder="Masukkan Nama Airline"
+                        onChange={(e) => setName(e.target.value)}
+                      />
+                      <br />
+                    </div>
+                    <div className="col-lg-3">
+                      <label className="form-label">Nomor Telepon</label>
+                    </div>
+                    <div className="col-lg-9">
+                      <input
+                        type="text"
+                        className="form-control"
+                        name="airline"
+                        placeholder="+62877-0987"
+                        onChange={(e) => setPhone(e.target.value)}
+                      />
+                      <h6 className="err">{error}</h6>
+                      <br />
+                    </div>
+                    <div className="text-end">
+                      <React.Fragment>
+                        <button
+                          className="btn btn-success btn-sm"
+                          type="submit"
+                        >
+                          Submit
+                        </button>
+                      </React.Fragment>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -111,4 +195,4 @@ function Maskapai() {
   );
 }
 
-export default Maskapai;
+export default CreateMaskapai;

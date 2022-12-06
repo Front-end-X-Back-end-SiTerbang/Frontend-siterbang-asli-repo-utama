@@ -48,19 +48,6 @@ export default function Reset() {
     });
 
     setIsLoading(false);
-
-    // e.preventDefault();
-    // setErrors([]);
-    // setIsLoading(true);
-    // forgot(form, setErrors).then((res) => {
-    //   console.log(res);
-    //   if (res === true) {
-    //     return navigate("/login");
-    //   }
-    //   console.log(res)
-    // });
-
-    // setIsLoading(false);
   };
 
   return (
@@ -130,7 +117,7 @@ export default function Reset() {
                     <div class="text-white px-3 py-4 p-md-5 mx-md-4 real">
                       <h4>Ramah Di kantong, Memudahkan anda</h4>
                       <p>
-                        <img src={Banner} alt="" width={350} />
+                        <img src={Banner} alt="" width={400} />
                       </p>
                     </div>
                   </div>
