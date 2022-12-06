@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import "../assets/css/styleku.css";
 import Logo from "../assets/img/undraw_Aircraft_re_m05i.png";
 import Banner from "../assets/img/undraw_connected_world_wuay.svg";
@@ -10,26 +11,39 @@ function Login() {
 
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [form, setForm] = useState({
-    email: "",
-    password: "",
-  });
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   useEffect(() => {
-    document.title = `${process.env.REACT_APP_APP_NAME} - Login`;
+    document.title = `Login`;
     window.scrollTo(0, 0);
   }, []);
 
   const onSubmitted = (e) => {
     e.preventDefault();
-    setErrors([]);
-    setIsLoading(true);
-    login(form, setErrors).then((res) => {
-      console.log(res);
-      if (res === true) {
-        return navigate("/");
-      }
-    });
-    setIsLoading(false);
+    if (email === "") {
+      toast.error("Email is required");
+      return;
+    }
+    if (password === "") {
+      toast.error("Password is required");
+      return;
+    }
+    if (email !== "" && password !== "") {
+      const data = {
+        email,
+        password,
+      };
+      setErrors([]);
+      setIsLoading(true);
+      login(data, setErrors).then((res) => {
+        console.log(res);
+        if (res === true) {
+          return navigate("/");
+        }
+      });
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -54,9 +68,7 @@ function Login() {
                             name="email"
                             class="form-control input-login"
                             placeholder="Email"
-                            onChange={(e) =>
-                              setForm({ ...form, email: e.target.value })
-                            }
+                            onChange={(e) => setEmail(e.target.value)}
                           />
                         </div>
 
@@ -67,9 +79,7 @@ function Login() {
                             name="password"
                             class="form-control input-login"
                             placeholder="Password"
-                            onChange={(e) =>
-                              setForm({ ...form, password: e.target.value })
-                            }
+                            onChange={(e) => setPassword(e.target.value)}
                           />
                           <h6 className="err">{errors}</h6>
                           {/* {errors.length > 0 && (
@@ -130,11 +140,13 @@ function Login() {
                       </form>
                     </div>
                   </div>
-                  <div class="col-lg-6 d-flex align-items-center gradient-custom-2 card-phone">
+                  <div class="col-lg-6 d-flex align-items-center gradient-custom-2 card-phone text-center">
                     <div class="text-white px-3 py-4 p-md-5 mx-md-4 real">
-                      <h4>Ramah Di kantong, Memudahkan anda</h4>
+                      <h4 className="text-center">
+                        Ramah Di kantong, Memudahkan anda
+                      </h4>
                       <p>
-                        <img src={Banner} alt="" width={350} />
+                        <img src={Banner} alt="" width={400} />
                       </p>
                     </div>
                   </div>

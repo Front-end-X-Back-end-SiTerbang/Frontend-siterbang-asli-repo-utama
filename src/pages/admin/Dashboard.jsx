@@ -3,9 +3,27 @@ import LogoAdmin from "../../assets/admin-img/undraw_metrics_re_6g90.svg";
 import "../../assets/css/styleku.css";
 import Logo from "../../assets/admin-img/undraw_aircraft_re_m05i.svg";
 import { useNavigate } from "react-router-dom";
-
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { getListAirline } from "../../redux/actions/airlineActions";
 function Dahsboard() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const airline = useSelector((state) => {
+    return state.listAirline.data;
+  });
+
+  useEffect(() => {
+    dispatch(getListAirline());
+  }, [dispatch]);
+
+  // handle logout
+  const handleLogout = (e) => {
+    e.preventDefault();
+    // dispatch(logout());
+    // navigate("/loginAdmin");
+    console.log("adaahha");
+  };
 
   return (
     <React.Fragment>
@@ -88,7 +106,11 @@ function Dahsboard() {
                     Airport
                   </li>
                   <li className="nav-item nav-link phone">
-                    <button className="btn btn-danger btn-sm">
+                    <button
+                      className="btn btn-danger btn-sm"
+                      type="submit"
+                      onClick={handleLogout}
+                    >
                       <i className="fal fa-power-off text-light"></i>
                     </button>
                   </li>
@@ -97,7 +119,7 @@ function Dahsboard() {
             </div>
           </nav>
           <div className="dashboard-content px-3 pt-4 my-content">
-            <h2 className="fs-5">dahboard</h2>
+            <h2 className="fs-5">Dashboard</h2>
             <div className="row">
               <div className="col-6 col-lg-3 col-md-6">
                 <div className="card">
@@ -105,12 +127,14 @@ function Dahsboard() {
                     <div className="row">
                       <div className="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
                         <div className="mb-2">
-                          <i className="fal fa-bars"></i>
+                          <img src={Logo} alt="MasakpaiLogo" width="50" />
                         </div>
                       </div>
                       <div className="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
                         <h6 className="text-muted font-semibold">Maskapai</h6>
-                        <h6 className="font-extrabold mb-0">36</h6>
+                        <h6 className="font-extrabold mb-0">
+                          {airline?.length}
+                        </h6>
                       </div>
                     </div>
                   </div>

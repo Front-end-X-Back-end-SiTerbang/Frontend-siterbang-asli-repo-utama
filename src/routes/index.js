@@ -1,5 +1,9 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+// import route page
 import ForgotPassword from "../pages/ForgotPassword";
 import Landing from "../pages/Home";
 import Login from "../pages/Login";
@@ -9,7 +13,8 @@ import Dahsboard from "../pages/admin/Dashboard";
 import Maskapai from "../pages/admin/maskapai/Maskapai";
 import Airport from "../pages/admin/airport/Airport";
 import LoginAdmin from "../pages/LoginAdmin";
-
+import CreateMaskapai from "../pages/admin/maskapai/CreateMaskapai";
+import EditMaskapai from "../pages/admin/maskapai/EditMaskapai";
 
 function PrivateRoute({ children }) {
   const token = localStorage.getItem("token");
@@ -28,10 +33,6 @@ function PublicRoute({ children }) {
   }
   return <Navigate to="/" />;
 }
-
-
-
-
 
 export default function router() {
   return (
@@ -77,24 +78,31 @@ export default function router() {
         />
 
         {/* control routes all page admin */}
-        <Route path="/dashboard" element={
-          <PrivateRoute>
-            <Dahsboard />
-          </PrivateRoute>
-        } />
-
-        <Route path="/maskapai" element={
-          <PrivateRoute>
-            <Maskapai />
-          </PrivateRoute>
-        }     
+        <Route
+          path="/dashboard"
+          element={
+            <PrivateRoute>
+              <Dahsboard />
+            </PrivateRoute>
+          }
         />
 
-        <Route path="/airport" element={
-          <PrivateRoute>
-            <Airport />
-          </PrivateRoute>    
-        } 
+        <Route
+          path="/maskapai"
+          element={
+            <PrivateRoute>
+              <Maskapai />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/airport"
+          element={
+            <PrivateRoute>
+              <Airport />
+            </PrivateRoute>
+          }
         />
 
         <Route
@@ -105,11 +113,20 @@ export default function router() {
             </PublicRoute>
           }
         />
-
-
-
-
+        <Route path="/createmaskapai" element={<CreateMaskapai />} />
+        <Route path="/editmaskapai/:id" element={<EditMaskapai />} />
       </Routes>
+
+      <ToastContainer
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        closeButton
+        theme="dark"
+        position="top-right"
+      />
     </BrowserRouter>
   );
 }
