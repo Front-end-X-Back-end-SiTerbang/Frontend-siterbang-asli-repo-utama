@@ -1,0 +1,19 @@
+.body{
+  background-color: #f3f3f9
+  ;
+}
+
+.advertImg {
+  display: flex;
+}
+.advertImg img {
+  width: 85%;
+  height: 65%;
+  /* margin: -180px 10px 50px; */
+  border-radius: 10px;
+  box-shadow: 4px 4px 10px rgb(170, 170, 170), -4px -4px 10px lightgray;
+  cursor: pointer;
+  margin-top: 50px;
+  margin-left: 45px;
+  margin-bottom: 5x;
+}
