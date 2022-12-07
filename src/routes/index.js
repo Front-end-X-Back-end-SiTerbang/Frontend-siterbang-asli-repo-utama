@@ -15,6 +15,8 @@ import Airport from "../pages/admin/airport/Airport";
 import LoginAdmin from "../pages/LoginAdmin";
 import CreateMaskapai from "../pages/admin/maskapai/CreateMaskapai";
 import EditMaskapai from "../pages/admin/maskapai/EditMaskapai";
+import Profile from "../pages/Profile";
+import MyBooking from "../pages/MyBooking";
 
 function PrivateRoute({ children }) {
   const token = localStorage.getItem("token");
@@ -115,6 +117,8 @@ export default function router() {
         />
         <Route path="/createmaskapai" element={<CreateMaskapai />} />
         <Route path="/editmaskapai/:id" element={<EditMaskapai />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/mybooking" element={<MyBooking />} />
       </Routes>
 
       <ToastContainer

@@ -177,7 +177,7 @@ function ResponsiveAppBar() {
               ))} */}
 
                 <MenuItem onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">Profile</Typography>
+                  <Typography textAlign="center" >Profile</Typography>
                 </MenuItem>
                 <MenuItem onClick={handleCloseUserMenu}>
                   <Typography textAlign="center">My Booking</Typography>
