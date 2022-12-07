@@ -33,20 +33,25 @@ function TableMaskapai() {
       key: "3",
       title: "Action",
 
-      render: () => (
+      render: (item, index) => (
+        
         <Space size="middle">
+          <div key={index}> 
           <button
             className="btn btn-warning"
             onClick={(e) => {
-              e.preventDefault();
-              navigate(`/editmaskapai/${airline.id}`);
+              // e.preventDefault();
+              navigate(`/editmaskapai/${item.id}`);
+              // console.log(`${item.id}`)
             }}
           >
             Edit
           </button>
           <button className="btn btn-danger">Delete</button>
+          </div>
         </Space>
       ),
+     
     },
   ];
 
