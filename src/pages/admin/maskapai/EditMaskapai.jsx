@@ -1,50 +1,70 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+// import React from "react";
+// import { useNavigate } from "react-router-dom";
 import LogoAdmin from "../../../assets/admin-img/undraw_metrics_re_6g90.svg";
 import Logo from "../../../assets/admin-img/undraw_aircraft_re_m05i.svg";
-// import { useState } from "react";
-// import { useDispatch, useSelector } from "react-redux";
-// import { getListAirline } from "../../../redux/actions/airlineActions";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getDetailAirline, updateAirline } from "../../../redux/actions/airlineActions";
+import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
-function EditMaskapai() {
+export default function EditMaskapai() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  // const [name, setName] = useState();
-  // const [phone, setPhone] = useState();
-  // const { id } = useParams();
-  // const dispatch = useDispatch();
 
-  // const airline = useSelector((state) => {
-  //   return state.listAirline.id;
-  // });
+  const detailAirline = useSelector((state) => {
+    return state.detailAirline;
+  });
 
-  // console.log(id);
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [error, setError] = useState([]);
+  const { id } = useParams();
 
-  // useEffect(() => {
-  //   dispatch(getListAirline(id));
-  // }, [dispatch, id]);
+  useEffect(() => {
+    dispatch(getDetailAirline(id, navigate));
+
+    setName(detailAirline.data.name);
+    setPhone(detailAirline.data.phone);
+  }, [
+    detailAirline.data.name,
+    detailAirline.data.phone,
+    dispatch,
+    id,
+    navigate,
+  ]);
+
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    // if (name === "") {
-    //   toast.error("Nama Maskapai Is Required");
-    //   return;
-    // }
-    // if (phone === "") {
-    //   toast.error("Nomor Telepon Is Required");
-    //   return;
-    // }
-    // if (name !== "" && phone !== "") {
-    //   const body = {
-    //     name,
-    //     phone,
-    //   };
-    //   const createAirlineStatus = await createAirline(body, setError);
-    //   if (createAirlineStatus) {
-    //     toast.success("Berhasil Menambahkan Data Maskapai");
-    //     return navigate("/maskapai");
-    //   }
-    // }
+    if (name === "") {
+      toast.error("Nama Maskapai Is Required");
+      return;
+    }
+    if (phone === "") {
+      toast.error("Nomor Telepon Is Required");
+      return;
+    }
+    if (name !== "" && phone !== "") {
+      const body = {
+        name,
+        phone,
+      };
+
+
+      const updateAirlineStatus = await updateAirline(id, body, setError);
+
+      if (updateAirlineStatus) {
+        toast.success("Berhasil Mengedit Data Maskapai");
+      }
+      dispatch(getDetailAirline(id, navigate));
+      return navigate("/maskapai");
+
+
+    }
   };
+
+
   return (
     <React.Fragment>
       <div className="main-container d-flex">
@@ -143,7 +163,7 @@ function EditMaskapai() {
           <div className="dashboard-content px-3 pt-4 my-content">
             <div className="card">
               <div className="card-header">
-                <div className="card-title text-center">Tambahkan Maskapai</div>
+                <div className="card-title text-center">Edit Maskapai</div>
                 <div className="ms-3">
                   <button
                     className="btn btn-danger btn-sm"
@@ -167,9 +187,9 @@ function EditMaskapai() {
                         type="text"
                         className="form-control"
                         name="airline"
-                        // value={name}
+                        value={name}
                         placeholder="Masukkan Nama Airline"
-                        // onChange={(e) => setName(e.target.value)}
+                        onChange={(e) => setName(e.target.value)}
                       />
                       <br />
                     </div>
@@ -179,11 +199,11 @@ function EditMaskapai() {
                     <div className="col-lg-9">
                       <input
                         type="text"
-                        // value={phone}
+                        value={phone}
                         className="form-control"
                         name="airline"
                         placeholder="+62877-0987"
-                        // onChange={(e) => setPhone(e.target.value)}
+                        onChange={(e) => setPhone(e.target.value)}
                       />
                       {/* <h6 className="err">{error}</h6> */}
                       <br />
@@ -209,4 +229,4 @@ function EditMaskapai() {
   );
 }
 
-export default EditMaskapai;
+
