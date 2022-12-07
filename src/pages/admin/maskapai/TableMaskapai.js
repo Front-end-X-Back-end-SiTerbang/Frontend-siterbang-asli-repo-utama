@@ -4,7 +4,8 @@ import { Space, Table } from "antd";
 import { Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getListAirline } from "../../../redux/actions/airlineActions";
+import { getListAirline, deleteAirline } from "../../../redux/actions/airlineActions";
+import Swal from "sweetalert2";
 
 function TableMaskapai() {
   const navigate = useNavigate();
@@ -17,6 +18,33 @@ function TableMaskapai() {
   useEffect(() => {
     dispatch(getListAirline());
   }, [dispatch]);
+
+  const onDelete = (id) => {
+    Swal.fire({
+      title: 'Anda Yakin Ingin Menghapus Airline ini?',
+      icon: 'Peringatan',
+      showCancelButton: true,
+      showLoaderOnConfirm: true,
+      confirmButtonText: 'OK'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteAirline(id)
+          .then((response) => {
+            Swal.fire({
+              title: response.message,
+              icon: 'success'
+            })
+            dispatch(getListAirline())
+          })
+          .catch((err) => {
+            Swal.fire({
+              title: 'Delete failed!',
+              icon: 'error'
+          })
+        })
+      }
+    })
+  }
 
   const columns = [
     {
@@ -47,7 +75,14 @@ function TableMaskapai() {
           >
             Edit
           </button>
-          <button className="btn btn-danger">Delete</button>
+          <button 
+              className="btn btn-danger"
+              onClick={(e) => {
+                onDelete(item.id)
+              }}
+            >
+              Delete
+          </button>
           </div>
         </Space>
       ),

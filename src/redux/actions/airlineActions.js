@@ -78,3 +78,19 @@ export const updateAirline = async (id, body, setErrors) => {
     setErrors(error.response.data.message);
   }
 };
+
+export const deleteAirline = (id) => {
+  const token = localStorage.getItem('token')
+  return new Promise((resolve, reject) => {
+    axios
+      .delete(`${process.env.REACT_APP_API_URL}/airlines/${id}`, {
+        headers: {
+          Authorization: `${token}`,
+        },
+    }).then((res) => {
+      resolve(res)
+    }).catch((err) => {
+      reject(err)
+    })
+  })
+}
