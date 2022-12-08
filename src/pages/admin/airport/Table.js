@@ -1,46 +1,35 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import "../../../assets/css/styleku.css";
 import { Row, Space, Table } from "antd";
 import { Container } from "react-bootstrap";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { getListAirport } from "../../../redux/actions/airportActions";
 
 function TableAir() {
-  const [loading, setLoading] = useState(false);
-  const [dataSource, setDataSource] = useState([]);
+  const dispatch = useDispatch();
+  const airport = useSelector((state) => {
+    return state.listAirport.data;
+  });
 
   useEffect(() => {
-    setLoading(true);
-    axios
-      .get("https://jsonplaceholder.typicode.com/todos")
-      .then((response) => {
-        setDataSource(response.data);
-      })
-      .then((err) => {
-        console.log(err);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, []);
+    dispatch(getListAirport());
+  }, [dispatch]);
 
   const columns = [
     {
       key: "1",
-      title: "ID",
-      dataIndex: "id",
+      title: "Nama Airport",
+      dataIndex: "name",
     },
     {
       key: "2",
-      title: "user",
-      dataIndex: "userId",
+      title: "type",
+      dataIndex: "type",
     },
     {
       key: "3",
-      title: "status",
-      dataIndex: "completed",
-      render: (completed) => {
-        return <p>{completed ? "Done" : "In Progress"}</p>;
-      },
+      title: "destination",
+      dataIndex: "destination_id",
     },
     {
       key: "4",
@@ -70,9 +59,8 @@ function TableAir() {
             </Row>
             <Table
               className="mt-5"
-              loading={loading}
               columns={columns}
-              dataSource={dataSource}
+              dataSource={airport}
             ></Table>
           </div>
         </div>
