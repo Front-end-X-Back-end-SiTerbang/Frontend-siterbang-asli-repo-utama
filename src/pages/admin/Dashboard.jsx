@@ -1,20 +1,29 @@
 import React from "react";
-import LogoAdmin from "../../assets/admin-img/undraw_metrics_re_6g90.svg";
-import "../../assets/css/styleku.css";
-import Logo from "../../assets/admin-img/undraw_aircraft_re_m05i.svg";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getListAirline } from "../../redux/actions/airlineActions";
+import { getListAirport } from "../../redux/actions/airportActions";
+import Logo from "../../assets/admin-img/undraw_aircraft_re_m05i.svg";
+import LogoAdmin from "../../assets/admin-img/undraw_metrics_re_6g90.svg";
+import LogoAirport from "../../assets/admin-img/undraw_light_the_fire_gt58.svg";
+
+import "../../assets/css/styleku.css";
+
 function Dahsboard() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const airline = useSelector((state) => {
     return state.listAirline.data;
+  });
+  const airport = useSelector((state) => {
+    return state.listAirport.data;
   });
 
   useEffect(() => {
     dispatch(getListAirline());
+    dispatch(getListAirport());
   }, [dispatch]);
 
   // handle logout
@@ -146,12 +155,14 @@ function Dahsboard() {
                     <div className="row">
                       <div className="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
                         <div className="mb-2">
-                          <i className="fal fa-bars"></i>
+                          <img src={LogoAirport} alt="AirportLogo" width="40" />
                         </div>
                       </div>
                       <div className="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                        <h6 className="text-muted font-semibold">Maskapai</h6>
-                        <h6 className="font-extrabold mb-0">36</h6>
+                        <h6 className="text-muted font-semibold">Airport</h6>
+                        <h6 className="font-extrabold mb-0">
+                          {airport?.length}
+                        </h6>
                       </div>
                     </div>
                   </div>
