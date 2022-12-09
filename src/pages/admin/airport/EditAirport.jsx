@@ -19,8 +19,7 @@ export default function EditAirport() {
   const [capacity, setCapacity] = useState("")
   const [error, setError] = useState([]);
   const { id } = useParams();
-  console.log(detailAirports.data.name);
-
+ 
   useEffect(() => {
     dispatch(getDetailAirport(id, navigate));
 
@@ -49,7 +48,7 @@ export default function EditAirport() {
         toast.error("capacity  Is Required");
         return;
       }
-      if (name !== "" && type !== "" && capacity !=="") {
+      if (name !== "" && type !== "") {
         const body = {
           name,
           type,
@@ -221,7 +220,7 @@ export default function EditAirport() {
                         value={capacity}
                         className="form-control"
                         name="airline"
-                        placeholder="+62877-0987"
+                        placeholder="Masukan kapasitasnya"
                         onChange={(e) => setCapacity(e.target.value)}
                       />
                       {/* <h6 className="err">{error}</h6> */}
