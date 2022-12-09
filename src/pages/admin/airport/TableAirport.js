@@ -2,12 +2,13 @@ import React, { useEffect } from "react";
 import "../../../assets/css/styleku.css";
 import { Space, Table } from "antd";
 import { Container } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   deleteAirport,
   getListAirport,
 } from "../../../redux/actions/airportActions";
-import { useNavigate } from "react-router-dom";
+
 import Swal from "sweetalert2";
 
 function TableAir() {
@@ -16,6 +17,7 @@ function TableAir() {
   const airport = useSelector((state) => {
     return state.listAirport.data;
   });
+  // console.log(airport);
 
   const onDelete = (id) => {
     Swal.fire({
