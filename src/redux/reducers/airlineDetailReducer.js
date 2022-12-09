@@ -1,23 +1,20 @@
-import {
-    GET_DETAIL_AIRLINE_SUCCESS,
-} from "../types";
+import { GET_DETAIL_AIRLINE_SUCCESS } from "../types";
 
 const initialState = {
-    data: {},
+  data: {},
 };
 
 const AirlineDetailReducer = (state = initialState, action) => {
-    switch (action.type) {
+  switch (action.type) {
+    case GET_DETAIL_AIRLINE_SUCCESS:
+      return {
+        ...state,
+        data: action.payload.data,
+      };
 
-        case GET_DETAIL_AIRLINE_SUCCESS:
-            return {
-                ...state,
-                data: action.payload.data,
-            };
-
-        default:
-            return state;
-    }
+    default:
+      return state;
+  }
 };
 
 export default AirlineDetailReducer;

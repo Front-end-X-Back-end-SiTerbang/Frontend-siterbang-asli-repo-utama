@@ -1,70 +1,24 @@
-// import React from "react";
-// import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import LogoAdmin from "../../../assets/admin-img/undraw_metrics_re_6g90.svg";
 import Logo from "../../../assets/admin-img/undraw_aircraft_re_m05i.svg";
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  getDetailAirline,
-  updateAirline,
-} from "../../../redux/actions/airlineActions";
 import { useNavigate, useParams } from "react-router-dom";
-import { toast } from "react-toastify";
-
-export default function EditMaskapai() {
+import { useDispatch, useSelector } from "react-redux";
+import { getDetailAirport } from "../../../redux/actions/airportActions";
+export default function EditAirport() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const detailAirline = useSelector((state) => {
-    return state.detailAirline;
+  const detailAirports = useSelector((state) => {
+    return state.detailAirport;
   });
-
   const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [error, setError] = useState([]);
   const { id } = useParams();
-
-  console.log(detailAirline.data.name);
+  console.log(detailAirports.data.name);
 
   useEffect(() => {
-    dispatch(getDetailAirline(id, navigate));
-
-    setName(detailAirline.data.name);
-    setPhone(detailAirline.data.phone);
-  }, [
-    detailAirline.data.name,
-    detailAirline.data.phone,
-    dispatch,
-    id,
-    navigate,
-  ]);
-
-  const onSubmit = async (e) => {
-    e.preventDefault();
-    if (name === "") {
-      toast.error("Nama Maskapai Is Required");
-      return;
-    }
-    if (phone === "") {
-      toast.error("Nomor Telepon Is Required");
-      return;
-    }
-    if (name !== "" && phone !== "") {
-      const body = {
-        name,
-        phone,
-      };
-
-      const updateAirlineStatus = await updateAirline(id, body, setError);
-
-      if (updateAirlineStatus) {
-        toast.success("Berhasil Mengedit Data Maskapai");
-      }
-      dispatch(getDetailAirline(id, navigate));
-      return navigate("/maskapai");
-    }
-  };
-
+    dispatch(getDetailAirport(id, navigate));
+    setName(detailAirports.data.name);
+  }, [detailAirports.data.name, dispatch, id, navigate]);
   return (
     <React.Fragment>
       <div className="main-container d-flex">
@@ -169,7 +123,7 @@ export default function EditMaskapai() {
                     className="btn btn-danger btn-sm"
                     onClick={(e) => {
                       e.preventDefault();
-                      navigate("/maskapai");
+                      navigate("/airport");
                     }}
                   >
                     Back
@@ -177,7 +131,7 @@ export default function EditMaskapai() {
                 </div>
               </div>
               <div className="card-body">
-                <form onSubmit={(e) => onSubmit(e)}>
+                <form>
                   <div className="row mb-3">
                     <div className="col-lg-3">
                       <label className="form-label">Nama Maskapai</label>
@@ -187,9 +141,9 @@ export default function EditMaskapai() {
                         type="text"
                         className="form-control"
                         name="airline"
-                        value={name}
+                        // value={name}
                         placeholder="Masukkan Nama Airline"
-                        onChange={(e) => setName(e.target.value)}
+                        // onChange={(e) => setName(e.target.value)}
                       />
                       <br />
                     </div>
@@ -199,13 +153,13 @@ export default function EditMaskapai() {
                     <div className="col-lg-9">
                       <input
                         type="text"
-                        value={phone}
+                        // value={phone}
                         className="form-control"
                         name="airline"
                         placeholder="+62877-0987"
-                        onChange={(e) => setPhone(e.target.value)}
+                        // onChange={(e) => setPhone(e.target.value)}
                       />
-                      <h6 className="err">{error}</h6>
+                      {/* <h6 className="err">{error}</h6> */}
                       <br />
                     </div>
                     <div className="text-end">

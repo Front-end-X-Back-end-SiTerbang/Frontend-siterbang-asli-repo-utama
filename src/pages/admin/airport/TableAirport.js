@@ -2,25 +2,20 @@ import React, { useEffect } from "react";
 import "../../../assets/css/styleku.css";
 import { Space, Table } from "antd";
 import { Container } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  getListAirline,
-  deleteAirline,
-} from "../../../redux/actions/airlineActions";
+  deleteAirport,
+  getListAirport,
+} from "../../../redux/actions/airportActions";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
-function TableMaskapai() {
+function TableAir() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const airline = useSelector((state) => {
-    return state.listAirline.data;
+  const airport = useSelector((state) => {
+    return state.listAirport.data;
   });
-  console.log(airline);
-
-  useEffect(() => {
-    dispatch(getListAirline());
-  }, [dispatch]);
 
   const onDelete = (id) => {
     Swal.fire({
@@ -31,13 +26,13 @@ function TableMaskapai() {
       confirmButtonText: "OK",
     }).then((result) => {
       if (result.isConfirmed) {
-        deleteAirline(id)
+        deleteAirport(id)
           .then((response) => {
             Swal.fire({
               title: response.message,
               icon: "success",
             });
-            dispatch(getListAirline());
+            dispatch(getListAirport());
           })
           .catch((err) => {
             Swal.fire({
@@ -49,19 +44,33 @@ function TableMaskapai() {
     });
   };
 
+  useEffect(() => {
+    dispatch(getListAirport());
+  }, [dispatch]);
+
   const columns = [
     {
       key: "1",
-      title: "Nama Maskapai",
+      title: "Nama Airport",
       dataIndex: "name",
     },
     {
       key: "2",
-      title: "Nomor Telepon",
-      dataIndex: "phone",
+      title: "type",
+      dataIndex: "type",
     },
     {
       key: "3",
+      title: "capacity",
+      dataIndex: "capacity",
+    },
+    {
+      key: "4",
+      title: "Nama Maskapai",
+      dataIndex: "airline_id",
+    },
+    {
+      key: "5",
       title: "Action",
       render: (item, index) => (
         <Space size="middle">
@@ -69,16 +78,14 @@ function TableMaskapai() {
             <button
               className="btn btn-warning"
               onClick={() => {
-                // e.preventDefault();
-                navigate(`/editmaskapai/${item.id}`);
-                // console.log(`${item.id}`)
+                navigate(`/editairport/${item.id}`);
               }}
             >
               Edit
             </button>
             <button
               className="btn btn-danger"
-              onClick={(e) => {
+              onClick={() => {
                 onDelete(item.id);
               }}
             >
@@ -89,7 +96,6 @@ function TableMaskapai() {
       ),
     },
   ];
-
   return (
     <React.Fragment>
       <Container>
@@ -98,7 +104,7 @@ function TableMaskapai() {
             <div className="card">
               <div className="card-header">
                 <h3 className="text-center card-title font-weight-bold">
-                  Maskapai
+                  Airport
                 </h3>
               </div>
               <div className="card-body">
@@ -108,7 +114,7 @@ function TableMaskapai() {
                       className="btn btn-primary"
                       onClick={(e) => {
                         e.preventDefault();
-                        navigate("/createmaskapai");
+                        navigate("/createairport");
                       }}
                     >
                       <i className="fal fa-plus"></i> Create
@@ -138,7 +144,7 @@ function TableMaskapai() {
                   </div>
                 </div>
               </div>
-              <Table columns={columns} dataSource={airline}></Table>
+              <Table columns={columns} dataSource={airport}></Table>
             </div>
           </div>
         </div>
@@ -147,4 +153,4 @@ function TableMaskapai() {
   );
 }
 
-export default TableMaskapai;
+export default TableAir;

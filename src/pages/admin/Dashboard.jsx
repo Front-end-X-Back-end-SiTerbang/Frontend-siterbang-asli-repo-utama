@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getListAirline } from "../../redux/actions/airlineActions";
-import { getListAirport } from "../../redux/actions/airportActions";
+// import { getListAirport } from "../../redux/actions/airportActions";
 import Logo from "../../assets/admin-img/undraw_aircraft_re_m05i.svg";
 import LogoAdmin from "../../assets/admin-img/undraw_metrics_re_6g90.svg";
 import LogoAirport from "../../assets/admin-img/undraw_light_the_fire_gt58.svg";
@@ -17,13 +17,13 @@ function Dahsboard() {
   const airline = useSelector((state) => {
     return state.listAirline.data;
   });
-  const airport = useSelector((state) => {
-    return state.listAirport.data;
-  });
+  // const airport = useSelector((state) => {
+  //   return state.listAirport.data;
+  // });
 
   useEffect(() => {
     dispatch(getListAirline());
-    dispatch(getListAirport());
+    // dispatch(getListAirport());
   }, [dispatch]);
 
   // handle logout
@@ -67,7 +67,13 @@ function Dahsboard() {
             >
               <i className="fal fa-plane-departure bear"></i> Maskapai
             </li>
-            <li className="beruang px-3 py-2">
+            <li
+              className="beruang px-3 py-2"
+              onClick={(e) => {
+                e.preventDefault();
+                navigate("/airport");
+              }}
+            >
               <i className="fal fa-solar-panel bear"></i> Airport
             </li>
           </ul>
@@ -111,7 +117,13 @@ function Dahsboard() {
                   >
                     Maskapai
                   </li>
-                  <li className="nav-item nav-link phone d-md-none yui">
+                  <li
+                    className="nav-item nav-link phone d-md-none yui"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigate("/airport");
+                    }}
+                  >
                     Airport
                   </li>
                   <li className="nav-item nav-link phone">
@@ -161,7 +173,7 @@ function Dahsboard() {
                       <div className="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
                         <h6 className="text-muted font-semibold">Airport</h6>
                         <h6 className="font-extrabold mb-0">
-                          {airport?.length}
+                          {/* {airport?.length} */}
                         </h6>
                       </div>
                     </div>

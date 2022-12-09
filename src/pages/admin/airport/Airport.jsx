@@ -3,10 +3,11 @@ import { useNavigate } from "react-router-dom";
 import LogoAdmin from "../../../assets/admin-img/undraw_metrics_re_6g90.svg";
 import "../../../assets/css/styleku.css";
 import Logo from "../../../assets/admin-img/undraw_aircraft_re_m05i.svg";
-import TableAir from "./Table";
+import TableAir from "./TableAirport";
 
 function Airport() {
   const navigate = useNavigate();
+
   return (
     <React.Fragment>
       <div className="main-container d-flex">
@@ -97,8 +98,6 @@ function Airport() {
             </div>
           </nav>
           <div className="dashboard-content px-3 pt-4 my-content">
-            <h2 className="fs-5">Airport</h2>
-            {/* content Maskapai */}
             <TableAir />
           </div>
         </div>
