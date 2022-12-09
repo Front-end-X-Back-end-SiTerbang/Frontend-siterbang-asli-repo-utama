@@ -78,18 +78,7 @@ export default function Reset() {
                             }
                           />
                         </div>
-                        {errors.length > 0 && (
-                          <div
-                            className="alert alert-danger mx-0"
-                            style={{ maxWidth: "350px", marginLeft: "10px" }}
-                          >
-                            <ul className="m-0">
-                              {errors.map((error, index) => (
-                                <li key={index}>{error.msg}</li>
-                              ))}
-                            </ul>
-                          </div>
-                        )}
+                        <h6 className="err">{errors}</h6>
                         <div class="text-center pt-1 mb-5 pb-1 ">
                           {isLoading ? (
                             <button

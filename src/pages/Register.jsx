@@ -14,7 +14,7 @@ function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPw, setConfirmPw] = useState("");
+  const [confirm_password, setconfirm_password] = useState("");
 
   useEffect(() => {
     document.title = `Register`;
@@ -34,12 +34,15 @@ function Register() {
       toast.error("Password is required");
       return;
     }
+    if (confirm_password === "") {
+      toast.error("Confirm Password is required");
+    }
     if (email !== "" && password !== "") {
       const data = {
         email,
         password,
         name,
-        confirmPw,
+        confirm_password,
       };
       setErrors([]);
       setIsLoading(true);
@@ -112,7 +115,9 @@ function Register() {
                             name="confirm_password"
                             class="form-control input-login"
                             placeholder="confirm password"
-                            onChange={(e) => setConfirmPw(e.target.value)}
+                            onChange={(e) =>
+                              setconfirm_password(e.target.value)
+                            }
                           />
                         </div>
                         <h6 className="err">{errors}</h6>
