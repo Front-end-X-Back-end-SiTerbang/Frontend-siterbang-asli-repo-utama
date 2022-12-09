@@ -42,6 +42,7 @@ export const createAirport = async (body, setErrors) => {
 export const getDetailAirport = (id, navigate) => async (dispatch) => {
   try {
     const token = localStorage.getItem("token");
+
     const results = await axios.get(
       `${process.env.REACT_APP_API_URL}/airplanes/${id}`,
       {
@@ -50,12 +51,31 @@ export const getDetailAirport = (id, navigate) => async (dispatch) => {
         },
       }
     );
+
     dispatch({
-      type: GET_DETAIL_AIRPORT_SUCCESS,
-      payload: results.data.data,
+        type: GET_DETAIL_AIRPORT_SUCCESS,
+        payload: results.data,
     });
+} catch (error) {
+  console.log(error.response.data.message);
+}
+};
+
+
+export const updateAirport = async (id, body, setErrors) => {
+  try {
+    console.log(body)
+      const token = localStorage.getItem("token")
+
+      await axios.put(`${process.env.REACT_APP_API_URL}/airplanes/${id}`, body, {
+        headers: {
+          Authorization: `${token}`,
+        },
+      })
+
+      return true;
   } catch (error) {
-    console.log(error.response.data.message);
+    setErrors(error.response.data.message);
   }
 };
 

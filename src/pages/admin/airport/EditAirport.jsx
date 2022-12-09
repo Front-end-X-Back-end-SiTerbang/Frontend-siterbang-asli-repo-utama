@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
 import LogoAdmin from "../../../assets/admin-img/undraw_metrics_re_6g90.svg";
 import Logo from "../../../assets/admin-img/undraw_aircraft_re_m05i.svg";
-import { useNavigate, useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getDetailAirport } from "../../../redux/actions/airportActions";
+import { getDetailAirport, updateAirport } from "../../../redux/actions/airportActions";
+import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+
 export default function EditAirport() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -11,14 +13,61 @@ export default function EditAirport() {
   const detailAirports = useSelector((state) => {
     return state.detailAirport;
   });
+
   const [name, setName] = useState("");
+  const [type, setType] = useState("")
+  const [capacity, setCapacity] = useState("")
+  const [error, setError] = useState([]);
   const { id } = useParams();
   console.log(detailAirports.data.name);
 
   useEffect(() => {
     dispatch(getDetailAirport(id, navigate));
+
     setName(detailAirports.data.name);
-  }, [detailAirports.data.name, dispatch, id, navigate]);
+    setType(detailAirports.data.type);
+    setCapacity(detailAirports.data.capacity)
+  }, [
+    detailAirports.data.name, 
+    detailAirports.data.type,
+    detailAirports.data.capacity,
+    dispatch,
+    id,
+    navigate]);
+
+    const onSubmit = async (e) => {
+      e.preventDefault();
+      if (name === "") {
+        toast.error("Nama Maskapai Is Required");
+        return;
+      }
+      if (type === "") {
+        toast.error("Type  Is Required");
+        return;
+      }
+      if (capacity === "") {
+        toast.error("capacity  Is Required");
+        return;
+      }
+      if (name !== "" && type !== "" && capacity !=="") {
+        const body = {
+          name,
+          type,
+          capacity,
+        };
+  
+        const updateAirportStatus = await updateAirport(id, body, setError);
+        console.log(error)
+        if (updateAirportStatus) {
+          toast.success("Berhasil Mengedit Data Airport");
+        }
+        dispatch(getDetailAirport(id, navigate));
+        return navigate("/airport");
+      }
+    };
+
+
+
   return (
     <React.Fragment>
       <div className="main-container d-flex">
@@ -117,7 +166,7 @@ export default function EditAirport() {
           <div className="dashboard-content px-3 pt-4 my-content">
             <div className="card">
               <div className="card-header">
-                <div className="card-title text-center">Edit Maskapai</div>
+                <div className="card-title text-center">Edit Airport</div>
                 <div className="ms-3">
                   <button
                     className="btn btn-danger btn-sm"
@@ -131,37 +180,55 @@ export default function EditAirport() {
                 </div>
               </div>
               <div className="card-body">
-                <form>
+                <form onSubmit={(e) => onSubmit(e)}>
                   <div className="row mb-3">
                     <div className="col-lg-3">
-                      <label className="form-label">Nama Maskapai</label>
+                      <label className="form-label">Nama Airport</label>
                     </div>
                     <div className="col-lg-9">
                       <input
                         type="text"
                         className="form-control"
                         name="airline"
-                        // value={name}
+                        value={name}
                         placeholder="Masukkan Nama Airline"
-                        // onChange={(e) => setName(e.target.value)}
+                        onChange={(e) => setName(e.target.value)}
                       />
                       <br />
                     </div>
                     <div className="col-lg-3">
-                      <label className="form-label">Nomor Telepon</label>
+                      <label className="form-label">Type</label>
                     </div>
                     <div className="col-lg-9">
                       <input
                         type="text"
-                        // value={phone}
+                        value={type}
                         className="form-control"
                         name="airline"
                         placeholder="+62877-0987"
-                        // onChange={(e) => setPhone(e.target.value)}
+                        onChange={(e) => setType(e.target.value)}
                       />
                       {/* <h6 className="err">{error}</h6> */}
                       <br />
                     </div>
+
+                    <div className="col-lg-3">
+                      <label className="form-label">Kapasitas</label>
+                    </div>
+                    <div className="col-lg-9">
+                      <input
+                        type="text"
+                        value={capacity}
+                        className="form-control"
+                        name="airline"
+                        placeholder="+62877-0987"
+                        onChange={(e) => setCapacity(e.target.value)}
+                      />
+                      {/* <h6 className="err">{error}</h6> */}
+                      <br />
+                    </div>
+
+
                     <div className="text-end">
                       <React.Fragment>
                         <button
