@@ -21,7 +21,7 @@ function TabelAirports() {
     dispatch(getListAirports());
   }, [dispatch]);
 
-  const onDelete = (id) => {
+  const onDelete = (iata_code) => {
     Swal.fire({
       title: "Anda Yakin Ingin Menghapus Airline ini?",
       icon: "Peringatan",
@@ -30,7 +30,7 @@ function TabelAirports() {
       confirmButtonText: "OK",
     }).then((result) => {
       if (result.isConfirmed) {
-        deleteAirports(id)
+        deleteAirports(iata_code)
           .then((response) => {
             Swal.fire({
               title: response.message,
@@ -86,7 +86,7 @@ function TabelAirports() {
             <button
               className="btn btn-danger"
               onClick={() => {
-                onDelete(item.id);
+                onDelete(item.iata_code);
               }}
             >
               Delete

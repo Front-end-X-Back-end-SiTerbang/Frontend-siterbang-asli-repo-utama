@@ -84,11 +84,11 @@ export const updateAirports = async (iata_code, body, setErrors) => {
   }
 };
 
-export const deleteAirports = (id) => {
+export const deleteAirports = (iata_code) => {
   const token = localStorage.getItem("token");
   return new Promise((resolve, reject) => {
     axios
-      .delete(`${process.env.REACT_APP_API_URL}/airports/${id}`, {
+      .delete(`${process.env.REACT_APP_API_URL}/airports/${iata_code}`, {
         headers: {
           Authorization: `${token}`,
         },
