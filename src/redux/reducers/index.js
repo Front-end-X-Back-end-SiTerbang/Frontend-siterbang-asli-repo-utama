@@ -1,12 +1,16 @@
 import { combineReducers } from "redux";
 import listAirlineReducer from "./airlineReducers";
 import AirlineDetailReducer from "./airlineDetailReducer";
-import airportReducer from "./airportReducers";
-import AirportDetailReducer from "./airportDetailReducers";
+import AirplanestReducer from "./airplanesReducers";
+import AirplanestDetailReducer from "./airplanesDetailReducers";
+import AirportReducers from "./airportReducers";
+import AirportsDetailReducer from "./airportDetailReducers";
 
 export default combineReducers({
   listAirline: listAirlineReducer,
+  listAirplanes: AirplanestReducer,
+  listAirports: AirportReducers,
   detailAirline: AirlineDetailReducer,
-  listAirport: airportReducer,
-  detailAirport: AirportDetailReducer,
+  detailAirplanes: AirplanestDetailReducer,
+  detailAirports: AirportsDetailReducer,
 });

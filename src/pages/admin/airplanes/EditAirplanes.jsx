@@ -2,7 +2,10 @@ import LogoAdmin from "../../../assets/admin-img/undraw_metrics_re_6g90.svg";
 import Logo from "../../../assets/admin-img/undraw_aircraft_re_m05i.svg";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getDetailAirport, updateAirport } from "../../../redux/actions/airportActions";
+import {
+  getDetailAirplanes,
+  updateAirplanes,
+} from "../../../redux/actions/airplanesActions";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -11,61 +14,60 @@ export default function EditAirport() {
   const navigate = useNavigate();
 
   const detailAirports = useSelector((state) => {
-    return state.detailAirport;
+    return state.detailAirplanes;
   });
 
   const [name, setName] = useState("");
-  const [type, setType] = useState("")
-  const [capacity, setCapacity] = useState("")
+  const [type, setType] = useState("");
+  const [capacity, setCapacity] = useState("");
   const [error, setError] = useState([]);
   const { id } = useParams();
- 
+
   useEffect(() => {
-    dispatch(getDetailAirport(id, navigate));
+    dispatch(getDetailAirplanes(id, navigate));
 
     setName(detailAirports.data.name);
     setType(detailAirports.data.type);
-    setCapacity(detailAirports.data.capacity)
+    setCapacity(detailAirports.data.capacity);
   }, [
-    detailAirports.data.name, 
+    detailAirports.data.name,
     detailAirports.data.type,
     detailAirports.data.capacity,
     dispatch,
     id,
-    navigate]);
+    navigate,
+  ]);
 
-    const onSubmit = async (e) => {
-      e.preventDefault();
-      if (name === "") {
-        toast.error("Nama Maskapai Is Required");
-        return;
-      }
-      if (type === "") {
-        toast.error("Type  Is Required");
-        return;
-      }
-      if (capacity === "") {
-        toast.error("capacity  Is Required");
-        return;
-      }
-      if (name !== "" && type !== "") {
-        const body = {
-          name,
-          type,
-          capacity,
-        };
-  
-        const updateAirportStatus = await updateAirport(id, body, setError);
-        console.log(error)
-        if (updateAirportStatus) {
-          toast.success("Berhasil Mengedit Data Airport");
-        }
-        dispatch(getDetailAirport(id, navigate));
-        return navigate("/airport");
-      }
-    };
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    if (name === "") {
+      toast.error("Nama Maskapai Is Required");
+      return;
+    }
+    if (type === "") {
+      toast.error("Type  Is Required");
+      return;
+    }
+    if (capacity === "") {
+      toast.error("capacity  Is Required");
+      return;
+    }
+    if (name !== "" && type !== "") {
+      const body = {
+        name,
+        type,
+        capacity,
+      };
 
-
+      const updateAirplanesStatus = await updateAirplanes(id, body, setError);
+      console.log(error);
+      if (updateAirplanesStatus) {
+        toast.success("Berhasil Mengubah Data Airplanes");
+      }
+      dispatch(getDetailAirplanes(id, navigate));
+      return navigate("/airport");
+    }
+  };
 
   return (
     <React.Fragment>
@@ -104,10 +106,19 @@ export default function EditAirport() {
               className="beruang px-3 py-2"
               onClick={(e) => {
                 e.preventDefault();
+                navigate("/airplanes");
+              }}
+            >
+              <i className="fal fa-solar-panel bear"></i> Airplanes
+            </li>
+            <li
+              className="beruang px-3 py-2"
+              onClick={(e) => {
+                e.preventDefault();
                 navigate("/airport");
               }}
             >
-              <i className="fal fa-solar-panel bear"></i> Airport
+              <i class="fal fa-place-of-worship bear"></i> Airport
             </li>
           </ul>
         </div>
@@ -165,13 +176,13 @@ export default function EditAirport() {
           <div className="dashboard-content px-3 pt-4 my-content">
             <div className="card">
               <div className="card-header">
-                <div className="card-title text-center">Edit Airport</div>
+                <div className="card-title text-center">Edit Airplines</div>
                 <div className="ms-3">
                   <button
                     className="btn btn-danger btn-sm"
                     onClick={(e) => {
                       e.preventDefault();
-                      navigate("/airport");
+                      navigate("/airplanes");
                     }}
                   >
                     Back
@@ -226,7 +237,6 @@ export default function EditAirport() {
                       {/* <h6 className="err">{error}</h6> */}
                       <br />
                     </div>
-
 
                     <div className="text-end">
                       <React.Fragment>

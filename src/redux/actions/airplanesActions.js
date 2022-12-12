@@ -1,13 +1,13 @@
 import axios from "axios";
-import { GET_AIRPORTS_SUCCESS, GET_DETAIL_AIRPORTS_SUCCESS } from "../types";
+import { GET_AIRPLANES_SUCCESS, GET_DETAIL_AIRPLANES_SUCCESS } from "../types";
 
 // READ
-export const getListAirports = () => async (dispatch) => {
+export const getListAirplanes = () => async (dispatch) => {
   try {
     const token = localStorage.getItem("token");
 
     const results = await axios.get(
-      `${process.env.REACT_APP_API_URL}/airports/all`,
+      `${process.env.REACT_APP_API_URL}/airplanes/all`,
       {
         headers: {
           Authorization: `${token}`,
@@ -16,7 +16,7 @@ export const getListAirports = () => async (dispatch) => {
     );
 
     dispatch({
-      type: GET_AIRPORTS_SUCCESS,
+      type: GET_AIRPLANES_SUCCESS,
       payload: results.data,
     });
   } catch (error) {
@@ -25,10 +25,10 @@ export const getListAirports = () => async (dispatch) => {
 };
 
 // create
-export const createairports = async (body, setErrors) => {
+export const createAirplanes = async (body, setErrors) => {
   try {
     const token = localStorage.getItem("token");
-    await axios.post(`${process.env.REACT_APP_API_URL}/airports`, body, {
+    await axios.post(`${process.env.REACT_APP_API_URL}/airplanes`, body, {
       headers: {
         Authorization: `${token}`,
       },
@@ -39,14 +39,12 @@ export const createairports = async (body, setErrors) => {
   }
 };
 
-// get by id
-
-export const getDetailAirports = (iata_code, navigate) => async (dispatch) => {
+export const getDetailAirplanes = (id, navigate) => async (dispatch) => {
   try {
     const token = localStorage.getItem("token");
 
     const results = await axios.get(
-      `${process.env.REACT_APP_API_URL}/airports/${iata_code}`,
+      `${process.env.REACT_APP_API_URL}/airplanes/${id}`,
       {
         headers: {
           Authorization: `${token}`,
@@ -55,7 +53,7 @@ export const getDetailAirports = (iata_code, navigate) => async (dispatch) => {
     );
 
     dispatch({
-      type: GET_DETAIL_AIRPORTS_SUCCESS,
+      type: GET_DETAIL_AIRPLANES_SUCCESS,
       payload: results.data,
     });
   } catch (error) {
@@ -63,20 +61,16 @@ export const getDetailAirports = (iata_code, navigate) => async (dispatch) => {
   }
 };
 
-export const updateAirports = async (iata_code, body, setErrors) => {
+export const updateAirplanes = async (id, body, setErrors) => {
   try {
     console.log(body);
     const token = localStorage.getItem("token");
 
-    await axios.put(
-      `${process.env.REACT_APP_API_URL}/airports/${iata_code}`,
-      body,
-      {
-        headers: {
-          Authorization: `${token}`,
-        },
-      }
-    );
+    await axios.put(`${process.env.REACT_APP_API_URL}/airplanes/${id}`, body, {
+      headers: {
+        Authorization: `${token}`,
+      },
+    });
 
     return true;
   } catch (error) {
@@ -84,11 +78,11 @@ export const updateAirports = async (iata_code, body, setErrors) => {
   }
 };
 
-export const deleteAirports = (id) => {
+export const deleteAirplanes = (id) => {
   const token = localStorage.getItem("token");
   return new Promise((resolve, reject) => {
     axios
-      .delete(`${process.env.REACT_APP_API_URL}/airports/${id}`, {
+      .delete(`${process.env.REACT_APP_API_URL}/airplanes/${id}`, {
         headers: {
           Authorization: `${token}`,
         },

@@ -44,10 +44,19 @@ function Maskapai() {
               className="beruang px-3 py-2"
               onClick={(e) => {
                 e.preventDefault();
+                navigate("/airplanes");
+              }}
+            >
+              <i className="fal fa-solar-panel bear"></i> Airplanes
+            </li>
+            <li
+              className="beruang px-3 py-2"
+              onClick={(e) => {
+                e.preventDefault();
                 navigate("/airport");
               }}
             >
-              <i className="fal fa-solar-panel bear"></i> Airport
+              <i class="fal fa-place-of-worship bear"></i> Airport
             </li>
           </ul>
         </div>
