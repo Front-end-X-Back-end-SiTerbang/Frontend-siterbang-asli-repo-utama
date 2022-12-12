@@ -4,11 +4,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getListAirline } from "../../redux/actions/airlineActions";
 import { getListAirplanes } from "../../redux/actions/airplanesActions";
+import { getListAllAdmin } from "../../redux/actions/adminActions";
+
 import Logo from "../../assets/admin-img/undraw_aircraft_re_m05i.svg";
 import LogoAdmin from "../../assets/admin-img/undraw_metrics_re_6g90.svg";
-import LogoAirport from "../../assets/admin-img/undraw_light_the_fire_gt58.svg";
+import LogoAirplanes from "../../assets/admin-img/undraw_light_the_fire_gt58.svg";
+import LogoAirport from "../../assets/admin-img/undraw_airport_re_oqk1.svg";
+import LogoAllAdmin from "../../assets/admin-img/undraw_designer_re_5v95.svg";
 
 import "../../assets/css/styleku.css";
+import { getListAirports } from "../../redux/actions/airportActions";
 
 function Dahsboard() {
   const navigate = useNavigate();
@@ -18,13 +23,23 @@ function Dahsboard() {
     return state.listAirline.data;
   });
 
+  const airports = useSelector((state) => {
+    return state.listAirports.data;
+  });
+
   const airplanes = useSelector((state) => {
     return state.listAirplanes.data;
   });
 
+  const admin = useSelector((state) => {
+    return state.listAdmin.data;
+  });
+
   useEffect(() => {
     dispatch(getListAirline());
+    dispatch(getListAirports());
     dispatch(getListAirplanes());
+    dispatch(getListAllAdmin());
   }, [dispatch]);
 
   // handle logout
@@ -177,11 +192,34 @@ function Dahsboard() {
                     <div className="row">
                       <div className="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
                         <div className="mb-2">
-                          <img src={LogoAirport} alt="AirportLogo" width="40" />
+                          <img src={LogoAirport} alt="AirportLogo" width="30" />
                         </div>
                       </div>
                       <div className="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
                         <h6 className="text-muted font-semibold">Airport</h6>
+                        <h6 className="font-extrabold mb-0">
+                          {airports?.length}
+                        </h6>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="col-6 col-lg-3 col-md-6">
+                <div className="card">
+                  <div className="card-body px-4 py-4-5">
+                    <div className="row">
+                      <div className="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
+                        <div className="mb-2">
+                          <img
+                            src={LogoAirplanes}
+                            alt="AirportLogo"
+                            width="40"
+                          />
+                        </div>
+                      </div>
+                      <div className="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
+                        <h6 className="text-muted font-semibold">Airplanes</h6>
                         <h6 className="font-extrabold mb-0">
                           {airplanes?.length}
                         </h6>
@@ -196,29 +234,16 @@ function Dahsboard() {
                     <div className="row">
                       <div className="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
                         <div className="mb-2">
-                          <i className="fal fa-bars"></i>
+                          <img
+                            src={LogoAllAdmin}
+                            alt="AirportLogo"
+                            width="30"
+                          />
                         </div>
                       </div>
                       <div className="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                        <h6 className="text-muted font-semibold">Maskapai</h6>
-                        <h6 className="font-extrabold mb-0">36</h6>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="col-6 col-lg-3 col-md-6">
-                <div className="card">
-                  <div className="card-body px-4 py-4-5">
-                    <div className="row">
-                      <div className="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
-                        <div className="mb-2">
-                          <i className="fal fa-bars"></i>
-                        </div>
-                      </div>
-                      <div className="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                        <h6 className="text-muted font-semibold">Maskapai</h6>
-                        <h6 className="font-extrabold mb-0">36</h6>
+                        <h6 className="text-muted font-semibold">Admin</h6>
+                        <h6 className="font-extrabold mb-0">{admin?.admin}</h6>
                       </div>
                     </div>
                   </div>
