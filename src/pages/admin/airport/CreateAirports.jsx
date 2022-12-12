@@ -1,51 +1,50 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { toast } from "react-toastify";
 import LogoAdmin from "../../../assets/admin-img/undraw_metrics_re_6g90.svg";
 import Logo from "../../../assets/admin-img/undraw_aircraft_re_m05i.svg";
-import { useState } from "react";
-import { toast } from "react-toastify";
-import { createAirport } from "../../../redux/actions/airportActions";
-function CreateAirport() {
+import { useNavigate } from "react-router-dom";
+import { createairports } from "../../../redux/actions/airportActions";
+
+function CreateAirports() {
   const navigate = useNavigate();
-  const [name, setName] = useState("");
-  const [airline_id, setAirline_id] = useState("");
-  const [type, setType] = useState("");
-  const [capacity, setCapacity] = useState("");
   const [error, setError] = useState([]);
+  const [iata_code, setiata_code] = useState("");
+  const [name, setname] = useState("");
+  const [city, setcity] = useState("");
+  const [country, setcountry] = useState("");
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    if (iata_code === "") {
+      toast.error("IATA is required");
+      return;
+    }
     if (name === "") {
-      toast.error("Nama Pesawat is required");
+      toast.error("Nama Bandara is required");
       return;
     }
-    if (type === "") {
-      toast.error("type is required");
+    if (city === "") {
+      toast.error("Kota is required");
       return;
     }
-    if (capacity === "") {
-      toast.error("capacity is required");
+    if (country === "") {
+      toast.error("Negara is required");
       return;
     }
-    if (airline_id === "") {
-      toast.error("Nama maskapai is required");
-      return;
-    }
-    if (name !== "" && type !== "") {
+    if (iata_code !== "" && name !== "") {
       const body = {
+        iata_code,
         name,
-        type,
-        capacity,
-        airline_id,
+        city,
+        country,
       };
-      const createAirplanesStatus = await createAirport(body, setError);
-      if (createAirplanesStatus) {
-        toast.success("Berhasil Menambah Data Pesawat");
+      const createAirportsStatus = await createairports(body, setError);
+      if (createAirportsStatus) {
+        toast.success("Berhasil Menambah Data Airports");
         return navigate("/airport");
       }
     }
   };
-
   return (
     <React.Fragment>
       <div className="main-container d-flex">
@@ -83,10 +82,19 @@ function CreateAirport() {
               className="beruang px-3 py-2"
               onClick={(e) => {
                 e.preventDefault();
+                navigate("/airplanes");
+              }}
+            >
+              <i className="fal fa-solar-panel bear"></i> Airplanes
+            </li>
+            <li
+              className="beruang px-3 py-2"
+              onClick={(e) => {
+                e.preventDefault();
                 navigate("/airport");
               }}
             >
-              <i className="fal fa-solar-panel bear"></i> Airport
+              <i class="fal fa-place-of-worship bear"></i> Airport
             </li>
           </ul>
         </div>
@@ -144,13 +152,13 @@ function CreateAirport() {
           <div className="dashboard-content px-3 pt-4 my-content">
             <div className="card">
               <div className="card-header">
-                <div className="card-title text-center">Tambahkan Maskapai</div>
+                <div className="card-title text-center">Tambahkan Airports</div>
                 <div className="ms-3">
                   <button
                     className="btn btn-danger btn-sm"
                     onClick={(e) => {
                       e.preventDefault();
-                      navigate("/maskapai");
+                      navigate("/airport");
                     }}
                   >
                     Back
@@ -161,54 +169,58 @@ function CreateAirport() {
                 <form onSubmit={(e) => onSubmit(e)}>
                   <div className="row mb-3">
                     <div className="col-lg-3">
-                      <label className="form-label">Nama Pesawat</label>
+                      <label className="form-label">IATA</label>
                     </div>
                     <div className="col-lg-9">
                       <input
                         type="text"
                         className="form-control"
                         name="name"
-                        placeholder="Masukkan Nama Pesawat"
-                        onChange={(e) => setName(e.target.value)}
+                        placeholder="Masukkan kode Bandara"
+                        onChange={(e) =>
+                          setiata_code(e.target.value.toUpperCase())
+                        }
                       />
                       <br />
                     </div>
                     <div className="col-lg-3">
-                      <label className="form-label">Type Pesawat</label>
+                      <label className="form-label">Nama Bandara</label>
                     </div>
                     <div className="col-lg-9">
                       <input
                         type="text"
                         className="form-control"
                         name=""
-                        placeholder="Masukkan Type Pesawat"
-                        onChange={(e) => setType(e.target.value)}
+                        placeholder="Masukkan Nama Bandara"
+                        onChange={(e) => setname(e.target.value.toUpperCase())}
                       />
                       <br />
                     </div>
                     <div className="col-lg-3">
-                      <label className="form-label">Capacity</label>
+                      <label className="form-label">Nama Kota</label>
                     </div>
                     <div className="col-lg-9">
                       <input
                         type="text"
                         className="form-control"
                         name="airline"
-                        placeholder="Masukkan Jumlah Pesawat"
-                        onChange={(e) => setCapacity(e.target.value)}
+                        placeholder="Masukkan Nama Kota"
+                        onChange={(e) => setcity(e.target.value.toUpperCase())}
                       />
                       <br />
                     </div>
                     <div className="col-lg-3">
-                      <label className="form-label">Nama Maskapai</label>
+                      <label className="form-label">Nama Negara</label>
                     </div>
                     <div className="col-lg-9">
                       <input
                         type="text"
                         className="form-control"
                         name="airline"
-                        placeholder="Masukkan Nama Maskapai"
-                        onChange={(e) => setAirline_id(e.target.value)}
+                        placeholder="Masukkan Nama Negara"
+                        onChange={(e) =>
+                          setcountry(e.target.value.toUpperCase())
+                        }
                       />
                       <h6 className="err">{error}</h6>
                       <br />
@@ -234,4 +246,4 @@ function CreateAirport() {
   );
 }
 
-export default CreateAirport;
+export default CreateAirports;

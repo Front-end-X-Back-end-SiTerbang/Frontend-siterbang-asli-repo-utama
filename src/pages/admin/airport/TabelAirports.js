@@ -1,23 +1,25 @@
-import React, { useEffect } from "react";
-import "../../../assets/css/styleku.css";
 import { Space, Table } from "antd";
+import React from "react";
+import { useEffect } from "react";
 import { Container } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import {
-  deleteAirport,
-  getListAirport,
+  deleteAirports,
+  getListAirports,
 } from "../../../redux/actions/airportActions";
 
-import Swal from "sweetalert2";
-
-function TableAir() {
+function TabelAirports() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const airport = useSelector((state) => {
-    return state.listAirport.data;
+  const Airports = useSelector((state) => {
+    return state.listAirports.data;
   });
-  // console.log(airport);
+
+  useEffect(() => {
+    dispatch(getListAirports());
+  }, [dispatch]);
 
   const onDelete = (id) => {
     Swal.fire({
@@ -28,13 +30,13 @@ function TableAir() {
       confirmButtonText: "OK",
     }).then((result) => {
       if (result.isConfirmed) {
-        deleteAirport(id)
+        deleteAirports(id)
           .then((response) => {
             Swal.fire({
               title: response.message,
               icon: "success",
             });
-            dispatch(getListAirport());
+            dispatch(getListAirports());
           })
           .catch((err) => {
             Swal.fire({
@@ -46,30 +48,26 @@ function TableAir() {
     });
   };
 
-  useEffect(() => {
-    dispatch(getListAirport());
-  }, [dispatch]);
-
   const columns = [
     {
       key: "1",
-      title: "Nama Airport",
-      dataIndex: "name",
+      title: "IATA",
+      dataIndex: "iata_code",
     },
     {
       key: "2",
-      title: "type",
-      dataIndex: "type",
+      title: "Nama Bandara",
+      dataIndex: "name",
     },
     {
       key: "3",
-      title: "capacity",
-      dataIndex: "capacity",
+      title: "Kota",
+      dataIndex: "city",
     },
     {
       key: "4",
-      title: "Nama Maskapai",
-      dataIndex: "airline_id",
+      title: "Negara",
+      dataIndex: "country",
     },
     {
       key: "5",
@@ -80,7 +78,7 @@ function TableAir() {
             <button
               className="btn btn-warning"
               onClick={() => {
-                navigate(`/editairport/${item.id}`);
+                navigate(`/editairport/${item.iata_code}`);
               }}
             >
               Edit
@@ -106,7 +104,7 @@ function TableAir() {
             <div className="card">
               <div className="card-header">
                 <h3 className="text-center card-title font-weight-bold">
-                  Airport
+                  Airports
                 </h3>
               </div>
               <div className="card-body">
@@ -146,7 +144,7 @@ function TableAir() {
                   </div>
                 </div>
               </div>
-              <Table columns={columns} dataSource={airport}></Table>
+              <Table columns={columns} dataSource={Airports}></Table>
             </div>
           </div>
         </div>
@@ -155,4 +153,4 @@ function TableAir() {
   );
 }
 
-export default TableAir;
+export default TabelAirports;

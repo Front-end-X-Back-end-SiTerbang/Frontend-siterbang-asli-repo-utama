@@ -1,68 +1,85 @@
+import React, { useState } from "react";
+import { toast } from "react-toastify";
 import LogoAdmin from "../../../assets/admin-img/undraw_metrics_re_6g90.svg";
 import Logo from "../../../assets/admin-img/undraw_aircraft_re_m05i.svg";
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  getDetailAirline,
-  updateAirline,
-} from "../../../redux/actions/airlineActions";
 import { useNavigate, useParams } from "react-router-dom";
-import { toast } from "react-toastify";
-
-export default function EditMaskapai() {
-  const dispatch = useDispatch();
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import {
+  getDetailAirports,
+  updateAirports,
+} from "../../../redux/actions/airportActions";
+function EditAirports() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [error, setError] = useState([]);
+  const [iatacode, setiata_code] = useState("");
+  const [name, setname] = useState("");
+  const [city, setcity] = useState("");
+  const [country, setcountry] = useState("");
+  const { iata_code } = useParams();
 
-  const detailAirline = useSelector((state) => {
-    return state.detailAirline;
+  const detailAiports = useSelector((state) => {
+    return state.detailAirports;
   });
 
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [error, setError] = useState([]);
-  const { id } = useParams();
-
-  console.log(detailAirline.data.name);
+  console.log(detailAiports);
 
   useEffect(() => {
-    dispatch(getDetailAirline(id, navigate));
+    dispatch(getDetailAirports(iata_code, navigate));
 
-    setName(detailAirline.data.name);
-    setPhone(detailAirline.data.phone);
+    // menyimpan data detail di setter
+    setiata_code(detailAiports.data.iata_code);
+    setname(detailAiports.data.name);
+    setcity(detailAiports.data.city);
+    setcountry(detailAiports.data.country);
   }, [
-    detailAirline.data.name,
-    detailAirline.data.phone,
+    detailAiports.data.iata_code,
+    detailAiports.data.name,
+    detailAiports.data.city,
+    detailAiports.data.country,
     dispatch,
-    id,
+    iata_code,
     navigate,
   ]);
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    if (iatacode === "") {
+      toast.error("IATA is required");
+      return;
+    }
     if (name === "") {
-      toast.error("Nama Maskapai Is Required");
+      toast.error("Nama Bandara is required");
       return;
     }
-    if (phone === "") {
-      toast.error("Nomor Telepon Is Required");
+    if (city === "") {
+      toast.error("Kota is required");
       return;
     }
-    if (name !== "" && phone !== "") {
+    if (country === "") {
+      toast.error("Negara is required");
+      return;
+    }
+    if (iatacode !== "" && name !== "") {
       const body = {
+        iatacode,
         name,
-        phone,
+        city,
+        country,
       };
-
-      const updateAirlineStatus = await updateAirline(id, body, setError);
-
-      if (updateAirlineStatus) {
-        toast.success("Berhasil Mengedit Data Maskapai");
+      const updateAirportStatus = await updateAirports(
+        iata_code,
+        body,
+        setError
+      );
+      if (updateAirportStatus) {
+        toast.success("Berhasil Mengubah Data Aiports");
       }
-      dispatch(getDetailAirline(id, navigate));
-      return navigate("/maskapai");
+      dispatch(getDetailAirports(iata_code, navigate));
+      return navigate("/airport");
     }
   };
-
   return (
     <React.Fragment>
       <div className="main-container d-flex">
@@ -170,13 +187,13 @@ export default function EditMaskapai() {
           <div className="dashboard-content px-3 pt-4 my-content">
             <div className="card">
               <div className="card-header">
-                <div className="card-title text-center">Edit Maskapai</div>
+                <div className="card-title text-center">Tambahkan Airports</div>
                 <div className="ms-3">
                   <button
                     className="btn btn-danger btn-sm"
                     onClick={(e) => {
                       e.preventDefault();
-                      navigate("/maskapai");
+                      navigate("/airport");
                     }}
                   >
                     Back
@@ -187,30 +204,62 @@ export default function EditMaskapai() {
                 <form onSubmit={(e) => onSubmit(e)}>
                   <div className="row mb-3">
                     <div className="col-lg-3">
-                      <label className="form-label">Nama Maskapai</label>
+                      <label className="form-label">IATA</label>
                     </div>
                     <div className="col-lg-9">
                       <input
                         type="text"
                         className="form-control"
-                        name="airline"
-                        value={name}
-                        placeholder="Masukkan Nama Airline"
-                        onChange={(e) => setName(e.target.value)}
+                        name="name"
+                        value={iatacode}
+                        placeholder="Masukkan kode Bandara"
+                        onChange={(e) =>
+                          setiata_code(e.target.value.toUpperCase())
+                        }
                       />
                       <br />
                     </div>
                     <div className="col-lg-3">
-                      <label className="form-label">Nomor Telepon</label>
+                      <label className="form-label">Nama Bandara</label>
                     </div>
                     <div className="col-lg-9">
                       <input
                         type="text"
-                        value={phone}
+                        value={name}
+                        className="form-control"
+                        name=""
+                        placeholder="Masukkan Nama Bandara"
+                        onChange={(e) => setname(e.target.value.toUpperCase())}
+                      />
+                      <br />
+                    </div>
+                    <div className="col-lg-3">
+                      <label className="form-label">Nama Kota</label>
+                    </div>
+                    <div className="col-lg-9">
+                      <input
+                        type="text"
+                        value={city}
                         className="form-control"
                         name="airline"
-                        placeholder="+62877-0987"
-                        onChange={(e) => setPhone(e.target.value)}
+                        placeholder="Masukkan Nama Kota"
+                        onChange={(e) => setcity(e.target.value.toUpperCase())}
+                      />
+                      <br />
+                    </div>
+                    <div className="col-lg-3">
+                      <label className="form-label">Nama Negara</label>
+                    </div>
+                    <div className="col-lg-9">
+                      <input
+                        type="text"
+                        className="form-control"
+                        name="airline"
+                        value={country}
+                        placeholder="Masukkan Nama Negara"
+                        onChange={(e) =>
+                          setcountry(e.target.value.toUpperCase())
+                        }
                       />
                       <h6 className="err">{error}</h6>
                       <br />
@@ -235,3 +284,5 @@ export default function EditMaskapai() {
     </React.Fragment>
   );
 }
+
+export default EditAirports;

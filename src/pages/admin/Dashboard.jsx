@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getListAirline } from "../../redux/actions/airlineActions";
-import { getListAirport } from "../../redux/actions/airportActions";
+import { getListAirplanes } from "../../redux/actions/airplanesActions";
 import Logo from "../../assets/admin-img/undraw_aircraft_re_m05i.svg";
 import LogoAdmin from "../../assets/admin-img/undraw_metrics_re_6g90.svg";
 import LogoAirport from "../../assets/admin-img/undraw_light_the_fire_gt58.svg";
@@ -18,13 +18,13 @@ function Dahsboard() {
     return state.listAirline.data;
   });
 
-  const airport = useSelector((state) => {
-    return state.listAirport.data;
+  const airplanes = useSelector((state) => {
+    return state.listAirplanes.data;
   });
 
   useEffect(() => {
     dispatch(getListAirline());
-    dispatch(getListAirport());
+    dispatch(getListAirplanes());
   }, [dispatch]);
 
   // handle logout
@@ -72,10 +72,19 @@ function Dahsboard() {
               className="beruang px-3 py-2"
               onClick={(e) => {
                 e.preventDefault();
+                navigate("/airplanes");
+              }}
+            >
+              <i className="fal fa-solar-panel bear"></i> Airplanes
+            </li>
+            <li
+              className="beruang px-3 py-2"
+              onClick={(e) => {
+                e.preventDefault();
                 navigate("/airport");
               }}
             >
-              <i className="fal fa-solar-panel bear"></i> Airport
+              <i class="fal fa-place-of-worship bear"></i> Airport
             </li>
           </ul>
         </div>
@@ -174,7 +183,7 @@ function Dahsboard() {
                       <div className="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
                         <h6 className="text-muted font-semibold">Airport</h6>
                         <h6 className="font-extrabold mb-0">
-                          {airport?.length}
+                          {airplanes?.length}
                         </h6>
                       </div>
                     </div>

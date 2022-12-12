@@ -3,11 +3,10 @@ import { useNavigate } from "react-router-dom";
 import LogoAdmin from "../../../assets/admin-img/undraw_metrics_re_6g90.svg";
 import "../../../assets/css/styleku.css";
 import Logo from "../../../assets/admin-img/undraw_aircraft_re_m05i.svg";
-import TableAir from "./TableAirport";
+import TableAirports from "./TabelAirports";
 
-function Airport() {
+function Airports() {
   const navigate = useNavigate();
-
   return (
     <React.Fragment>
       <div className="main-container d-flex">
@@ -41,8 +40,23 @@ function Airport() {
             >
               <i className="fal fa-plane-departure bear"></i> Maskapai
             </li>
-            <li className="beruang px-3 py-2">
-              <i className="fal fa-solar-panel bear"></i> Airport
+            <li
+              className="beruang px-3 py-2"
+              onClick={(e) => {
+                e.preventDefault();
+                navigate("/airplanes");
+              }}
+            >
+              <i className="fal fa-solar-panel bear"></i> Airplanes
+            </li>
+            <li
+              className="beruang px-3 py-2"
+              onClick={(e) => {
+                e.preventDefault();
+                navigate("/airport");
+              }}
+            >
+              <i class="fal fa-place-of-worship bear"></i> Airport
             </li>
           </ul>
         </div>
@@ -98,7 +112,7 @@ function Airport() {
             </div>
           </nav>
           <div className="dashboard-content px-3 pt-4 my-content">
-            <TableAir />
+            <TableAirports />
           </div>
         </div>
       </div>
@@ -106,4 +120,4 @@ function Airport() {
   );
 }
 
-export default Airport;
+export default Airports;

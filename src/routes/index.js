@@ -11,12 +11,15 @@ import Register from "../pages/Register";
 import Reset from "../pages/Reset";
 import Dahsboard from "../pages/admin/Dashboard";
 import Maskapai from "../pages/admin/maskapai/Maskapai";
-import Airport from "../pages/admin/airport/Airport";
+import Airplanes from "../pages/admin/airplanes/Airplanes";
 import LoginAdmin from "../pages/LoginAdmin";
 import CreateMaskapai from "../pages/admin/maskapai/CreateMaskapai";
 import EditMaskapai from "../pages/admin/maskapai/EditMaskapai";
-import CreateAirport from "../pages/admin/airport/CreateAirport";
-import EditAirport from "../pages/admin/airport/EditAirport";
+import CreateAirplanes from "../pages/admin/airplanes/CreateAirplanes";
+import EditAirplanes from "../pages/admin/airplanes/EditAirplanes";
+import Airports from "../pages/admin/airport/Airports";
+import CreateAirports from "../pages/admin/airport/CreateAirports";
+import EditAirports from "../pages/admin/airport/EditAirports";
 
 function PrivateRoute({ children }) {
   const token = localStorage.getItem("token");
@@ -99,10 +102,10 @@ export default function router() {
         />
 
         <Route
-          path="/airport"
+          path="/airplanes"
           element={
             <PrivateRoute>
-              <Airport />
+              <Airplanes />
             </PrivateRoute>
           }
         />
@@ -117,10 +120,12 @@ export default function router() {
         />
         <Route path="/createmaskapai" element={<CreateMaskapai />} />
         <Route path="/editmaskapai/:id" element={<EditMaskapai />} />
-        <Route path="/createairport" element={<CreateAirport />} />
-        <Route path="/editairport/:id" element={<EditAirport />} />
+        <Route path="/createairplanes" element={<CreateAirplanes />} />
+        <Route path="/editairplanes/:id" element={<EditAirplanes />} />
+        <Route path="/airport" element={<Airports />} />
+        <Route path="/createairport" element={<CreateAirports />} />
+        <Route path="/editairport/:iata_code" element={<EditAirports />} />
       </Routes>
-
       <ToastContainer
         closeOnClick
         rtl={false}

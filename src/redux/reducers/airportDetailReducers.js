@@ -1,12 +1,12 @@
-import { GET_DETAIL_AIRPORT_SUCCESS } from "../types";
+import { GET_DETAIL_AIRPORTS_SUCCESS } from "../types";
 
 const initialState = {
   data: {},
 };
 
-const AirportDetailReducer = (state = initialState, action) => {
+const AirportsDetailReducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_DETAIL_AIRPORT_SUCCESS:
+    case GET_DETAIL_AIRPORTS_SUCCESS:
       return {
         ...state,
         data: action.payload.data,
@@ -17,4 +17,4 @@ const AirportDetailReducer = (state = initialState, action) => {
   }
 };
 
-export default AirportDetailReducer;
+export default AirportsDetailReducer;
