@@ -27,6 +27,7 @@ import TripTypeInput from "./TripTypeInput";
 import { useDispatch, useSelector } from "react-redux";
 import { getListProduct } from "../redux/actions/product";
 // import { getListAirline } from "../redux/actions/airline";
+import Navbar2 from "../component/Navbar2"
 
 
 
@@ -208,6 +209,7 @@ const SearchFlightForm = ({ isSearchPage }) => {
 
               <Grid item xs={12} md={normalGridSpan}>
                 <LocationInput
+                  name="destinationFiltered"
                   label="Destination"
                   location={destinationFiltered}
                   setLocation={setDestinationFiltered}
