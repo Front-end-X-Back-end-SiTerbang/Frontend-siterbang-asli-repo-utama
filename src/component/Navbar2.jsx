@@ -43,6 +43,10 @@ function ResponsiveAppBar() {
     navigate('/login')
 }
 
+  const home = ()=> {
+    navigate('/')
+  }
+
   // useEffect(() => {
   //   if (localStorage.getItem("token")) {
   //     dispatch(getDetailUser(localStorage.getItem("id"), navigate));
@@ -59,7 +63,7 @@ function ResponsiveAppBar() {
        
         <Box
             component="img"
-            href="/"
+            onClick={home}
             sx={{
             height: 58,
             }}
@@ -69,7 +73,8 @@ function ResponsiveAppBar() {
 
           <Typography
             variant="h6"
-            href="/"
+            onClick={home}
+            path="/"
             sx={{
             
               display: { xs: 'none', md: 'flex' },
@@ -124,7 +129,7 @@ function ResponsiveAppBar() {
           <Typography
             variant="h5"
             
-            href=""
+            onClick={home}
             sx={{
               mr: 2,
               display: { xs: 'flex', md: 'none' },
