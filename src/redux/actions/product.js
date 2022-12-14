@@ -17,26 +17,19 @@ export const getListProduct = (url) => async (dispatch) => {
     //   payload: null,
     // });
     console.log(url)
-    const res = await axios.get(url, 
+    const results = await axios.get(url, 
       {
         headers: {
           Authorization: `${token}`,
         },
       });
-
+      // console.log(result)
     dispatch({
       type: GET_PRODUCT_SUCCESS,
-      payload: res.data,
+      payload: results.result,
     });
   } catch (error) {
-    if (error.response) {
-      error.message = error.response.data.error;
-    }
-
-    // dispatch({
-    //   type: GET_PRODUCT_FAILED,
-    //   payload: error.message,
-    // });
+    // console.log(error.response.result.message);
   }
 };
 

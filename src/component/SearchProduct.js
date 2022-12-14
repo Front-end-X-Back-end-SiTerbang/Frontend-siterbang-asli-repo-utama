@@ -21,7 +21,12 @@ const SearchFlightForm = ({ isSearchPage }) => {
   // React Router
 
   const dispatch = useDispatch();
-  const { listProduct, listAirline, passenger } = useSelector((state) => state);
+  // const { listProduct, listAirline, passenger } = useSelector((state) => state);
+  const listProduct = useSelector((state) => {
+    return state.listProduct.result;
+  });
+  console.log(listProduct)
+
   const navigate = useNavigate();
   const [queryParams] = useSearchParams();
 
@@ -49,8 +54,6 @@ const SearchFlightForm = ({ isSearchPage }) => {
   }, [dispatch, navigate, queryParams]);
 
 
-  // console.log(getListProduct)
-
 
   let normalGridSpan = 6,
     seatsGridSpan = 3,
@@ -63,7 +66,7 @@ const SearchFlightForm = ({ isSearchPage }) => {
   }
 
 
-
+ 
 
   return (
     // <div> HELLO</div>
