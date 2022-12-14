@@ -1,5 +1,4 @@
 import PIA_IMG from "../assets/img/ungu.jpg";
-
 import {
   Grid,
   Paper,
@@ -26,10 +25,6 @@ import TripTypeInput from "./TripTypeInput";
 
 import { useDispatch, useSelector } from "react-redux";
 import { getListProduct } from "../redux/actions/product";
-// import { getListAirline } from "../redux/actions/airline";
-
-
-
 const SearchFlightForm = ({ isSearchPage }) => {
   // React Router
 
@@ -38,31 +33,6 @@ const SearchFlightForm = ({ isSearchPage }) => {
   const navigate = useNavigate();
   const [queryParams] = useSearchParams();
   const [transitFiltered, setTransitFiltered] = useState("");
-
-  // const navigate = useNavigate(),
-  //   [searchParams, setSearchParams] = useSearchParams();
-
-  // const [tripType, setTripType] = useState(
-  //   searchParams.get("tripType") || "one-waaay"
-  // );
-
-  // const [seats, setSeats] = useState(searchParams.get("seats") || 1);
-  // const [flight, setFlight] = useState(searchParams.get("flight") || "economy");
-  // const [departureLocation, setDepartureLocation] = useState(
-  //   searchParams.get("departureLocation") || ""
-  // );
-  // const [destination, setDestination] = useState( "");
-  
-  // const [departureDate, setDepartureDate] = useState(
-  //   searchParams.get("departureDate") || ""
-  // );
-  // const [returnDate, setReturnDate] = useState(
-  //   searchParams.get("returnDate") || ""
-  // );
-  // const [dateFlexible, setDateFlexible] = useState(
-  //   searchParams.get("dateFlexible") === "true" || false
-  // );
-  // const flightContext = useContext(FlightContext);
 
 //  ------TES----
   const [originFiltered, setOriginFiltered] = useState("");
@@ -75,40 +45,11 @@ const SearchFlightForm = ({ isSearchPage }) => {
   const [tripType, setTripType] = useState("");
 
   useEffect(() => {
-    document.title = `${process.env.REACT_APP_APP_NAME} - Search Result`;
+    document.title = `${process.env.REACT_APP_APP_NAME} - HOME`;
     window.scrollTo(0, 0);
   }, []);
 
-  useEffect(() => {
-    let url = `${process.env.REACT_APP_API_URL}/products/search?`;
-
-    setTransitFiltered("");
-    if (queryParams.get("transit")) {
-      setTransitFiltered(queryParams.get("transit"));
-      url += `&transitFiltered=${queryParams.get("transit")}`;
-    }
-
-    setOriginFiltered("");
-    if (queryParams.get("origin")) {
-      setOriginFiltered(queryParams.get("origin"));
-      url += `&originFiltered=${queryParams.get("origin")}`;
-    }
-
-    setDestinationFiltered("");
-    if (queryParams.get("destination")) {
-      setDestinationFiltered(queryParams.get("destination"));
-      url += `&destinationFiltered=${queryParams.get("destination")}`;
-    }
-
-   
-    if (queryParams.get('page')) {
-      url += `&page=${queryParams.get('page')}`;
-    }
-
-    dispatch(getListProduct(url, navigate));
-    // dispatch(getListAirline(navigate));
-  }, [dispatch, navigate, queryParams]);
-
+  
   const applyFilter = (page = "") => {
     let url = "/products/search?";
     if (transitFiltered || transitFiltered === 0) {
@@ -121,9 +62,9 @@ const SearchFlightForm = ({ isSearchPage }) => {
       url += `&destination=${destinationFiltered}`;
     }
 
-    if (page) {
-      url += `&page=${page}`;
-    }
+    // if (page) {
+    //   url += `&page=${page}`;
+    // }
     return navigate(url);
   };
 
@@ -151,32 +92,7 @@ const SearchFlightForm = ({ isSearchPage }) => {
     />
   );
 
-  // const formSubmitHandler = (event) => {
-  //   event.preventDefault();
-  //   const data = {
-  //     tripType,
-  //     seats,
-  //     flight,
-  //     originFiltered,
-  //     destinationFiltered,
-  //     departureDate,
-  //     returnDate,
-  //     dateFlexible,
-  //   };
-  //   if (data.tripType === "one-way") {
-  //     delete data.returnDate;
-  //   }
-  //   console.log(data);
-
-  //   // flightContext.setSeats(seats);
-  //   // setSearchParams(data);
-
-  //   // navigate({
-  //   //   pathname: "/search",
-  //   //   search: `?${createSearchParams(data)}`,
-  //   // });
-  // };
-
+  
 
   return (
     <Container className="homepage mt-5" >
@@ -198,20 +114,40 @@ const SearchFlightForm = ({ isSearchPage }) => {
 
             <Grid container rowSpacing={3} spacing={1}>
               <Grid item xs={12} md={normalGridSpan}>
-                <LocationInput
+                {/* <LocationInput
                   label="Departure Location"
                   location={originFiltered}
                   setLocation={setOriginFiltered}
                   
-                />
+                /> */}
+              <TextField
+                variant="outlined"
+                value={originFiltered}
+                onChange={(e) => setOriginFiltered(e.target.value)}
+                label={"Departure Location"}
+                placeholder="City"
+                name="Location"
+                fullWidth
+                required
+              />               
               </Grid>
 
               <Grid item xs={12} md={normalGridSpan}>
-                <LocationInput
+                {/* <LocationInput
                   label="Destination"
                   location={destinationFiltered}
                   setLocation={setDestinationFiltered}
-                />
+                /> */}
+                <TextField
+                variant="outlined"
+                value={destinationFiltered}
+                onChange={(e) => setDestinationFiltered(e.target.value)}
+                label={"Departure Location"}
+                placeholder="City"
+                name="Location"
+                fullWidth
+                required
+              />
               </Grid>
 
               <Grid item xs={12} md={seatsGridSpan}>
