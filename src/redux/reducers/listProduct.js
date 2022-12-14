@@ -6,10 +6,10 @@ import {
 
 const initialState = {
   // isLoading: false,
-  isError: false,
+  // isError: false,
   data: [],
-  error: null,
-  pagination: null,
+  // error: null,
+  // pagination: null,
 };
 
 const lietProductReducer = (state = initialState, action) => {
@@ -19,7 +19,7 @@ const lietProductReducer = (state = initialState, action) => {
       return {
         ...state,
         // isLoading: false,
-        isError: false,
+        // isError: false,
         data: action.payload.data,
         // pagination: action.payload.pagination,
       };
