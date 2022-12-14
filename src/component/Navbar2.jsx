@@ -73,8 +73,9 @@ function ResponsiveAppBar() {
 
           <Typography
             variant="h6"
-            onClick={home}
-            path="/"
+            noWrap
+            component="a"
+            href="/"
             sx={{
             
               display: { xs: 'none', md: 'flex' },

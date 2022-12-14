@@ -15,6 +15,7 @@ import { getListProduct } from "../redux/actions/product";
 // import { getListAirline } from "../redux/actions/airline";
 import Navbar2 from "../component/Navbar2"
 import Product from "./Product"
+import styles from "../pages/landingPage.module.css"
 
 
 
@@ -71,17 +72,18 @@ const SearchFlightForm = ({ isSearchPage }) => {
 
   return (
     // <div> HELLO</div>
-    <div>
+    <div className={styles.body}>
     <Navbar2 />
     
-    <Container className="homepage mt-5" >
-      <Paper sx={{ overflow: "hidden"}} elevation={10} >
-          <Product
-            listProduct={listProduct}
-          />
-      </Paper>
-
+    <Container className="homepage " >
+    {/* <div className="col-12 col-md-12 col-lg-9  ">  */}
+        <Product
+          listProduct={listProduct}
+        />
+     {/* </div> */}
+     <b> </b>
     </Container>
+    
     </div>
 
 
