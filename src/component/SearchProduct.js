@@ -1,15 +1,7 @@
-import PIA_IMG from "../assets/img/ungu.jpg";
-
 import {
   Grid,
   Paper,
   Container,
-  TextField,
-  Typography,
-  FormControlLabel,
-  Box,
-  Button,
-  Checkbox,
 } from "@mui/material";
 import React,{ useContext, useState, useEffect } from "react";
 import {
@@ -17,7 +9,6 @@ import {
   useNavigate,
   useSearchParams,
 } from "react-router-dom";
-
 
 import { useDispatch, useSelector } from "react-redux";
 import { getListProduct } from "../redux/actions/product";
@@ -76,12 +67,15 @@ const SearchFlightForm = ({ isSearchPage }) => {
 
   return (
     // <div> HELLO</div>
+    <div>
+    <Navbar2 />
+    
     <Container className="homepage mt-5" >
       <Paper sx={{ overflow: "hidden"}} elevation={10} >
         <h1> HELLO</h1>
       </Paper>
     </Container>
-
+    </div>
 
 
 
