@@ -12,24 +12,20 @@ export const getListProduct = (url) => async (dispatch) => {
   try {
     const token = localStorage.getItem("token");
 
-    // dispatch({
-    //   type: GET_PRODUCT_PENDING,
-    //   payload: null,
-    // });
-    console.log(url)
-    const results = await axios.get(url, 
-      {
-        headers: {
-          Authorization: `${token}`,
-        },
-      });
-      // console.log(result)
+    const results = await axios.get(url, {
+      headers: {
+        Authorization: `${token}`,
+      },
+    });
+
+    console.log(results);
+
     dispatch({
       type: GET_PRODUCT_SUCCESS,
-      payload: results.result,
+      payload: results.data,
     });
+    console.log(dispatch);
   } catch (error) {
-    // console.log(error.response.result.message);
+    throw error;
   }
 };
-

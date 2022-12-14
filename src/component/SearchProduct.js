@@ -1,9 +1,5 @@
-import {
-  Grid,
-  Paper,
-  Container,
-} from "@mui/material";
-import React,{ useContext, useState, useEffect } from "react";
+import { Grid, Paper, Container } from "@mui/material";
+import React, { useContext, useState, useEffect } from "react";
 import {
   createSearchParams,
   useNavigate,
@@ -13,11 +9,9 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { getListProduct } from "../redux/actions/product";
 // import { getListAirline } from "../redux/actions/airline";
-import Navbar2 from "../component/Navbar2"
-import Product from "./Product"
-import styles from "../pages/landingPage.module.css"
-
-
+import Navbar2 from "../component/Navbar2";
+import Product from "./Product";
+import styles from "../pages/landingPage.module.css";
 
 const SearchFlightForm = ({ isSearchPage }) => {
   // React Router
@@ -27,7 +21,7 @@ const SearchFlightForm = ({ isSearchPage }) => {
   const listProduct = useSelector((state) => {
     return state.listProduct;
   });
-  console.log(listProduct)
+  console.log(listProduct);
 
   const navigate = useNavigate();
   const [queryParams] = useSearchParams();
@@ -39,7 +33,7 @@ const SearchFlightForm = ({ isSearchPage }) => {
 
   useEffect(() => {
     let url = `${process.env.REACT_APP_API_URL}/products/search?`;
-   
+
     if (queryParams.get("origin")) {
       url += `&origin=${queryParams.get("origin")}`;
     }
@@ -47,15 +41,13 @@ const SearchFlightForm = ({ isSearchPage }) => {
     if (queryParams.get("destination")) {
       url += `&destination=${queryParams.get("destination")}`;
     }
-  
-    if (queryParams.get('page')) {
-      url += `&page=${queryParams.get('page')}`;
+
+    if (queryParams.get("page")) {
+      url += `&page=${queryParams.get("page")}`;
     }
 
     dispatch(getListProduct(url, navigate));
   }, [dispatch, navigate, queryParams]);
-
-
 
   let normalGridSpan = 6,
     seatsGridSpan = 3,
@@ -67,27 +59,18 @@ const SearchFlightForm = ({ isSearchPage }) => {
     ticketTypeGridSpan = 2;
   }
 
-
- 
-
   return (
     // <div> HELLO</div>
     <div className={styles.body}>
-    <Navbar2 />
-    
-    <Container className="homepage " >
-    {/* <div className="col-12 col-md-12 col-lg-9  ">  */}
-        <Product
-          listProduct={listProduct}
-        />
-     {/* </div> */}
-     <b> </b>
-    </Container>
-    
+      <Navbar2 />
+
+      <Container className="homepage ">
+        {/* <div className="col-12 col-md-12 col-lg-9  ">  */}
+        <Product listProduct={listProduct} />
+        {/* </div> */}
+        <b> </b>
+      </Container>
     </div>
-
-
-
   );
 };
 
