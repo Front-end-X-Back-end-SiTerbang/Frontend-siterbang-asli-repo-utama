@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getListProduct } from "../redux/actions/product";
 // import { getListAirline } from "../redux/actions/airline";
 import Navbar2 from "../component/Navbar2"
+import Product from "./Product"
 
 
 
@@ -23,7 +24,7 @@ const SearchFlightForm = ({ isSearchPage }) => {
   const dispatch = useDispatch();
   // const { listProduct, listAirline, passenger } = useSelector((state) => state);
   const listProduct = useSelector((state) => {
-    return state.listProduct.result;
+    return state.listProduct;
   });
   console.log(listProduct)
 
@@ -75,8 +76,11 @@ const SearchFlightForm = ({ isSearchPage }) => {
     
     <Container className="homepage mt-5" >
       <Paper sx={{ overflow: "hidden"}} elevation={10} >
-        <h1> HELLO</h1>
+          <Product
+            listProduct={listProduct}
+          />
       </Paper>
+
     </Container>
     </div>
 
