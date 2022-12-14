@@ -5,23 +5,16 @@ import {
 } from '../types';
 
 const initialState = {
-  // isLoading: false,
-  // isError: false,
-  data: [],
-  // error: null,
-  // pagination: null,
+  result: [],
 };
 
-const lietProductReducer = (state = initialState, action) => {
+const listProductReducer = (state = initialState, action) => {
   switch (action.type) {
 
     case GET_PRODUCT_SUCCESS:
       return {
         ...state,
-        // isLoading: false,
-        // isError: false,
-        data: action.payload.data,
-        // pagination: action.payload.pagination,
+        result: action.payload.result,
       };
     
     default:
@@ -29,4 +22,4 @@ const lietProductReducer = (state = initialState, action) => {
   }
 };
 
-export default lietProductReducer;
+export default listProductReducer;
