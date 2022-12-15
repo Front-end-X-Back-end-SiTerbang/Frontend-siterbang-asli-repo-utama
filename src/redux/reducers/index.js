@@ -6,7 +6,8 @@ import AirplanestDetailReducer from "./airplanesDetailReducers";
 import AirportReducers from "./airportReducers";
 import AirportsDetailReducer from "./airportDetailReducers";
 import GetAllAdmin from "./adminReducers";
-import listProductReducer from "./listProduct"
+import listProductReducer from "./listProduct";
+import listProductDetail from "./listProductDetail";
 
 export default combineReducers({
   listAirline: listAirlineReducer,
@@ -17,4 +18,5 @@ export default combineReducers({
   detailAirplanes: AirplanestDetailReducer,
   detailAirports: AirportsDetailReducer,
   listProduct: listProductReducer,
+  detailByProduct: listProductDetail,
 });
