@@ -15,6 +15,8 @@ import styles from "../pages/landingPage.module.css";
 
 const SearchFlightForm = ({ isSearchPage }) => {
   // React Router
+  const [originId, setOriginId] = useState("");
+  const [destinationId, setDestinationId] = useState("");
 
   const dispatch = useDispatch();
   // const { listProduct, listAirline, passenger } = useSelector((state) => state);
@@ -27,19 +29,18 @@ const SearchFlightForm = ({ isSearchPage }) => {
   const [queryParams] = useSearchParams();
 
   useEffect(() => {
-    document.title = `${process.env.REACT_APP_APP_NAME} - Search Result`;
+    document.title = `Search Result`;
     window.scrollTo(0, 0);
   }, []);
 
   useEffect(() => {
     let url = `${process.env.REACT_APP_API_URL}/products/search?`;
-
-    if (queryParams.get("origin")) {
-      url += `&origin=${queryParams.get("origin")}`;
+    if (queryParams.get("origin_id")) {
+      url += `&origin_id=${queryParams.get("origin_id")}`;
     }
 
-    if (queryParams.get("destination")) {
-      url += `&destination=${queryParams.get("destination")}`;
+    if (queryParams.get("destination_id")) {
+      url += `&destination_id=${queryParams.get("destination_id")}`;
     }
 
     if (queryParams.get("page")) {

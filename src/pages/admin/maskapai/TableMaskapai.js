@@ -14,7 +14,7 @@ function TableMaskapai() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const airline = useSelector((state) => {
-    return state.listAirline.data;
+    return state.listAirline.result;
   });
   console.log(airline);
 
