@@ -7,7 +7,7 @@ export const getListAirline = () => async (dispatch) => {
     const token = localStorage.getItem("token");
 
     const results = await axios.get(
-      `${process.env.REACT_APP_API_URL}/airlines/all`,
+      `${process.env.REACT_APP_API_URL}/airlines`,
       {
         headers: {
           Authorization: `${token}`,
@@ -42,21 +42,21 @@ export const createAirline = async (body, setErrors) => {
 //GetDetail
 export const getDetailAirline = (id, navigate) => async (dispatch) => {
   try {
-      const token = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
 
-      const results = await axios.get(
-        `${process.env.REACT_APP_API_URL}/airlines/${id}`,
-        {
-          headers: {
-            Authorization: `${token}`,
-          },
-        }
-      );
+    const results = await axios.get(
+      `${process.env.REACT_APP_API_URL}/airlines/${id}`,
+      {
+        headers: {
+          Authorization: `${token}`,
+        },
+      }
+    );
 
-      dispatch({
-          type: GET_DETAIL_AIRLINE_SUCCESS,
-          payload: results.data,
-      });
+    dispatch({
+      type: GET_DETAIL_AIRLINE_SUCCESS,
+      payload: results.data,
+    });
   } catch (error) {
     console.log(error.response.data.message);
   }
@@ -64,33 +64,35 @@ export const getDetailAirline = (id, navigate) => async (dispatch) => {
 
 export const updateAirline = async (id, body, setErrors) => {
   try {
-    console.log(body)
-      const token = localStorage.getItem("token")
+    console.log(body);
+    const token = localStorage.getItem("token");
 
-      await axios.put(`${process.env.REACT_APP_API_URL}/airlines/${id}`, body, {
-        headers: {
-          Authorization: `${token}`,
-        },
-      })
+    await axios.put(`${process.env.REACT_APP_API_URL}/airlines/${id}`, body, {
+      headers: {
+        Authorization: `${token}`,
+      },
+    });
 
-      return true;
+    return true;
   } catch (error) {
     setErrors(error.response.data.message);
   }
 };
 
 export const deleteAirline = (id) => {
-  const token = localStorage.getItem('token')
+  const token = localStorage.getItem("token");
   return new Promise((resolve, reject) => {
     axios
       .delete(`${process.env.REACT_APP_API_URL}/airlines/${id}`, {
         headers: {
           Authorization: `${token}`,
         },
-    }).then((res) => {
-      resolve(res)
-    }).catch((err) => {
-      reject(err)
-    })
-  })
-}
+      })
+      .then((res) => {
+        resolve(res);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};
