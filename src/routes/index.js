@@ -20,7 +20,8 @@ import EditAirplanes from "../pages/admin/airplanes/EditAirplanes";
 import Airports from "../pages/admin/airport/Airports";
 import CreateAirports from "../pages/admin/airport/CreateAirports";
 import EditAirports from "../pages/admin/airport/EditAirports";
-import SearchProduct from "../component/SearchProduct"
+import SearchProduct from "../component/SearchProduct";
+import BookingProduct from "../component/BookingProduct";
 
 function PrivateRoute({ children }) {
   const token = localStorage.getItem("token");
@@ -50,6 +51,10 @@ export default function router() {
 
         <Route path="/products/search">
           <Route index element={<SearchProduct />} />
+        </Route>
+
+        <Route path="/productdetail/:id">
+          <Route index element={<BookingProduct />} />
         </Route>
 
         {/* registrer */}

@@ -2,9 +2,7 @@ import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import moment from "moment";
 
-export default function Product({
-  listProduct,
-}) {
+export default function Product({ listProduct }) {
   function timeConvert(num) {
     const sec = parseInt(num / 1000, 10);
     let hours = Math.floor(sec / 3600); // get hours
@@ -25,8 +23,7 @@ export default function Product({
         </h5>
       </div>
 
-
-{/* desktop */}
+      {/* desktop */}
 
       <div>
         {listProduct.result.map((product) => (
@@ -41,10 +38,7 @@ export default function Product({
             />
             {/* <span className="ms-3">{product.code}</span> */}
             <span className="ms-3 text-danger">
-              <b>
-                PROMO
-              </b>
-              
+              <b>PROMO</b>
             </span>
             <div className="d-flex align-items-center my-4">
               <div className="d-flex">
@@ -103,20 +97,20 @@ export default function Product({
               </div>
               <div className="mx-5 text-primary">
                 <h5>
-                <b>
-                  {new Intl.NumberFormat("id-ID", {
-                    style: "currency",
-                    currency: "IDR",
-                    minimumFractionDigits: 0,
-                  }).format(product.price)}
-                  /perorang
+                  <b>
+                    {new Intl.NumberFormat("id-ID", {
+                      style: "currency",
+                      currency: "IDR",
+                      minimumFractionDigits: 0,
+                    }).format(product.price)}
+                    /perorang
                   </b>
                 </h5>
               </div>
               <div className="ms-5 me-5 mb-4">
                 <Link
                   className="btn btn-primary px-5 py-3"
-                  to={""}
+                  to={`/productdetail/${product.id}`}
                   style={{
                     borderRadius: "10px",
                     backgroundColor: "#6C63FF",
@@ -128,11 +122,9 @@ export default function Product({
             </div>
           </div>
         ))}
-           
       </div>
 
-
-{/* mobile */}
+      {/* mobile */}
       {/* {listProduct.isLoading ? (
         <div className="bg-white d-md-none my-4 p-4">
           <h1 className="d-md-none">Loading...</h1>
