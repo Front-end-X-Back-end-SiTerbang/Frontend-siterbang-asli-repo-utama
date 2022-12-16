@@ -1,20 +1,43 @@
 import React, { useEffect, useState } from "react";
 import LogoTerbang from "../assets/admin-img/undraw_aircraft_re_m05i.svg";
-// import Ceklist from "../assets/img/checklist-removebg-preview.png";
-import { Button, Form, Input, Radio } from "antd";
 import Navbar from "./Navbar2";
 import "../assets/css/styleku.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getDetailProduct } from "../redux/actions/product";
 import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import { createTransaksi } from "../redux/actions/transaksiActions";
 
 function DetailProduct() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [total_passenger, settotal_passenger] = useState("");
+  const [totalPassagerForm, setTotalPassagerForm] = useState(0);
+  const [error, setError] = useState([]);
   const { id } = useParams();
   const detailproduct = useSelector((state) => {
     return state.detailByProduct.data;
   });
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    if (total_passenger === "") {
+      toast.error("Jumlah Passenger is required");
+      return;
+    }
+    if (total_passenger !== "") {
+      // const body = {
+      //   id,
+      //   total_passenger,
+      // };
+      // const createTransaksiStatus = await createTransaksi(body, setError);
+      // if (createTransaksiStatus) {
+      //   toast.success("Success");
+      // }
+      setTotalPassagerForm(Number(total_passenger));
+    }
+  };
+
   useEffect(() => {
     dispatch(getDetailProduct(id, navigate));
   }, [dispatch, id, navigate]);
@@ -26,33 +49,6 @@ function DetailProduct() {
     }).format(number);
   };
 
-  // control passenger
-  const [form] = Form.useForm();
-  const [formLayout, setFormLayout] = useState("horizontal");
-  const onFormLayoutChange = ({ layout }) => {
-    setFormLayout(layout);
-  };
-  const formItemLayout =
-    formLayout === "horizontal"
-      ? {
-          labelCol: {
-            span: 4,
-          },
-          wrapperCol: {
-            span: 14,
-          },
-        }
-      : null;
-  const buttonItemLayout =
-    formLayout === "horizontal"
-      ? {
-          wrapperCol: {
-            span: 14,
-            offset: 4,
-          },
-        }
-      : null;
-
   return (
     <React.Fragment>
       <Navbar />
@@ -63,136 +59,142 @@ function DetailProduct() {
               <h4 className="mb-4 mt-2 text-center">Pessengers</h4>
               <div class="card-body">
                 {/* card passenger */}
-                <Form
-                  {...formItemLayout}
-                  layout={formLayout}
-                  form={form}
-                  initialValues={{
-                    layout: formLayout,
-                  }}
-                  onValuesChange={onFormLayoutChange}
-                >
-                  <Form.Item label="Form Layout" name="layout">
-                    <Radio.Group value={formLayout}>
-                      <Radio.Button value="horizontal">Horizontal</Radio.Button>
-                      <Radio.Button value="vertical">Vertical</Radio.Button>
-                    </Radio.Group>
-                  </Form.Item>
-                  <Form.Item label="Jumlah Passenger">
-                    <Input placeholder="input placeholder" type="number" />
-                  </Form.Item>
-                  <Form.Item {...buttonItemLayout}>
-                    <Button type="primary">Submit</Button>
-                  </Form.Item>
-                </Form>
-              </div>
-            </div>
-            <div class="card mb-4">
-              {/*  */}
-              <div class="card-body">
-                <form action="#">
-                  <div class="row g-3">
-                    <div class="col-lg-6">
-                      <div class="form-floating">
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="firstnamefloatingInput"
-                          placeholder="Enter your firstname"
-                        />
-                        <label for="firstnamefloatingInput">First Name</label>
-                      </div>
-                    </div>
-                    <div class="col-lg-6">
-                      <div class="form-floating">
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="lastnamefloatingInput"
-                          placeholder="Enter your Lastname"
-                        />
-                        <label for="lastnamefloatingInput">Last Name</label>
-                      </div>
-                    </div>
-                    <div class="col-lg-4">
-                      <div class="form-floating">
-                        <input
-                          type="date"
-                          class="form-control"
-                          id="emailfloatingInput"
-                          placeholder="Enter your email"
-                        />
-                        <label for="emailfloatingInput">Tanggal Lahir</label>
-                      </div>
-                    </div>
-                    <div class="col-lg-4">
-                      <div class="form-floating">
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="passwordfloatingInput"
-                          placeholder="Enter your password"
-                        />
-                        <label for="passwordfloatingInput">
-                          Kewarganegaraan
-                        </label>
-                      </div>
-                    </div>
-                    <div class="col-lg-4">
-                      <div class="form-floating">
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="passwordfloatingInput1"
-                          placeholder="Confirm password"
-                        />
-                        <label for="passwordfloatingInput1">Nomor Paspor</label>
-                      </div>
-                    </div>
-                    <div class="col-lg-4">
-                      <div class="form-floating">
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="cityfloatingInput"
-                          placeholder="Enter your nomor hp"
-                        />
-                        <label for="zipfloatingInput">Negara Penerbit</label>
-                      </div>
-                    </div>
-                    <div class="col-lg-4">
-                      <div class="form-floating">
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="zipfloatingInput"
-                          placeholder="Enter your zipcode"
-                        />
-                        <label for="cityfloatingInput">Nomor Hp</label>
-                      </div>
-                    </div>
-                    <div class="col-lg-4">
-                      <div class="form-floating">
-                        <input
-                          type="email"
-                          class="form-control"
-                          id="zipfloatingInput"
-                          placeholder="Enter your zipcode"
-                        />
-                        <label for="zipfloatingInput">Email</label>
-                      </div>
-                    </div>
-                    <div class="col-lg-12">
-                      <div class="text-end">
-                        <button type="submit" class="btn btn-primary">
-                          Submit
-                        </button>
-                      </div>
-                    </div>
+                <form onSubmit={(e) => onSubmit(e)}>
+                  <label className="form-label">Jumlah Passenger</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    onChange={(e) => settotal_passenger(e.target.value)}
+                  />
+                  <h6 className="text-danger">{error}</h6>
+                  <div className="d-grid g-2 mt-3">
+                    <button
+                      type="submit"
+                      class="btn btn-primary btn-lg btn-block"
+                    >
+                      Submit
+                    </button>
                   </div>
                 </form>
               </div>
             </div>
+            {totalPassagerForm > 0 &&
+              Array.from(Array(totalPassagerForm).keys()).map((i) => (
+                <div class="card mb-4" key={i}>
+                  {/*  */}
+                  <div class="card-body">
+                    <form action="#">
+                      <div class="row g-3">
+                        <div class="col-lg-6">
+                          <div class="form-floating">
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="firstnamefloatingInput"
+                              placeholder="Enter your firstname"
+                            />
+                            <label for="firstnamefloatingInput">
+                              First Name
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-lg-6">
+                          <div class="form-floating">
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="lastnamefloatingInput"
+                              placeholder="Enter your Lastname"
+                            />
+                            <label for="lastnamefloatingInput">Last Name</label>
+                          </div>
+                        </div>
+                        <div class="col-lg-4">
+                          <div class="form-floating">
+                            <input
+                              type="date"
+                              class="form-control"
+                              id="emailfloatingInput"
+                              placeholder="Enter your email"
+                            />
+                            <label for="emailfloatingInput">
+                              Tanggal Lahir
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-lg-4">
+                          <div class="form-floating">
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="passwordfloatingInput"
+                              placeholder="Enter your password"
+                            />
+                            <label for="passwordfloatingInput">
+                              Kewarganegaraan
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-lg-4">
+                          <div class="form-floating">
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="passwordfloatingInput1"
+                              placeholder="Confirm password"
+                            />
+                            <label for="passwordfloatingInput1">
+                              Nomor Paspor
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-lg-4">
+                          <div class="form-floating">
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="cityfloatingInput"
+                              placeholder="Enter your nomor hp"
+                            />
+                            <label for="zipfloatingInput">
+                              Negara Penerbit
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-lg-4">
+                          <div class="form-floating">
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="zipfloatingInput"
+                              placeholder="Enter your zipcode"
+                            />
+                            <label for="cityfloatingInput">Nomor Hp</label>
+                          </div>
+                        </div>
+                        <div class="col-lg-4">
+                          <div class="form-floating">
+                            <input
+                              type="email"
+                              class="form-control"
+                              id="zipfloatingInput"
+                              placeholder="Enter your zipcode"
+                            />
+                            <label for="zipfloatingInput">Email</label>
+                          </div>
+                        </div>
+                        <div class="col-lg-12">
+                          <div class="text-end">
+                            <button type="submit" class="btn btn-primary">
+                              Submit
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              ))}
           </div>
           <div class="col-lg-4">
             <div class="card mb-4">

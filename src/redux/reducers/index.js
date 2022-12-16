@@ -8,6 +8,7 @@ import AirportsDetailReducer from "./airportDetailReducers";
 import GetAllAdmin from "./adminReducers";
 import listProductReducer from "./listProduct";
 import listProductDetail from "./listProductDetail";
+import listsTransaksi from "./transaksiReducers";
 
 export default combineReducers({
   listAirline: listAirlineReducer,
@@ -19,4 +20,5 @@ export default combineReducers({
   detailAirports: AirportsDetailReducer,
   listProduct: listProductReducer,
   detailByProduct: listProductDetail,
+  listTransaksi: listsTransaksi,
 });
