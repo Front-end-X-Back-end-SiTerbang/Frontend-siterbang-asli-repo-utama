@@ -207,8 +207,8 @@ function DetailProduct() {
                     width="200"
                   />
                   <h5>
-                    {detailproduct?.origin.city} <span>===========</span>{" "}
-                    {detailproduct?.destination.city}
+                    {/* {detailproduct?.origin.city} <span>===========</span>
+                    {detailproduct?.destination.city} */}
                   </h5>
                 </div>
                 <div className="row">
