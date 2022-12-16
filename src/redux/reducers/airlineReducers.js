@@ -1,7 +1,7 @@
 import { GET_AIRLINE_SUCCESS } from "../types";
 
 const initialState = {
-  data: [],
+  result: [],
 };
 
 const airlineReducer = (state = initialState, action) => {
@@ -9,7 +9,7 @@ const airlineReducer = (state = initialState, action) => {
     case GET_AIRLINE_SUCCESS:
       return {
         ...state,
-        data: action.payload.data,
+        result: action.payload.result,
       };
     default:
       return state;
