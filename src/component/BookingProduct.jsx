@@ -428,11 +428,10 @@ function DetailProduct() {
                     className="img-fluid"
                     width="200"
                   />
-                  <h5>
-                    {detailproduct.origin.city} 
-                    <img class="mx-3" src="https://img.icons8.com/color/48/null/airport-building.png"/>
-                    {detailproduct.destination.city}
-                  </h5>
+                  {/* <h5>
+                    {detailproduct?.origin.city} <span>===========</span>
+                    {detailproduct?.destination.city}
+                  </h5> */}
                 </div>
                 <div className="row">
                   <div className="col-lg-6 col-sm-6 col-xs 12 d-flex">
