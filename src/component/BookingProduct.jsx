@@ -429,9 +429,9 @@ function DetailProduct() {
                     width="200"
                   />
                   <h5>
-                    {detailproduct?.origin.city} 
+                    {detailproduct.origin.city} 
                     <img class="mx-3" src="https://img.icons8.com/color/48/null/airport-building.png"/>
-                    {detailproduct?.destination.city}
+                    {detailproduct.destination.city}
                   </h5>
                 </div>
                 <div className="row">
