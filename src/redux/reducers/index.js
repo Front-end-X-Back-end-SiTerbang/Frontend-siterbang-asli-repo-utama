@@ -9,6 +9,7 @@ import GetAllAdmin from "./adminReducers";
 import listProductReducer from "./listProduct";
 import listProductDetail from "./listProductDetail";
 import listMyBookingReducer from "./transaksiReducers";
+import detailUserReducer from "./userReducers";
 
 export default combineReducers({
   listAirline: listAirlineReducer,
@@ -21,4 +22,7 @@ export default combineReducers({
   listProduct: listProductReducer,
   detailByProduct: listProductDetail,
   myBooking: listMyBookingReducer,
+  detailUser : detailUserReducer,
+
+
 });
