@@ -1,20 +1,21 @@
-import { GET_TRANSAKSI_PRODUCT_SUCCESS } from "../types";
+import {
+  GET_MYBOOKING_SUCCESS,
+}  from "../types";
 
 const initialState = {
   data: [],
 };
 
-const transaksiReducer = (state = initialState, action) => {
+const listMyBookingReducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_TRANSAKSI_PRODUCT_SUCCESS:
-      return {
-        ...state,
-        data: action.payload.data,
-      };
-
-    default:
-      return state;
+      case GET_MYBOOKING_SUCCESS:
+          return {
+              ...state,
+              data: action.payload.data,
+          };
+      default:
+          return state;
   }
 };
 
-export default transaksiReducer;
+export default listMyBookingReducer;

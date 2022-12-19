@@ -1,0 +1,321 @@
+@media screen and (max-width: 700px) {
+    .hanifMyBooking .side-content .card {
+        display: none !important;
+    }
+}
+
+.container-fluid {
+    background-color: #F5F6FA !important;
+}
+
+.hanifMyBooking .side-content {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.hanifMyBooking .side-content .card {
+    width: 23rem;
+    text-align: center;
+    height: auto;
+}
+
+.hanifMyBooking .side-content .card .select-foto {
+    border-radius: 6px;
+    background-color: white;
+    border: 3px solid #2395FF;
+    color: #2395FF;
+    width: 50%;
+    height: 50px;
+    padding-top: 3%;
+    margin-bottom: 20px;
+    margin-left: 25%;
+}
+
+/* detail profile */
+.hanifMyBooking .side-content .card img {
+    text-align: center;
+    width: 50%;
+    border-radius: 100%;
+    position: relative;
+    left: 25%;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border: 3px solid #2395FF;
+    object-fit: cover;
+
+}
+
+.hanifMyBooking .side-content .card button {
+    width: 50%;
+    height: 50px;
+    position: relative;
+    left: 25%;
+    border-radius: 6px;
+    background-color: white;
+    border: 3px solid #2395FF;
+    color: #2395FF;
+    margin-bottom: 15px;
+
+}
+
+.hanifMyBooking .side-content .card .detail-profile {
+    margin-bottom: 0px !important;
+}
+
+.hanifMyBooking .side-content .card .detail-profile h4 {
+    font-weight: bold;
+    color: black;
+}
+
+.hanifMyBooking .side-content .card .detail-profile p {
+    color: #6B6B6B;
+}
+
+.hanifMyBooking .side-content .card .label .label-card {
+    text-align: left;
+    margin-left: 25px;
+    color: black;
+    font-weight: bold;
+}
+
+.hanifMyBooking .side-content .card .label .add-card {
+    position: absolute;
+    right: 0px;
+    margin-right: 25px;
+    color: #2395FF;
+    font-weight: bold;
+}
+
+.hanifMyBooking .side-content .card .credit-card {
+    background-color: #2395FF;
+    width: 80%;
+    position: relative;
+    left: 8%;
+    border-radius: 6px;
+    margin-top: 10px;
+}
+
+.hanifMyBooking .side-content .card .credit-card label {
+    font-weight: bold;
+    color: white;
+    text-align: left;
+    margin-left: 25px;
+}
+
+.hanifMyBooking .side-content .card .credit-card .detail-cc .type-card {
+    color: white;
+    text-align: left;
+    margin-left: 25px;
+}
+
+.hanifMyBooking .side-content .card .credit-card .detail-cc .balance {
+    position: absolute;
+    right: 0px;
+    margin-right: 25px;
+    color: white;
+}
+
+/* card setting */
+
+.hanifMyBooking .side-content .card .card-setting {
+    margin-top: 25px;
+    text-align: left;
+    margin-left: 45px;
+    margin-bottom: 30px !important;
+}
+
+.hanifMyBooking .side-content .card .card-setting i {
+    margin: 10px 0px 10px 0px;
+    color: #979797;
+}
+
+.hanifMyBooking .side-content .card .card-setting i a {
+    margin-left: 30px;
+    text-decoration: none !important;
+    text-transform: lowercase;
+    color: black;
+}
+
+.hanifMyBooking .side-content .card .card-setting img {
+    width: 30px;
+    height: 30px;
+    left: 0px;
+    border: none;
+    border-radius: none;
+    margin-right: 5px;
+}
+
+.hanifMyBooking .side-content .card .card-setting button {
+    left: -12%;
+    border: none;
+    border-radius: none;
+}
+
+.hanifMyBooking .side-content .card .fa-right-from-bracket {
+    color: #F24545 !important;
+}
+
+.hanifMyBooking .side-content .card .fa-right-from-bracket a {
+    color: #F24545 !important;
+}
+
+.hanifMyBooking .main-content {
+    padding: 20px;
+    display: flex;
+    position: relative;
+}
+
+.hanifMyBooking .main-content .card {
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 30px;
+    width: 100%;
+}
+
+.hanifMyBooking .main-content .card h3 {
+    color: #2395FF;
+    padding-top: 20px;
+    margin-left: 15px;
+}
+
+.hanifMyBooking .main-content .card .header-booking {
+    position: relative;
+    padding-bottom: 20px;
+    margin-left: 15px;
+}
+
+.hanifMyBooking .main-content .card .header-booking .my-booking {
+    color: black;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.hanifMyBooking .main-content .card .header-booking .order-history {
+    color: #2395FF;
+    font-size: 20px;
+    font-weight: bold;
+    position: absolute;
+    right: 10px;
+    top: 15px;
+}
+
+.hanifMyBooking .main-content .card .content {
+    margin: 15px;
+    border-bottom: 2px solid #E6E6E6;
+}
+
+.hanifMyBooking .main-content .card .content .date-departure {
+    color: black;
+}
+
+.hanifMyBooking .main-content .card .content .destination {
+    color: black;
+    font-weight: bold;
+}
+
+.hanifMyBooking .main-content .card .content .destination img {
+    margin: 0px 15px 0px 15px;
+
+}
+
+.hanifMyBooking .main-content .card .content .code-airplane {
+    color: #6B6B6B;
+}
+
+.hanifMyBooking .main-content .card .status {
+    position: relative;
+    padding-bottom: 25px;
+}
+
+.hanifMyBooking .main-content .card .status .label-status {
+    color: #6B6B6B;
+    margin: 0px 55px 5px 15px;
+}
+
+.hanifMyBooking .main-content .card .status button {
+    border: none;
+    background-color: #FF7F23;
+    border-radius: 4px;
+    height: 35px;
+}
+
+.hanifMyBooking .main-content .card .status .ticket-iussue {
+    border: none;
+    background-color: #4FCF4D;
+    border-radius: 4px;
+    height: 35px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.hanifMyBooking .main-content .card .status .waiting-ticket {
+    border: none;
+    background-color: #FF7F23;
+    border-radius: 4px;
+    height: 35px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.hanifMyBooking .main-content .card .status .cancel-ticket {
+    border: none;
+    background-color: #F24545;
+    border-radius: 4px;
+    height: 35px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.hanifMyBooking .main-content .card .status .pay-ticket {
+    border: none;
+    background-color: #2395FF;
+    border-radius: 4px;
+    height: 35px;
+}
+
+.hanifMyBooking .main-content .card .status .label-viewDetail {
+    color: #2395FF;
+    font-weight: bold;
+    position: absolute;
+    top: 0px;
+    right: 15px;
+}
+
+@media screen and (max-width: 576px) {
+    .hanifMyBooking .side-content {
+        display: none;
+    }
+
+    .hanifMyBooking .card h3 {
+        font-size: 18px;
+        letter-spacing: 2px;
+    }
+
+    .hanifMyBooking .header-booking {
+        display: flex !important;
+    }
+
+    .hanifMyBooking .my-booking {
+        color: rebeccapurple;
+        font-size: 18px !important;
+    }
+
+    .hanifMyBooking .order-history {
+        background-color: none !important;
+        margin-top: -15px;
+        font-size: 18px !important;
+    }
+
+    .hanifMyBooking .label-viewDetail {
+        display: none;
+    }
+    .hanifMyBooking .boxButton {
+        text-align: center;
+    }
+
+    .hanifMyBooking .pay-ticket {
+        margin-top: 10px;
+        width: 95%;
+    }
+}

@@ -22,6 +22,7 @@ import CreateAirports from "../pages/admin/airport/CreateAirports";
 import EditAirports from "../pages/admin/airport/EditAirports";
 import SearchProduct from "../component/SearchProduct";
 import BookingProduct from "../component/BookingProduct";
+import MyBooking from "../pages/MyBooking"
 
 function PrivateRoute({ children }) {
   const token = localStorage.getItem("token");
@@ -135,6 +136,20 @@ export default function router() {
         <Route path="/airport" element={<Airports />} />
         <Route path="/createairport" element={<CreateAirports />} />
         <Route path="/editairport/:iata_code" element={<EditAirports />} />
+
+
+        <Route path="/mybooking">
+          <Route
+            index
+            element={
+              <PrivateRoute>
+                <MyBooking />
+              </PrivateRoute>
+            }
+          />
+        </Route>
+
+
       </Routes>
       <ToastContainer
         closeOnClick
