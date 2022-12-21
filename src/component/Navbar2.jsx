@@ -1,16 +1,16 @@
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import LOGO from "../assets/img/logoT.png"
-import uLOGO from "../assets/img/man.png"
-import Button from '@mui/material/Button';
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import Menu from "@mui/material/Menu";
+import Container from "@mui/material/Container";
+import Avatar from "@mui/material/Avatar";
+import Tooltip from "@mui/material/Tooltip";
+import MenuItem from "@mui/material/MenuItem";
+import LOGO from "../assets/img-plane/siterbang.png";
+import uLOGO from "../assets/img/man.png";
+import Button from "@mui/material/Button";
 
 import React, { useEffect, useState } from "react";
 // import "bootstrap/dist/css/bootstrap.min.css";
@@ -19,7 +19,6 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 // import { getDetailUser } from "../redux/actions/user";
 import { useNavigate } from "react-router-dom";
-
 
 function ResponsiveAppBar() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -32,20 +31,18 @@ function ResponsiveAppBar() {
     setAnchorElUser(null);
   };
 
-
   const dispatch = useDispatch();
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
 
-  
   const logout = () => {
-    localStorage.clear()
-    navigate('/login')
-}
+    localStorage.clear();
+    navigate("/login");
+  };
 
-  const home = ()=> {
-    navigate('/')
-  }
+  const home = () => {
+    navigate("/");
+  };
 
   // useEffect(() => {
   //   if (localStorage.getItem("token")) {
@@ -53,23 +50,20 @@ function ResponsiveAppBar() {
   //   }
   // }, [dispatch, navigate]);
 
-
-
   return (
     // #A178DF
     <AppBar position="static" sx={{ bgcolor: "white" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-       
-        <Box
+          <Box
             component="img"
             onClick={home}
             sx={{
-            height: 58,
+              width: 70,
             }}
             alt="Your logo."
             src={LOGO}
-        />
+          />
 
           <Typography
             variant="h6"
@@ -77,13 +71,12 @@ function ResponsiveAppBar() {
             component="a"
             href="/"
             sx={{
-            
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
+              display: { xs: "none", md: "flex" },
+              fontFamily: "monospace",
               fontWeight: 600,
-              letterSpacing: '.2rem',
-              color: '#6C63FF',
-              textDecoration: 'none',
+              letterSpacing: ".2rem",
+              color: "#6C63FF",
+              textDecoration: "none",
             }}
           >
             SiTerbang
@@ -126,57 +119,55 @@ function ResponsiveAppBar() {
             </Menu>
           </Box> */}
 
-          
           <Typography
             variant="h5"
-            
             onClick={home}
             sx={{
               mr: 2,
-              display: { xs: 'flex', md: 'none' },
+              display: { xs: "flex", md: "none" },
               flexGrow: 1,
-              fontFamily: 'monospace',
+              fontFamily: "monospace",
               fontWeight: 700,
-              color: '#A178DF',
-             
+              color: "#A178DF",
             }}
           >
             SiTerbang
           </Typography>
 
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>      
-          </Box>
-          
+          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}></Box>
 
           {!token ? (
-             <Button variant="contained" href="/login" style={{backgroundColor: "#A178DF"}}>           
-                Login
-             </Button>
-              ) : (
-
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="U" src={uLOGO} />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
+            <Button
+              variant="contained"
+              href="/login"
+              style={{ backgroundColor: "#A178DF" }}
             >
-              {/* {settings.map((setting) => (
+              Login
+            </Button>
+          ) : (
+            <Box sx={{ flexGrow: 0 }}>
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar alt="U" src={uLOGO} />
+                </IconButton>
+              </Tooltip>
+              <Menu
+                sx={{ mt: "45px" }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                {/* {settings.map((setting) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
@@ -191,10 +182,9 @@ function ResponsiveAppBar() {
                 <MenuItem onClick={logout}>
                   <Typography textAlign="center">Logout</Typography>
                 </MenuItem>
-
-            </Menu>
-          </Box>
-        )}
+              </Menu>
+            </Box>
+          )}
         </Toolbar>
       </Container>
     </AppBar>

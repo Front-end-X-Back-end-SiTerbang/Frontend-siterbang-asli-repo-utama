@@ -26,6 +26,7 @@
     "react-dom": "^18.2.0",
     "react-helmet": "^6.1.0",
     "react-icons": "^4.6.0",
+    "react-iframe": "^1.8.5",
     "react-leaf-carousel": "^3.0.0",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.4.3",
@@ -39,6 +40,7 @@
     "reveal": "^0.0.4",
     "styled-components": "^5.3.6",
     "sweetalert2": "^11.6.11",
+    "typed.js": "^2.0.12",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

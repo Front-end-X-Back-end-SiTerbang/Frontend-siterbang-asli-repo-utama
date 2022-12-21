@@ -1,6 +1,5 @@
 import {
   FormControl,
-  FormLabel,
   RadioGroup,
   FormControlLabel,
   Radio,
@@ -9,7 +8,6 @@ import {
 const TripTypeInput = ({ tripType, setTripType }) => {
   return (
     <FormControl sx={{ display: "block", marginBottom: "1em" }}>
-      <FormLabel>Trip type</FormLabel>
       <RadioGroup
         name="trip-type"
         onChange={(event) => setTripType(event.target.value)}

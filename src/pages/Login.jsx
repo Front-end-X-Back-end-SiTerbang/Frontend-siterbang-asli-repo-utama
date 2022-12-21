@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "../assets/css/styleku.css";
-import Logo from "../assets/img/undraw_Aircraft_re_m05i.png";
+import Logo from "../assets/img-plane/siterbang.png";
 import Banner from "../assets/img/undraw_connected_world_wuay.svg";
 import { login } from "../redux/actions/auth";
 
@@ -58,7 +58,6 @@ function Login() {
                     <div class="card-body p-md-5 mx-md-4">
                       <div class="text-center">
                         <img src={Logo} width="185" alt="logo" />
-                        <h4 class="mt-1 mb-5 pb-1 siTerbang">SiTerbang</h4>
                       </div>
                       <form onSubmit={(e) => onSubmitted(e)}>
                         <div class="form-outline mb-4">
@@ -142,9 +141,7 @@ function Login() {
                   </div>
                   <div class="col-lg-6 d-flex align-items-center gradient-custom-2 card-phone text-center">
                     <div class="text-white px-3 py-4 p-md-5 mx-md-4 real">
-                      <h4 className="text-center">
-                        Ramah Di kantong, Memudahkan anda
-                      </h4>
+                      <h4 className="text-center">The Choice is Yours</h4>
                       <p>
                         <img src={Banner} alt="" width={400} />
                       </p>

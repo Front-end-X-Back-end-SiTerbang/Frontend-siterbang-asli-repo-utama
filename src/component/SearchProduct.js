@@ -1,10 +1,6 @@
-import { Grid, Paper, Container } from "@mui/material";
-import React, { useContext, useState, useEffect } from "react";
-import {
-  createSearchParams,
-  useNavigate,
-  useSearchParams,
-} from "react-router-dom";
+import { Container } from "@mui/material";
+import React, { useEffect } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
 import { getListProduct } from "../redux/actions/product";
@@ -14,10 +10,6 @@ import Product from "./Product";
 import styles from "../pages/landingPage.module.css";
 
 const SearchFlightForm = ({ isSearchPage }) => {
-  // React Router
-  const [originId, setOriginId] = useState("");
-  const [destinationId, setDestinationId] = useState("");
-
   const dispatch = useDispatch();
   // const { listProduct, listAirline, passenger } = useSelector((state) => state);
   const listProduct = useSelector((state) => {
@@ -49,16 +41,6 @@ const SearchFlightForm = ({ isSearchPage }) => {
 
     dispatch(getListProduct(url, navigate));
   }, [dispatch, navigate, queryParams]);
-
-  let normalGridSpan = 6,
-    seatsGridSpan = 3,
-    ticketTypeGridSpan = 3;
-
-  if (isSearchPage) {
-    normalGridSpan = 2;
-    seatsGridSpan = 2;
-    ticketTypeGridSpan = 2;
-  }
 
   return (
     // <div> HELLO</div>
