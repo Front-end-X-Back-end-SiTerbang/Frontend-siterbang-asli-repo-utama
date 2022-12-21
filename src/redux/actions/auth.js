@@ -52,25 +52,24 @@ export const logout = () => {
   localStorage.removeItem("token");
 };
 
-// get count admin
-// export const getListAdmin = () => async (dispatch) => {
-//   try {
-//     const token = localStorage.getItem("token");
+export const me = () => async (dispatch) => {
+  try {
+    const token = localStorage.getItem("token");
 
-//     const results = await axios.get(
-//       `${process.env.REACT_APP_API_URL}/total-user`,
-//       {
-//         headers: {
-//           Authorization: `${token}`,
-//         },
-//       }
-//     );
+    const results = await axios.get(
+      `${process.env.REACT_APP_API_URL}/airplanes/all`,
+      {
+        headers: {
+          Authorization: `${token}`,
+        },
+      }
+    );
 
-//     dispatch({
-//       type: GET_AIRLINE_SUCCESS,
-//       payload: results.data,
-//     });
-//   } catch (error) {
-//     console.log(error.response.data.message);
-//   }
-// };
+    dispatch({
+      // type: GET_AIRPLANES_SUCCESS,
+      // payload: results.data,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};

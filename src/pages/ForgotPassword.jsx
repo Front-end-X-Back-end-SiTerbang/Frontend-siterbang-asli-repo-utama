@@ -58,7 +58,6 @@ export default function ForgotPassword() {
                     <div class="card-body p-md-5 mx-md-4">
                       <div class="text-center">
                         <img src={Logo} width="185" alt="logo" />
-                        <h4 class="mt-1 mb-5 pb-1">Si Terbang</h4>
                       </div>
 
                       <form onSubmit={(e) => onSubmitted(e)}>

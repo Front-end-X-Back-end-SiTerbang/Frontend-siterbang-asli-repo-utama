@@ -1,63 +1,47 @@
-import PIA_IMG from "../assets/img/ungu.jpg";
-import {
-  Grid,
-  Paper,
-  Container,
-  TextField,
-  Typography,
-  FormControlLabel,
-  Box,
-  Button,
-  Checkbox,
-} from "@mui/material";
-import React, { useContext, useState, useEffect } from "react";
-import {
-  createSearchParams,
-  useNavigate,
-  useSearchParams,
-} from "react-router-dom";
-import { Select } from "antd";
-
-// import FlightContext from "../store/flight-context";
-import FlightTypeInput from "./FlightTypeInput";
-import LocationInput from "./LocationInput";
-import SeatsInput from "./SeatsInput";
+import { FormControlLabel, Box, Checkbox } from "@mui/material";
+import React, { useState, useEffect, useRef } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { DatePicker, Select } from "antd";
+import "../assets/css/home.css";
 import TripTypeInput from "./TripTypeInput";
-
 import { useDispatch, useSelector } from "react-redux";
-import { getListProduct } from "../redux/actions/product";
 import { getListAirports } from "../redux/actions/airportActions";
-import { render } from "@testing-library/react";
+import Typed from "typed.js";
 
 const SearchFlightForm = ({ isSearchPage }) => {
   // React Router
   const dispatch = useDispatch();
-  const { listProduct, listAirline, passenger } = useSelector((state) => state);
   const navigate = useNavigate();
   const [queryParams] = useSearchParams();
   const [transitFiltered, setTransitFiltered] = useState("");
   //  ------TES----
-  const [originFiltered, setOriginFiltered] = useState("");
-  const [destinationFiltered, setDestinationFiltered] = useState("");
   const [departureDate, setDepartureDate] = useState("");
   const [returnDate, setReturnDate] = useState("");
   const [dateFlexible, setDateFlexible] = useState("");
-  const [seats, setSeats] = useState("");
-  const [flight, setFlight] = useState("");
   const [tripType, setTripType] = useState("");
   const [originId, setOriginId] = useState("");
   const [destinationId, setDestinationId] = useState("");
   const Airports = useSelector((state) => {
     return state.listAirports.data;
   });
-  console.log(Airports);
+  const el = useRef(null);
   // handle get airport
   useEffect(() => {
     dispatch(getListAirports());
-  }, [dispatch]);
+    const typed = new Typed(el.current, {
+      strings: ["The Choice is Yours"],
+      startDelay: 300,
+      typeSpeed: 150,
+      backSpeed: 100,
+      backDelay: 150,
+      showCursor: false,
+      smartBackspace: true,
+      loop: true,
+    });
+  }, [dispatch, el]);
 
   useEffect(() => {
-    document.title = `${process.env.REACT_APP_APP_NAME} - HOME`;
+    document.title = `Siterbang`;
     window.scrollTo(0, 0);
   }, []);
 
@@ -79,16 +63,6 @@ const SearchFlightForm = ({ isSearchPage }) => {
     return navigate(url);
   };
 
-  let normalGridSpan = 6,
-    seatsGridSpan = 3,
-    ticketTypeGridSpan = 3;
-
-  if (isSearchPage) {
-    normalGridSpan = 2;
-    seatsGridSpan = 2;
-    ticketTypeGridSpan = 2;
-  }
-
   const flexibleDatesComponent = (
     <FormControlLabel
       control={
@@ -101,166 +75,134 @@ const SearchFlightForm = ({ isSearchPage }) => {
     />
   );
 
+  // control date
+  const onChangeDep = (date, dateString) => {
+    setDepartureDate(date, dateString);
+  };
+
+  const onChangeReturn = (date, dateString) => {
+    setReturnDate(date, dateString);
+  };
+
   // controllll select
-  const onChange = (value) => {
-    console.log(`selected ${value}`);
+  const onOriginChange = (value) => {
+    setOriginId(value);
   };
-  const onSearch = (value) => {
-    console.log("search:", value);
+  const onDastiChange = (value) => {
+    setDestinationId(value);
   };
+
+  const options = [];
+  Airports &&
+    Airports.map((item) => {
+      return options.push({
+        label: `${item.city} 🛬 ${item.iata_code}`,
+        value: `${item.id}`,
+      });
+    });
 
   return (
-    <Container className="homepage mt-5">
-      <Paper sx={{ overflow: "hidden" }} elevation={10}>
-        <Grid container spacing={1} direction="row">
-          <Grid xs={10} item>
-            <form style={{ margin: "1em" }} onSubmit={applyFilter}>
-              {/* onSubmit={formSubmitHandler}> */}
-              <Typography variant="h5">Search a Flight</Typography>
-
-              {isSearchPage ? (
-                <Box sx={{ display: "flex" }}>
-                  <TripTypeInput
-                    tripType={tripType}
-                    setTripType={setTripType}
-                  />
-                  {flexibleDatesComponent}
-                </Box>
-              ) : (
-                <TripTypeInput tripType={tripType} setTripType={setTripType} />
-              )}
-
-              <Grid container rowSpacing={3} spacing={1}>
-                <Grid item xs={12} md={normalGridSpan}>
-                  {/* <LocationInput
-                  label="Departure Location"
-                  location={originFiltered}
-                  setLocation={setOriginFiltered}
-                  
-                /> */}
-
-                  {/* select */}
-                </Grid>
-
-                <Grid item xs={12} md={normalGridSpan}>
-                  {/* <LocationInput
-                  label="Destination"
-                  location={destinationFiltered}
-                  setLocation={setDestinationFiltered}
-                /> */}
-                  {/* seleect */}
-                  {/* <Select
-                    showSearch
-                    placeholder="Select a person"
-                    optionFilterProp="children"
-                    onChange={onChange}
-                    onSearch={onSearch}
-                    filterOption={(input, option) =>
-                      (option?.label ?? "")
-                        .toLowerCase()
-                        .includes(input.toLowerCase())
-                    }
-                   value
-                  /> */}
-                  <select
-                    onChange={(e) => setOriginId(e.target.value.toUpperCase())}
-                  >
-                    <option>Pilih YAW</option>
-                    {Airports &&
-                      Airports.map((item, key) => {
-                        return (
-                          <option value={item.id}>
-                            {item.city} <span>{item.iata_code}</span>
-                          </option>
-                        );
-                      })}
-                  </select>
-                  <br />
-                  <select
-                    onChange={(e) =>
-                      setDestinationId(e.target.value.toUpperCase())
-                    }
-                  >
-                    <option>Pilih YAW</option>
-                    {Airports &&
-                      Airports.map((item, key) => {
-                        return (
-                          <option value={item.id}>
-                            {item.city} <span>{item.iata_code}</span>
-                          </option>
-                        );
-                      })}
-                  </select>
-                </Grid>
-
-                <Grid item xs={12} md={seatsGridSpan}>
-                  <TextField
-                    name="departure-date"
-                    variant="outlined"
-                    label="Departure Date"
-                    value={departureDate}
-                    required
-                    onChange={(e) => setDepartureDate(e.target.value)}
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                    fullWidth
-                    type="date"
-                  />
-                </Grid>
-                <Grid item xs={12} md={seatsGridSpan}>
-                  <TextField
-                    variant="outlined"
-                    label="Return Date"
-                    name="return-date"
-                    value={returnDate}
-                    onChange={(e) => setReturnDate(e.target.value)}
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                    fullWidth
-                    type="date"
-                    disabled={tripType === "one-way"}
-                    required={tripType === "round-trip"}
-                  />
-                </Grid>
-                <Grid item xs={12} md={seatsGridSpan} sx={{ display: "flex" }}>
-                  <SeatsInput seats={seats} setSeats={setSeats} />
-                </Grid>
-                <Grid item xs={12} md={ticketTypeGridSpan}>
-                  <FlightTypeInput flight={flight} setFlight={setFlight} />
-                </Grid>
-              </Grid>
-
-              {/* {!isSearchPage && flexibleDatesComponent} */}
-
-              <Button
-                sx={{
-                  marginTop: "1em",
-                  marginLeft: "auto",
-                  marginRight: "0",
-                  display: "block",
-                  bgcolor: "#6C63FF",
-                }}
-                variant="contained"
-                type="submit"
-                fullWidth={!isSearchPage}
-              >
-                Search
-              </Button>
-            </form>
-          </Grid>
-          <Grid xs={2} item>
-            <img
-              src={PIA_IMG}
-              className="pia-image "
-              alt={PIA_IMG}
-              style={{ width: 190 }}
-            />
-          </Grid>
-        </Grid>
-      </Paper>
-    </Container>
+    <React.Fragment>
+      <div id="bg-sIterbang">
+        <div className="bearer">
+          <h1 className="container">SELAMAT DATANG DI Siterbang </h1>
+          <h5 className="container">
+            <span ref={el}></span>
+          </h5>
+        </div>
+        <div className="xysss">
+          <div className="container">
+            <div className="card blous">
+              <h6>Cari Tiket Murah Ada Disini 🎫</h6>
+              <form onSubmit={applyFilter}>
+                <div className="ms-5 mt-5 mb-5">
+                  {isSearchPage ? (
+                    <Box sx={{ display: "flex" }}>
+                      <TripTypeInput
+                        tripType={tripType}
+                        setTripType={setTripType}
+                      />
+                      {flexibleDatesComponent}
+                    </Box>
+                  ) : (
+                    <TripTypeInput
+                      tripType={tripType}
+                      setTripType={setTripType}
+                    />
+                  )}
+                </div>
+                <div className="row g-3 mb-5">
+                  <div className="col-lg-3 col-sm-6 col-xs-12">
+                    <label className="mx-2 days">Dari</label>
+                    <Select
+                      showSearch
+                      placeholder="Kota Atau Kode Bandara 🛫"
+                      optionFilterProp="children"
+                      filterOption={(input, option) =>
+                        (option?.label ?? "")
+                          .toLowerCase()
+                          .includes(input.toLowerCase())
+                      }
+                      filterSort={(optionA, optionB) =>
+                        (optionA?.label ?? "")
+                          .toLowerCase()
+                          .localeCompare((optionB?.label ?? "").toLowerCase())
+                      }
+                      onChange={onOriginChange}
+                      options={options}
+                      listHeight={500}
+                      style={{ width: 250 }}
+                    />
+                  </div>
+                  <div className="col-lg-3 col-sm-6 col-xs-12">
+                    <label className="mx-2 days">Ke</label>
+                    <Select
+                      Rea
+                      showSearch
+                      placeholder="Kota Atau Kode Bandara 🛬"
+                      optionFilterProp="children"
+                      filterOption={(input, option) =>
+                        (option?.label ?? "")
+                          .toLowerCase()
+                          .includes(input.toLowerCase())
+                      }
+                      filterSort={(optionA, optionB) =>
+                        (optionA?.label ?? "")
+                          .toLowerCase()
+                          .localeCompare((optionB?.label ?? "").toLowerCase())
+                      }
+                      onChange={onDastiChange}
+                      options={options}
+                      listHeight={500}
+                      style={{ width: 250 }}
+                      required
+                    />
+                  </div>
+                  <div className="col-lg-3 col-sm-6 col-xs-12">
+                    <label className="mx-2 days">Berangkat</label>
+                    <DatePicker onChange={onChangeDep} style={{ width: 250 }} />
+                  </div>
+                  <div className="col-lg-3 col-sm-6 col-xs-12">
+                    <label className="mx-2 days">Pulang</label>
+                    <DatePicker
+                      onChange={onChangeReturn}
+                      style={{ width: 250 }}
+                      disabled={tripType === "one-way"}
+                      required={tripType === "round-trip"}
+                    />
+                  </div>
+                  <div className="mt-5 mb-3 text-end">
+                    <button className="btn-searchings" type="submit">
+                      Cari Penerbangan
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </React.Fragment>
   );
 };
 

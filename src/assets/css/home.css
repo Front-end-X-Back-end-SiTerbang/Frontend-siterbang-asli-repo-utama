@@ -1,0 +1,182 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#bg-sIterbang {
+  width: 100%;
+  height: 100vh;
+  background-image: url(../img-plane/2393207684.jpg);
+  background-size: cover;
+  background-position: center;
+}
+
+.bearer {
+  width: 100%;
+  position: absolute;
+  top: 30%;
+  transform: translateY(-0%);
+  text-align: justify;
+  font-family: sans-serif;
+}
+
+.bearer h1 {
+  color: white;
+  font-size: 42px;
+  font-weight: 700;
+  font-style: normal;
+  font-family: "Poppins";
+  text-transform: uppercase;
+}
+.bearer h5 {
+  color: white;
+  font-size: 15px;
+  font-weight: 700;
+  font-style: italic;
+  font-family: sans-serif;
+}
+
+.xysss {
+  width: 100%;
+  position: absolute;
+  top: 75%;
+  transform: translateY(-0%);
+  text-align: center;
+  font-family: sans-serif;
+}
+.xysss h1 {
+  font-size: 70px;
+  font-family: sans-serif;
+  color: #fdff00;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.xysss p {
+  color: white;
+  font-family: sans-serif;
+  font-weight: 500;
+  font-style: italic;
+  font-variant: inherit;
+}
+
+.btn-pokemon {
+  border: none;
+  width: 100px;
+  height: 30px;
+  border-radius: 20px;
+  background: #fdff00;
+  color: #06283d;
+  margin-top: 5px;
+}
+
+.btn-pokemon:hover {
+  background: #256d85;
+  color: white;
+}
+
+.blous h6 {
+  color: #35405a;
+  text-align: left;
+  font-family: "Poppins";
+  margin-left: 15px;
+  font-style: normal;
+  font-size: 27.8px;
+  margin-top: 9px;
+}
+
+.days {
+  color: #35405a;
+  font-size: 13px;
+  font-family: "Poppins";
+}
+
+.codeR {
+  background-color: #35405a;
+  color: white;
+  font-size: 16px;
+}
+
+.btn-ticket {
+  background: #6c63ff;
+  color: white;
+  width: 100px;
+  height: 30px;
+  border: none;
+  border-radius: 20px;
+}
+
+.btn-ticket:hover {
+  background: #35405a;
+  color: white;
+  width: 100px;
+  height: 30px;
+  border: none;
+  border-radius: 20px;
+}
+
+.xr h6 {
+  font-size: 17px;
+  font-family: MuseoSans;
+  color: black;
+  font-style: normal;
+}
+
+.btn-searchings {
+  color: white;
+  background: #6c63ff;
+  width: 120px;
+  height: 40px;
+  border-radius: 15px;
+  border: none;
+  text-align: center;
+  margin-right: 13px;
+}
+
+.btn-searchings:hover {
+  color: white;
+  background: #35405a;
+  width: 120px;
+  height: 40px;
+  border-radius: 15px;
+  border: none;
+  text-align: center;
+  margin-right: 13px;
+}
+
+.brand-siterbang {
+  margin-top: 55%;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.brands {
+  color: #6c63ff;
+  font-size: 18px;
+  font-weight: 700;
+  font-style: italic;
+  text-align: center;
+}
+
+.maskapais {
+  margin-top: 12%;
+}
+
+.this-yours {
+  background-color: #6c63ff;
+  margin-top: 3%;
+  width: 100%;
+  padding: 60px;
+}
+
+.this-yours h1 {
+  color: white;
+
+  font-weight: 700;
+  font-family: "Tangerine", cursive;
+  text-align: center;
+  padding: 40px;
+}
