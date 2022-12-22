@@ -40,7 +40,6 @@
     "reveal": "^0.0.4",
     "styled-components": "^5.3.6",
     "sweetalert2": "^11.6.11",
-    "typed.js": "^2.0.12",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

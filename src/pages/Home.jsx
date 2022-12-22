@@ -2,6 +2,7 @@ import React from "react";
 import "../assets/css/styleku.css";
 import Navbar2 from "../component/Navbar2";
 import Header from "../component/MainSection";
+import Footer from "../component/Footer";
 import "../assets/css/home.css";
 import bn1 from "../assets/img-plane/fly_img02.jpg";
 import bn2 from "../assets/img-plane/fly_img04.jpg";
@@ -126,6 +127,8 @@ function Home() {
           </div>
         </div>
       </div>
+
+      <Footer />
     </React.Fragment>
   );
 }
