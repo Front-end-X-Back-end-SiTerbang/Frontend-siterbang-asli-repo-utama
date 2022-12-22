@@ -51,25 +51,3 @@ export const reset = async (token, data, setErrors) => {
 export const logout = () => {
   localStorage.removeItem("token");
 };
-
-export const me = () => async (dispatch) => {
-  try {
-    const token = localStorage.getItem("token");
-
-    const results = await axios.get(
-      `${process.env.REACT_APP_API_URL}/airplanes/all`,
-      {
-        headers: {
-          Authorization: `${token}`,
-        },
-      }
-    );
-
-    dispatch({
-      // type: GET_AIRPLANES_SUCCESS,
-      // payload: results.data,
-    });
-  } catch (error) {
-    console.log(error);
-  }
-};

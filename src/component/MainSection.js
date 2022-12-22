@@ -1,12 +1,11 @@
 import { FormControlLabel, Box, Checkbox } from "@mui/material";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { DatePicker, Select } from "antd";
 import "../assets/css/home.css";
 import TripTypeInput from "./TripTypeInput";
 import { useDispatch, useSelector } from "react-redux";
 import { getListAirports } from "../redux/actions/airportActions";
-import Typed from "typed.js";
 
 const SearchFlightForm = ({ isSearchPage }) => {
   // React Router
@@ -24,21 +23,10 @@ const SearchFlightForm = ({ isSearchPage }) => {
   const Airports = useSelector((state) => {
     return state.listAirports.data;
   });
-  const el = useRef(null);
   // handle get airport
   useEffect(() => {
     dispatch(getListAirports());
-    const typed = new Typed(el.current, {
-      strings: ["The Choice is Yours"],
-      startDelay: 300,
-      typeSpeed: 150,
-      backSpeed: 100,
-      backDelay: 150,
-      showCursor: false,
-      smartBackspace: true,
-      loop: true,
-    });
-  }, [dispatch, el]);
+  }, [dispatch]);
 
   useEffect(() => {
     document.title = `Siterbang`;
@@ -106,9 +94,7 @@ const SearchFlightForm = ({ isSearchPage }) => {
       <div id="bg-sIterbang">
         <div className="bearer">
           <h1 className="container">SELAMAT DATANG DI Siterbang </h1>
-          <h5 className="container">
-            <span ref={el}></span>
-          </h5>
+          <h5 className="container">The Choice is Yours</h5>
         </div>
         <div className="xysss">
           <div className="container">
@@ -131,8 +117,8 @@ const SearchFlightForm = ({ isSearchPage }) => {
                     />
                   )}
                 </div>
-                <div className="row g-3 mb-5">
-                  <div className="col-lg-3 col-sm-6 col-xs-12">
+                <div className="row g-3 mb-5 slebew">
+                  <div className="col-lg-3 col-sm-6 col-xs-12 phones">
                     <label className="mx-2 days">Dari</label>
                     <Select
                       showSearch
@@ -154,10 +140,9 @@ const SearchFlightForm = ({ isSearchPage }) => {
                       style={{ width: 250 }}
                     />
                   </div>
-                  <div className="col-lg-3 col-sm-6 col-xs-12">
-                    <label className="mx-2 days">Ke</label>
+                  <div className="col-lg-3 col-sm-6 col-xs-12 phones">
+                    <label className="mx-2 col-xs-12 days">Ke</label>
                     <Select
-                      Rea
                       showSearch
                       placeholder="Kota Atau Kode Bandara 🛬"
                       optionFilterProp="children"
@@ -178,11 +163,11 @@ const SearchFlightForm = ({ isSearchPage }) => {
                       required
                     />
                   </div>
-                  <div className="col-lg-3 col-sm-6 col-xs-12">
+                  <div className="col-lg-3 col-sm-6 col-xs-12 phones">
                     <label className="mx-2 days">Berangkat</label>
                     <DatePicker onChange={onChangeDep} style={{ width: 250 }} />
                   </div>
-                  <div className="col-lg-3 col-sm-6 col-xs-12">
+                  <div className="col-lg-3 col-sm-6 col-xs-12 phones">
                     <label className="mx-2 days">Pulang</label>
                     <DatePicker
                       onChange={onChangeReturn}
