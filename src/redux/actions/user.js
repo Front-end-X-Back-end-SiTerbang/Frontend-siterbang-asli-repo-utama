@@ -50,9 +50,8 @@ export const updateUser = async (body, setErrors) => {
   export const updatePhoto = async (body, setErrors) => {
     try {
       const token = localStorage.getItem("token")
-      const id = localStorage.getItem("id")
   
-      await axios.put(`${process.env.REACT_APP_API_URL}/user/${id}/photo`, body,
+      await axios.put(`${process.env.REACT_APP_API_URL}/user/profile/photo`, body,
        {
         headers: {
             Authorization: `${token}`,

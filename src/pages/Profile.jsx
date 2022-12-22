@@ -7,10 +7,10 @@ import { getDetailUser, updatePhoto, updateUser} from '../redux/actions/user'
 import { useNavigate } from "react-router-dom";
 // import Navbar from '../components/Navbar';
 // import Footer from '../components/Footer';
-// import iconProfile from '../assets/icons/icon-profile.svg'
-// import iconMyReview from '../assets/icons/icon-myPriview.svg'
-// import iconSetting from '../assets/icons/icon-setting.svg'
-// import iconLogout from '../assets/icons/icon-logout.svg'
+import iconMyTwiter from '../assets/img/twiter.svg'
+import iconIg from '../assets/img/ig.svg'
+import iconLogout from '../assets/img/icon-logout.svg'
+import iconFb from '../assets/img/fb.svg'
 import Swal from 'sweetalert2'
 
 export default function Profile() {
@@ -28,7 +28,7 @@ export default function Profile() {
     const [postal_code, setPostalCode] = useState(detailUser.data.postal_code)
     const [gender, setGender] = useState(detailUser.data.gender)
     // const [errors, setErrors] = useState([])
-    // const [isLoading, setIsLoading] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
 
 
     // photo
@@ -52,8 +52,8 @@ export default function Profile() {
             gender: gender
         }
 
-    //     setErrors([]);
-    //     setIsLoading(true)
+        // setErrors([]);
+        setIsLoading(true)
 
         const updateUserDetail = await updateUser(body)
 
@@ -63,11 +63,11 @@ export default function Profile() {
                 text: 'Edit User Success',
                 icon: 'success',
             })
-            // setPhoto("")
+            setPhoto(" ")
             dispatch(getDetailUser(localStorage.getItem("id"), navigate))
         }
 
-    //     setIsLoading(false);
+        setIsLoading(false);
     }
 
     const handleChangeImage = async () => {
@@ -75,7 +75,7 @@ export default function Profile() {
         formData.append("photo", photo)
 
         // setErrors([]);
-        // setIsLoading(true)
+        setIsLoading(true)
 
         const updatePhotoUser = await updatePhoto(formData)
 
@@ -89,13 +89,13 @@ export default function Profile() {
             dispatch(getDetailUser(localStorage.getItem("id"), navigate))
         }
 
-        // setIsLoading(false);
+        setIsLoading(false);
     }
 
-    // const logout = () => {
-    //     localStorage.clear()
-    //     navigate('/login')
-    // }
+    const logout = () => {
+        localStorage.clear()
+        navigate('/login')
+    }
 
     return (
         <>
@@ -114,8 +114,8 @@ export default function Profile() {
                                                 (
                                                     <>
                                                         <img width={'200px'} height={'200px'} className="card-img-top"
-                                                            src={`${process.env.REACT_APP_API_URL}/${detailUser.data.photo}`}
-                                                            alt="Card image cap" />
+                                                            src={`${detailUser.data.photo}`}
+                                                            alt="Fotonya Mana Woyy" />
                                                     </>
                                                 )
                                             }
@@ -125,6 +125,22 @@ export default function Profile() {
                                                 setIsChangePhoto(true)
                                             }} />
                                             {
+                                                isLoading ?
+                                                (
+                                                    <button
+                                                        className="btn btn-success btn-lg ms-2"
+                                                        type="button"
+                                                        disabled
+                                                    >
+                                                        <span
+                                                            className="spinner-border spinner-border-sm"
+                                                            role="status"
+                                                            aria-hidden="true"
+                                                        ></span>
+                                                        {" "}
+                                                        Loading...
+                                                    </button>
+                                                ) :
                                                
                                                     (
                                                         isChangePhoto && <button onClick={handleChangeImage} type="submit" >Save</button>
@@ -139,34 +155,19 @@ export default function Profile() {
                                         </div>
                                     
                                 }
-
-                                <div className="label d-flex">
-                                    <div className="label-card">Cards</div>
-                                    <div className="add-card">+ Add</div>
-                                </div>
-                                <div className="credit-card d-flex flex-column">
-                                    <label>4441 1235 5512 5551</label>
-                                    <div className="detail-cc d-flex flex-row">
-                                        <p className="type-card">X Card</p>
-                                        <p className="balance">$ 1,440.2</p>
-                                    </div>
-                                </div>
                                 <div className="card-setting d-flex flex-column justify-content-start">
                                     <div className="">
-                                        {/* <img src={iconProfile} alt="" /> */}
-                                        <label htmlFor="">Profile</label>
+                                        <img src={iconMyTwiter} alt="" />
                                     </div>
                                     <div>
-                                        {/* <img src={iconMyReview} alt="" /> */}
-                                        <label htmlFor="">My Review</label>
+                                        <img src={iconIg} alt="" />
                                     </div>
                                     <div>
-                                        {/* <img src={iconSetting} alt="" /> */}
-                                        <label htmlFor="">Settings</label>
+                                        <img src={iconFb} alt="" />
                                     </div>
                                     <div>
-                                        <button onClick={""}>
-                                            {/* <img src={iconLogout} alt="" /> */}
+                                        <button onClick={logout}>
+                                            <img src={iconLogout} alt="" />
                                             <label htmlFor="">Logout</label>
                                         </button>
                                     </div>
@@ -177,7 +178,6 @@ export default function Profile() {
                             <div className="card w-100">
                                 <div className="row">
                                     <div className="col-12">
-                                        <h3>PROFILE</h3>
                                         <div className="header-booking d-flex">
                                             <label className="my-booking">Profile</label>
                                         </div>
@@ -203,7 +203,13 @@ export default function Profile() {
                                                     <label>Username</label>
                                                     <input onChange={(e) => setName(e.target.value)} value={name} type="text" />
                                                     <label>Gender</label>
-                                                    <input onChange={(e) => setGender(e.target.value)} value={gender} type="text" />
+                                                    <select class="form-select" aria-label="Default select example"
+                                                    onChange={(e) => setGender(e.target.value)} value={gender}>
+                                                    <option selected>Pilih jenis kelamin</option>
+                                                    <option value="1">Laki-laki</option>
+                                                    <option value="2">Perempuan</option>
+                                                    </select>
+
                                                     <label>Post Code</label>
                                                     <input onChange={(e) => setPostalCode(e.target.value)} value={postal_code} type="text" />
                                                     <label>Address</label>
