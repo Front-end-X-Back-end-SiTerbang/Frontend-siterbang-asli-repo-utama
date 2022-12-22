@@ -24,7 +24,7 @@ import SearchProduct from "../component/SearchProduct";
 import BookingProduct from "../component/BookingProduct";
 import MyBooking from "../pages/MyBooking";
 import Profile from "../pages/Profile";
-import axios from "axios";
+import Protected from "../component/security/Protected";
 
 function PrivateRoute({ children }) {
   const token = localStorage.getItem("token");
@@ -99,27 +99,27 @@ export default function router() {
         <Route
           path="/dashboard"
           element={
-            <PrivateRoute>
+            <Protected>
               <Dahsboard />
-            </PrivateRoute>
+            </Protected>
           }
         />
 
         <Route
           path="/maskapai"
           element={
-            <PrivateRoute>
+            <Protected>
               <Maskapai />
-            </PrivateRoute>
+            </Protected>
           }
         />
 
         <Route
           path="/airplanes"
           element={
-            <PrivateRoute>
+            <Protected>
               <Airplanes />
-            </PrivateRoute>
+            </Protected>
           }
         />
 

@@ -7,12 +7,8 @@ import bn1 from "../assets/img-plane/fly_img02.jpg";
 import bn2 from "../assets/img-plane/fly_img04.jpg";
 import bn3 from "../assets/img-plane/fly_img05.jpg";
 import bn4 from "../assets/img-plane/fly_img08.jpg";
-import bn5 from "../assets/img-plane/blog_details_img02.jpg";
-import bn6 from "../assets/img-plane/about_img02.jpg";
-import bn7 from "../assets/img-plane/faq_img.jpg";
 import btnBanner from "../assets/img-plane/siterbang.png";
 import { CarouselMitra } from "../component/CarouselMitra";
-import { useNavigate } from "react-router-dom";
 
 function Home() {
   return (
@@ -38,7 +34,7 @@ function Home() {
               </div>
             </div>
             <div className="col-lg-3 col-sm-6 col-xs-12">
-              <div className="card brand-siterbang">
+              <div className="card brand-siterbang phoneT">
                 <img className="card-img-top" alt="brand siterbang" src={bn2} />
                 <div className="card-body">
                   <h6 className="brands mt-3">Siterbang</h6>
@@ -49,7 +45,7 @@ function Home() {
               </div>
             </div>
             <div className="col-lg-3 col-sm-6 col-xs-12">
-              <div className="card brand-siterbang">
+              <div className="card brand-siterbang phoneT tablet-brand">
                 <img className="card-img-top" alt="brand siterbang" src={bn3} />
                 <div className="card-body">
                   <h6 className="brands mt-3">Siterbang</h6>
@@ -60,7 +56,7 @@ function Home() {
               </div>
             </div>
             <div className="col-lg-3 col-sm-6 col-xs-12">
-              <div className="card brand-siterbang">
+              <div className="card brand-siterbang phoneT tablet-brand">
                 <img className="card-img-top" alt="brand siterbang" src={bn4} />
                 <div className="card-body">
                   <h6 className="brands mt-3">Siterbang</h6>
@@ -74,7 +70,7 @@ function Home() {
         </div>
       </div>
       {/* handle maskapai */}
-      <div className=" maskapais">
+      <div className="maskapais phone-maskapai">
         <CarouselMitra />
       </div>
       {/* handle booking otw raw */}
@@ -85,7 +81,7 @@ function Home() {
       <div className="container">
         <div className="row">
           <div className="col-lg-3 col-sm-6 col-xs-12">
-            <div className="card brand-siterbang">
+            <div className="card brand-siterbang xyrea">
               <img className="card-img-top" alt="brand siterbang" src={bn1} />
               <div className="card-body">
                 <h6 className="brands mt-3">Siterbang</h6>
@@ -96,7 +92,7 @@ function Home() {
             </div>
           </div>
           <div className="col-lg-3 col-sm-6 col-xs-12">
-            <div className="card brand-siterbang">
+            <div className="card brand-siterbang phone-branded">
               <img className="card-img-top" alt="brand siterbang" src={bn2} />
               <div className="card-body">
                 <h6 className="brands mt-3">Siterbang</h6>
@@ -107,7 +103,7 @@ function Home() {
             </div>
           </div>
           <div className="col-lg-3 col-sm-6 col-xs-12">
-            <div className="card brand-siterbang">
+            <div className="card brand-siterbang phone-branded tablet-brand">
               <img className="card-img-top" alt="brand siterbang" src={bn3} />
               <div className="card-body">
                 <h6 className="brands mt-3">Siterbang</h6>
@@ -118,7 +114,7 @@ function Home() {
             </div>
           </div>
           <div className="col-lg-3 col-sm-6 col-xs-12">
-            <div className="card brand-siterbang">
+            <div className="card brand-siterbang phone-branded tablet-brand">
               <img className="card-img-top" alt="brand siterbang" src={bn4} />
               <div className="card-body">
                 <h6 className="brands mt-3">Siterbang</h6>

@@ -22,7 +22,5 @@ export default combineReducers({
   listProduct: listProductReducer,
   detailByProduct: listProductDetail,
   myBooking: listMyBookingReducer,
-  detailUser : detailUserReducer,
-
-
+  detailUser: detailUserReducer,
 });
