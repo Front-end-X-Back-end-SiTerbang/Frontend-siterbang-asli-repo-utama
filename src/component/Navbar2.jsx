@@ -46,6 +46,9 @@ function ResponsiveAppBar() {
   const profile1 = ()=> {
     navigate('/profile')
   };
+  const mybooking = ()=> {
+    navigate('/mybooking')
+  };
 
   // useEffect(() => {
   //   if (localStorage.getItem("token")) {
@@ -179,7 +182,7 @@ function ResponsiveAppBar() {
                 <MenuItem onClick={profile1}>
                   <Typography textAlign="center">Profile</Typography>
                 </MenuItem>
-                <MenuItem onClick={handleCloseUserMenu}>
+                <MenuItem onClick={mybooking}>
                   <Typography textAlign="center">My Booking</Typography>
                 </MenuItem>
                 <MenuItem onClick={logout}>
