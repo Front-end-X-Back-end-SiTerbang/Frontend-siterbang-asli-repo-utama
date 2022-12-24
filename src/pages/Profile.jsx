@@ -12,6 +12,7 @@ import iconIg from '../assets/img/ig.svg'
 import iconLogout from '../assets/img/icon-logout.svg'
 import iconFb from '../assets/img/fb.svg'
 import Swal from 'sweetalert2'
+import Navbar from "../component/Navbar2";
 
 export default function Profile() {
     const dispatch = useDispatch()
@@ -99,6 +100,7 @@ export default function Profile() {
 
     return (
         <>
+         <Navbar />
             <div className="container-fluid hanifProfile ml-0 mr-0">
                 {/* <Navbar /> */}
                 <section className="d-flex w-100">

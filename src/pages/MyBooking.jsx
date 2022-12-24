@@ -139,23 +139,22 @@ export default function MyBooking() {
                         </div>
                     <div class="col-md-6 mt-1 ">
                         <div class= "d-flex flex-row"> 
-                            <h4>JAKARTA</h4> 
+                            <h5>{item.product.origin.city}</h5> <h5>({item.product.origin.iata_code})</h5>
                                 <img src={airplane} alt="" class="mx-3" />
-                            <h4>BALI</h4>
+                            <h5>{item.product.destination.city}</h5> <h5>({item.product.destination.iata_code})</h5>
                         </div>
                         <div class="d-flex flex-row">
                         <img src="https://img.icons8.com/color/48/null/airport-building.png"/>
-                            <p class="mt-3">Soekarno Hatta</p>
+                            <p class="mt-3">{item.product.origin.name}</p>
                         </div>
                         <div class="d-flex flex-row">
                         <img src="https://img.icons8.com/fluency/48/null/airport-building.png"/>
-                            <p class="mt-3">Sultan Mahmud Badarudin II</p>
+                            <p class="mt-3">{item.product.destination.name}</p>
                         </div>
 
                         <div class="d-flex flex-row">
-                        <img src="https://img.icons8.com/color/48/000000/calendar--v1.png"/>
-                            <p class="mt-2"> {item.product.flight_date}</p>
-                            <p class="mt-2">{item.product.depature_hours}</p>
+                        <img src="https://img.icons8.com/color/48/null/airplane-take-off--v1.png"/>
+                            <p class="mt-2"> {item.product.airline.name}</p>                          
                             
                         </div>
 
@@ -165,9 +164,10 @@ export default function MyBooking() {
                     </div>
                     <div class="align-items-center align-content-center col-md-3 border-left mt-1">
                         <div class="d-flex flex-row align-items-center">
-                            <h4 class="mr-1">Rp.{item.product.price}</h4>
+                            <h4 class="mr-1">Rp.{item.total_order}</h4>
                         </div>
                         <h6 class="text-success">{item.product.type}</h6>
+                        <p class="mt-2">{item.product.flight_date}</p>
                         <div class="d-flex flex-column mt-4"><button class="btn btn-primary btn-sm" type="button">LUNAS</button>
                         <button class="btn btn-outline-primary btn-sm mt-2" type="button">Detail Ticket</button></div>
                     </div>

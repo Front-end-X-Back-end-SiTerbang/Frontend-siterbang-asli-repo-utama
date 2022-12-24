@@ -13,73 +13,101 @@ import Swal from "sweetalert2";
 function DetailProduct() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // const [totalPassagerForm, setTotalPassagerForm] = useState(0);
+  const [totalPassagerForm, setTotalPassagerForm] = useState(0);
   const [error, setError] = useState([]);
   const { id } = useParams();
 
   //form Contact Person Details
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
   const [nik, setNik] = useState("");
   const [passenger_phone, setNohp] = useState("");
   const [total_passenger, settotal_passenger] = useState(1);
+  const [passengers, setPassengers] = useState([])
   const product_id = id;
-
-
+  const [passenger_name, setpassenger_name] = useState("")
 
   const detailproduct = useSelector((state) => {
     return state.detailByProduct.data;
   });
 
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    if (total_passenger === "") {
+      toast.error("Jumlah Passenger is required");
+      return;
+    }
+    if (total_passenger !== "") {
+      // const body = {
+      //   id,
+      //   total_passenger,
+      // };
+      // const createTransaksiStatus = await createTransaksi(body, setError);
+      // if (createTransaksiStatus) {
+      //   toast.success("Success");
+      // }
+      setTotalPassagerForm(Number(total_passenger));
+    }
+  };
+
   // const onSubmit = async (e) => {
   //   e.preventDefault();
-  //   if (total_passenger === "") {
-  //     toast.error("Jumlah Passenger is required");
+  //   if (firstName === "") {
+  //     toast.error("First Name Pesawat is required");
   //     return;
   //   }
-  //   if (total_passenger !== "") {
-  //     // const body = {
-  //     //   id,
-  //     //   total_passenger,
-  //     // };
-  //     // const createTransaksiStatus = await createTransaksi(body, setError);
-  //     // if (createTransaksiStatus) {
-  //     //   toast.success("Success");
-  //     // }
-  //     setTotalPassagerForm(Number(total_passenger));
+  //   if (lastName === "") {
+  //     toast.error("Last Name Pesawat is required");
+  //     return;
+  //   }
+  //   if (nik === "") {
+  //     toast.error("nik is required");
+  //     return;
+  //   }
+  //   if (passenger_phone === "") {
+  //     toast.error("Nomor HP is required");
+  //     return;
+  //   }
+  //   if (total_passenger === "") {
+  //     toast.error("Nama maskapai is required");
+  //     return;
+  //   }
+  //   if (firstName !== "" && lastName !== "") {
+  //     const passenger_name = firstName + " " + lastName
+  //     const body = {
+  //       product_id,
+  //       passenger_name,
+  //       nik,
+  //       passenger_phone,
+  //       total_passenger,
+  //     };
+  //     console.log(body)
+  //     const createTransaksiStatus = await createTransaksi(body, setError);
+    
+  //     Swal.fire({
+  //       title: "Anda Yakin Memboking Tiket?",
+  //       icon: "Peringatan",
+  //       showCancelButton: true,
+  //       showLoaderOnConfirm: true,
+  //       confirmButtonText: "OK",
+  //     }).then((result) => {
+  //       if (result.isConfirmed) { 
+  //             Swal.fire({
+  //               icon: "success",
+  //       }, createTransaksiStatus);
+        
+  //       return navigate("/mybooking");
+  //       }
+  //     });
+
   //   }
   // };
 
-  const onSubmit = async (e) => {
+const passengerSubmit = async (e) => {
     e.preventDefault();
-    if (firstName === "") {
-      toast.error("First Name Pesawat is required");
-      return;
-    }
-    if (lastName === "") {
-      toast.error("Last Name Pesawat is required");
-      return;
-    }
-    if (nik === "") {
-      toast.error("nik is required");
-      return;
-    }
-    if (passenger_phone === "") {
-      toast.error("Nomor HP is required");
-      return;
-    }
-    if (total_passenger === "") {
-      toast.error("Nama maskapai is required");
-      return;
-    }
-    if (firstName !== "" && lastName !== "") {
-      const passenger_name = firstName + " " + lastName
+   
       const body = {
         product_id,
-        passenger_name,
-        nik,
-        passenger_phone,
         total_passenger,
+        passengers , 
       };
       console.log(body)
       const createTransaksiStatus = await createTransaksi(body, setError);
@@ -100,9 +128,35 @@ function DetailProduct() {
         }
       });
 
-    }
+    
   };
 
+
+  const handlePassengersForm = (dataset, value, i) => {
+    const newPassengers = passengers.map((passenger, index) => {
+      if (index === i) {
+        return {
+          ...passenger,
+          [dataset]: value,
+        }
+      }
+      return passenger
+    })
+    setPassengers(newPassengers)
+  }
+
+  useEffect(() => {
+    const newPassengers = [];
+    for (let i = 0; i < totalPassagerForm; i++) {
+      const passenger = {
+        nik: "",
+        passenger_name: "",
+        passenger_phone: ""
+      }
+      newPassengers.push(passenger)
+    }
+    setPassengers(newPassengers)
+  }, [totalPassagerForm])
 
   useEffect(() => {
     dispatch(getDetailProduct(id, navigate));
@@ -121,7 +175,7 @@ function DetailProduct() {
       <div class="container-xl px-4 mt-4">
         <div class="row">
           <div class="col-lg-8">
-            {/* <div class="card mb-4">
+            <div class="card mb-4">
               <h4 className="mb-4 mt-2 text-center">Pessengers</h4>
               <div class="card-body">     
                 <form onSubmit={(e) => onSubmit(e)}>
@@ -142,127 +196,78 @@ function DetailProduct() {
                   </div>
                 </form>
               </div>
-            </div> */}
-            {/* {totalPassagerForm > 0 &&
+            </div>
+
+            {totalPassagerForm > 0 && passengers.length > 0 &&
               Array.from(Array(totalPassagerForm).keys()).map((i) => (
                 <div class="card mb-4" key={i}>
                   <div class="card-body">
-                    <form action="#">
+                    <form onSubmit={(e) => passengerSubmit(e)} id="passengerForm">
                       <div class="row g-3">
-                        <div class="col-lg-6">
+                        <div class="col-lg-12">
                           <div class="form-floating">
                             <input
                               type="text"
                               class="form-control"
                               id="firstnamefloatingInput"
                               placeholder="Enter your firstname"
+                              value={passengers[i]?.passenger_name}
+                              onChange={e => handlePassengersForm("passenger_name", e.target.value, i)}
                             />
                             <label for="firstnamefloatingInput">
-                              First Name
+                              Name
                             </label>
                           </div>
                         </div>
-                        <div class="col-lg-6">
-                          <div class="form-floating">
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="lastnamefloatingInput"
-                              placeholder="Enter your Lastname"
-                            />
-                            <label for="lastnamefloatingInput">Last Name</label>
-                          </div>
-                        </div>
-                        <div class="col-lg-4">
-                          <div class="form-floating">
-                            <input
-                              type="date"
-                              class="form-control"
-                              id="emailfloatingInput"
-                              placeholder="Enter your email"
-                            />
-                            <label for="emailfloatingInput">
-                              Tanggal Lahir
-                            </label>
-                          </div>
-                        </div>
-                        <div class="col-lg-4">
-                          <div class="form-floating">
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="passwordfloatingInput"
-                              placeholder="Enter your password"
-                            />
-                            <label for="passwordfloatingInput">
-                              Kewarganegaraan
-                            </label>
-                          </div>
-                        </div>
-                        <div class="col-lg-4">
+  
+                        <div class="col-lg-12">
                           <div class="form-floating">
                             <input
                               type="text"
                               class="form-control"
                               id="passwordfloatingInput1"
-                              placeholder="Confirm password"
+                              placeholder="nik"
+                              value={passengers[i]?.passenger_phone}
+                              onChange={e => handlePassengersForm("passenger_phone", e.target.value, i)}
                             />
                             <label for="passwordfloatingInput1">
-                              Nomor Paspor
+                              Nomor HP
                             </label>
                           </div>
                         </div>
-                        <div class="col-lg-4">
-                          <div class="form-floating">
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="cityfloatingInput"
-                              placeholder="Enter your nomor hp"
-                            />
-                            <label for="zipfloatingInput">
-                              Negara Penerbit
-                            </label>
-                          </div>
-                        </div>
-                        <div class="col-lg-4">
-                          <div class="form-floating">
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="zipfloatingInput"
-                              placeholder="Enter your zipcode"
-                            />
-                            <label for="cityfloatingInput">Nomor Hp</label>
-                          </div>
-                        </div>
-                        <div class="col-lg-4">
-                          <div class="form-floating">
-                            <input
-                              type="email"
-                              class="form-control"
-                              id="zipfloatingInput"
-                              placeholder="Enter your zipcode"
-                            />
-                            <label for="zipfloatingInput">Email</label>
-                          </div>
-                        </div>
+
+   
                         <div class="col-lg-12">
-                          <div class="text-end">
+                          <div class="form-floating">
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="zipfloatingInput"
+                              placeholder="Enter your zipcode"
+                              value={passengers[i]?.nik}
+                              onChange={e => handlePassengersForm("nik", e.target.value, i)}
+                            />
+                            <label for="NIK">KTP</label>
+                          </div>
+                        </div>
+
+
+                        <div class="col-lg-12">
+                          {/* <div class="text-end">
                             <button type="submit" class="btn btn-primary">
                               Submit
                             </button>
-                          </div>
+                          </div> */}
                         </div>
                       </div>
                     </form>
                   </div>
                 </div>
             
-              ))} */}
+              ))}
 
             
-               <div class="card mb-4" >
+               {/* <div class="card mb-4" >
                 <h4 className="mb-4 mt-2 text-center">Contact Person Details</h4>
                   <div class="card-body">
                     <form id="form1" onSubmit={(e) => onSubmit(e)}>
@@ -348,17 +353,11 @@ function DetailProduct() {
                             </label>
                           </div>
                         </div>
-                        {/* <div class="col-lg-12">
-                          <div class="mb-2 mt-2 text-center">
-                            <button type="submit" class="btn btn-primary">
-                              BOOKING
-                            </button>
-                          </div>
-                        </div> */}
+                        
                       </div>
                     </form>
                   </div>
-                </div> 
+                </div>  */}
 
               <div class="card mb-3" >
                 <h4 className="mt-2 text-center">Payment</h4>
@@ -456,7 +455,7 @@ function DetailProduct() {
                 </div>
                 <hr className="mt-2" />
                 <div class="text-end" className="mb-2 mt-2 text-center">
-                  <button type="submit" class="btn btn-primary" form="form1">
+                  <button type="submit" class="btn btn-primary" form="passengerForm">
                     Booking
                   </button>
                 </div>
