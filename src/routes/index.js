@@ -12,7 +12,6 @@ import Reset from "../pages/Reset";
 import Dahsboard from "../pages/admin/Dashboard";
 import Maskapai from "../pages/admin/maskapai/Maskapai";
 import Airplanes from "../pages/admin/airplanes/Airplanes";
-import LoginAdmin from "../pages/LoginAdmin";
 import CreateMaskapai from "../pages/admin/maskapai/CreateMaskapai";
 import EditMaskapai from "../pages/admin/maskapai/EditMaskapai";
 import CreateAirplanes from "../pages/admin/airplanes/CreateAirplanes";
@@ -123,19 +122,18 @@ export default function router() {
           }
         />
 
-        <Route
-          path="/loginAdmin"
-          element={
-            <PublicRoute>
-              <LoginAdmin />
-            </PublicRoute>
-          }
-        />
         <Route path="/createmaskapai" element={<CreateMaskapai />} />
         <Route path="/editmaskapai/:id" element={<EditMaskapai />} />
         <Route path="/createairplanes" element={<CreateAirplanes />} />
         <Route path="/editairplanes/:id" element={<EditAirplanes />} />
-        <Route path="/airport" element={<Airports />} />
+        <Route
+          path="/airport"
+          element={
+            <Protected>
+              <Airports />
+            </Protected>
+          }
+        />
         <Route path="/createairport" element={<CreateAirports />} />
         <Route path="/editairport/:iata_code" element={<EditAirports />} />
         <Route path="/profile" element={<Profile />} />

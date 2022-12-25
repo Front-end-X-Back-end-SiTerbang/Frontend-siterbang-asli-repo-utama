@@ -7,7 +7,9 @@ export const login = async (data, setErrors) => {
       data
     );
 
+    console.log(res.data);
     localStorage.setItem("token", res.data.data.token);
+    localStorage.setItem("role", res.data.data.role);
     return true;
   } catch (error) {
     setErrors(error.response.data.message);

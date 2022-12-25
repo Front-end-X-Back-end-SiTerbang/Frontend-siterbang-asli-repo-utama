@@ -36,10 +36,12 @@ function Login() {
       };
       setErrors([]);
       setIsLoading(true);
-      login(data, setErrors).then((res) => {
-        console.log(res);
-        if (res === true) {
-          return navigate("/");
+      login(data, setErrors).then(() => {
+        const roles = localStorage.getItem("role");
+        if (roles !== "ADMIN") {
+          navigate("/");
+        } else {
+          navigate("/dashboard");
         }
       });
       setIsLoading(false);
