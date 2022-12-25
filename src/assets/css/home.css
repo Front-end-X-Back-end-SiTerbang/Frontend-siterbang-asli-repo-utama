@@ -206,6 +206,17 @@
   font-size: 13px;
 }
 
+/* handle detail pesanan ticket */
+.bg-pesanan {
+  border: 1px solid #6c63ff;
+  color: black;
+  font-family: sans-serif;
+}
+
+.bg-typesi {
+  background: #6c63ff;
+}
+
 /* handle responsive one width tablet */
 @media (min-width: 768px) and (max-width: 991.98px) {
   .bearer {
@@ -346,5 +357,9 @@
     font-family: sans-serif;
     text-align: center;
     margin-bottom: 0;
+  }
+
+  .brand-pesanan {
+    width: 120px;
   }
 }

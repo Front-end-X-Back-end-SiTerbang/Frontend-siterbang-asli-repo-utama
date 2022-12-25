@@ -8,6 +8,7 @@ import { getListProduct } from "../redux/actions/product";
 import Navbar2 from "../component/Navbar2";
 import Product from "./Product";
 import styles from "../pages/landingPage.module.css";
+import Footer from "./Footer";
 
 const SearchFlightForm = ({ isSearchPage }) => {
   const dispatch = useDispatch();
@@ -53,6 +54,7 @@ const SearchFlightForm = ({ isSearchPage }) => {
         {/* </div> */}
         <b> </b>
       </Container>
+      <Footer />
     </div>
   );
 };
