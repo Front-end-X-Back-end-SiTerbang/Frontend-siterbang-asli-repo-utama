@@ -8,8 +8,15 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { createTransaksi } from "../redux/actions/transaksiActions";
 import Swal from "sweetalert2";
+import Footer from "./Footer";
 
-<head> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link> </head>
+<head>
+  {" "}
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+  ></link>{" "}
+</head>;
 function DetailProduct() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -21,9 +28,9 @@ function DetailProduct() {
   const [nik, setNik] = useState("");
   const [passenger_phone, setNohp] = useState("");
   const [total_passenger, settotal_passenger] = useState(1);
-  const [passengers, setPassengers] = useState([])
+  const [passengers, setPassengers] = useState([]);
   const product_id = id;
-  const [passenger_name, setpassenger_name] = useState("")
+  const [passenger_name, setpassenger_name] = useState("");
 
   const detailproduct = useSelector((state) => {
     return state.detailByProduct.data;
@@ -81,7 +88,7 @@ function DetailProduct() {
   //     };
   //     console.log(body)
   //     const createTransaksiStatus = await createTransaksi(body, setError);
-    
+
   //     Swal.fire({
   //       title: "Anda Yakin Memboking Tiket?",
   //       icon: "Peringatan",
@@ -89,11 +96,11 @@ function DetailProduct() {
   //       showLoaderOnConfirm: true,
   //       confirmButtonText: "OK",
   //     }).then((result) => {
-  //       if (result.isConfirmed) { 
+  //       if (result.isConfirmed) {
   //             Swal.fire({
   //               icon: "success",
   //       }, createTransaksiStatus);
-        
+
   //       return navigate("/mybooking");
   //       }
   //     });
@@ -101,36 +108,36 @@ function DetailProduct() {
   //   }
   // };
 
-const passengerSubmit = async (e) => {
+  const passengerSubmit = async (e) => {
     e.preventDefault();
-   
-      const body = {
-        product_id,
-        total_passenger,
-        passengers , 
-      };
-      console.log(body)
-      const createTransaksiStatus = await createTransaksi(body, setError);
-    
-      Swal.fire({
-        title: "Anda Yakin Memboking Tiket?",
-        icon: "Peringatan",
-        showCancelButton: true,
-        showLoaderOnConfirm: true,
-        confirmButtonText: "OK",
-      }).then((result) => {
-        if (result.isConfirmed) { 
-              Swal.fire({
-                icon: "success",
-        }, createTransaksiStatus);
-        
+
+    const body = {
+      product_id,
+      total_passenger,
+      passengers,
+    };
+    console.log(body);
+    const createTransaksiStatus = await createTransaksi(body, setError);
+
+    Swal.fire({
+      title: "Anda Yakin Memboking Tiket?",
+      icon: "Peringatan",
+      showCancelButton: true,
+      showLoaderOnConfirm: true,
+      confirmButtonText: "OK",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          {
+            icon: "success",
+          },
+          createTransaksiStatus
+        );
+
         return navigate("/mybooking");
-        }
-      });
-
-    
+      }
+    });
   };
-
 
   const handlePassengersForm = (dataset, value, i) => {
     const newPassengers = passengers.map((passenger, index) => {
@@ -138,12 +145,12 @@ const passengerSubmit = async (e) => {
         return {
           ...passenger,
           [dataset]: value,
-        }
+        };
       }
-      return passenger
-    })
-    setPassengers(newPassengers)
-  }
+      return passenger;
+    });
+    setPassengers(newPassengers);
+  };
 
   useEffect(() => {
     const newPassengers = [];
@@ -151,12 +158,12 @@ const passengerSubmit = async (e) => {
       const passenger = {
         nik: "",
         passenger_name: "",
-        passenger_phone: ""
-      }
-      newPassengers.push(passenger)
+        passenger_phone: "",
+      };
+      newPassengers.push(passenger);
     }
-    setPassengers(newPassengers)
-  }, [totalPassagerForm])
+    setPassengers(newPassengers);
+  }, [totalPassagerForm]);
 
   useEffect(() => {
     dispatch(getDetailProduct(id, navigate));
@@ -177,7 +184,7 @@ const passengerSubmit = async (e) => {
           <div class="col-lg-8">
             <div class="card mb-4">
               <h4 className="mb-4 mt-2 text-center">Pessengers</h4>
-              <div class="card-body">     
+              <div class="card-body">
                 <form onSubmit={(e) => onSubmit(e)}>
                   <label className="form-label">Jumlah Passenger</label>
                   <input
@@ -198,11 +205,15 @@ const passengerSubmit = async (e) => {
               </div>
             </div>
 
-            {totalPassagerForm > 0 && passengers.length > 0 &&
+            {totalPassagerForm > 0 &&
+              passengers.length > 0 &&
               Array.from(Array(totalPassagerForm).keys()).map((i) => (
                 <div class="card mb-4" key={i}>
                   <div class="card-body">
-                    <form onSubmit={(e) => passengerSubmit(e)} id="passengerForm">
+                    <form
+                      onSubmit={(e) => passengerSubmit(e)}
+                      id="passengerForm"
+                    >
                       <div class="row g-3">
                         <div class="col-lg-12">
                           <div class="form-floating">
@@ -212,14 +223,18 @@ const passengerSubmit = async (e) => {
                               id="firstnamefloatingInput"
                               placeholder="Enter your firstname"
                               value={passengers[i]?.passenger_name}
-                              onChange={e => handlePassengersForm("passenger_name", e.target.value, i)}
+                              onChange={(e) =>
+                                handlePassengersForm(
+                                  "passenger_name",
+                                  e.target.value,
+                                  i
+                                )
+                              }
                             />
-                            <label for="firstnamefloatingInput">
-                              Name
-                            </label>
+                            <label for="firstnamefloatingInput">Name</label>
                           </div>
                         </div>
-  
+
                         <div class="col-lg-12">
                           <div class="form-floating">
                             <input
@@ -228,15 +243,18 @@ const passengerSubmit = async (e) => {
                               id="passwordfloatingInput1"
                               placeholder="nik"
                               value={passengers[i]?.passenger_phone}
-                              onChange={e => handlePassengersForm("passenger_phone", e.target.value, i)}
+                              onChange={(e) =>
+                                handlePassengersForm(
+                                  "passenger_phone",
+                                  e.target.value,
+                                  i
+                                )
+                              }
                             />
-                            <label for="passwordfloatingInput1">
-                              Nomor HP
-                            </label>
+                            <label for="passwordfloatingInput1">Nomor HP</label>
                           </div>
                         </div>
 
-   
                         <div class="col-lg-12">
                           <div class="form-floating">
                             <input
@@ -245,176 +263,122 @@ const passengerSubmit = async (e) => {
                               id="zipfloatingInput"
                               placeholder="Enter your zipcode"
                               value={passengers[i]?.nik}
-                              onChange={e => handlePassengersForm("nik", e.target.value, i)}
+                              onChange={(e) =>
+                                handlePassengersForm("nik", e.target.value, i)
+                              }
                             />
                             <label for="NIK">KTP</label>
                           </div>
                         </div>
 
-
-                        <div class="col-lg-12">
-                          {/* <div class="text-end">
-                            <button type="submit" class="btn btn-primary">
-                              Submit
-                            </button>
-                          </div> */}
-                        </div>
+                        <div class="col-lg-12"></div>
                       </div>
                     </form>
                   </div>
                 </div>
-            
               ))}
 
-            
-               {/* <div class="card mb-4" >
-                <h4 className="mb-4 mt-2 text-center">Contact Person Details</h4>
-                  <div class="card-body">
-                    <form id="form1" onSubmit={(e) => onSubmit(e)}>
-                      <div class="row g-3">
-                        <div class="col-lg-6">
-                          <div class="form-floating">
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="firstnamefloatingInput"
-                              placeholder="Enter your firstname"
-                              onChange={(e) => setFirstName(e.target.value)}
-                            />
-                            <label for="firstnamefloatingInput">
-                              First Name
-                            </label>
-                          </div>
-                        </div>
-                        <div class="col-lg-6">
-                          <div class="form-floating">
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="lastnamefloatingInput"
-                              placeholder="Enter your Lastname"
-                              onChange={(e) => setLastName(e.target.value)}
-                            />
-                            <label for="lastnamefloatingInput">Last Name</label>
-                          </div>
-                        </div>
+            <div class="card mb-3">
+              <h4 className="mt-2 text-center">Payment</h4>
+              <div className="">
+                <div class="container py-3">
+                  <div class="col-lg-12 mx-auto">
+                    <div class="bg-white rounded-lg">
+                      <img
+                        class="img-fluid"
+                        src="https://img.icons8.com/color/48/000000/visa.png"
+                        alt=""
+                      />
+                      <img
+                        class="img-fluid"
+                        src="https://img.icons8.com/color/48/000000/mastercard-logo.png"
+                        alt=""
+                      />
 
-                        <div class="col-lg-12">
-                          <div class="form-floating">
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="zipfloatingInput"
-                              placeholder="Nomor KTP"
-                              onChange={(e) => setNik(e.target.value)}
-                            />
-                            <label for="zipfloatingInput">Nomor KTP</label>
-                          </div>
-                        </div>
-
-                        <div class="col-lg-4">
-                          <div class="form-floating">
-                            <input
-                              type="date"
-                              class="form-control"
-                              id="emailfloatingInput"
-                              placeholder="Enter your email"
-                            />
-                            <label for="emailfloatingInput">
-                              Tanggal Lahir
-                            </label>
-                          </div>
-                        </div>
-                        <div class="col-lg-4">
-                          <div class="form-floating">
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="passwordfloatingInput1"
-                              placeholder="NOMOR HP"
-                              onChange={(e) => setNohp(e.target.value)}
-                            />
-                            <label for="passwordfloatingInput1">
-                              Nomor HP
-                            </label>
-                          </div>
-                        </div>
-                        <div class="col-lg-4">
-                          <div class="form-floating">
-                            <input
-                              type="number"
-                              class="form-control"
-                              id="passwordfloatingInput"
-                              placeholder="Jumlah Tiket"
-                              onChange={(e) => settotal_passenger(e.target.value)}
-                            />
-                            <label for="passwordfloatingInput">
-                              Total Pemesanan
-                            </label>
-                          </div>
-                        </div>
-                        
-                      </div>
-                    </form>
-                  </div>
-                </div>  */}
-
-              <div class="card mb-3" >
-                <h4 className="mt-2 text-center">Payment</h4>
-                  <div className="">
-                    <div class="container py-3">
-                      <div class="col-lg-12 mx-auto">
-                        <div class="bg-white rounded-lg">                         
-                        <img class="img-fluid" src="https://img.icons8.com/color/48/000000/visa.png" />
-                        <img class="img-fluid" src="https://img.icons8.com/color/48/000000/mastercard-logo.png" />
-                      
-                          
-                          <div class="tab-content">                           
-                            <div id="nav-tab-card" class="tab-pane fade show active">
-                              <form role="form">
+                      <div class="tab-content">
+                        <div
+                          id="nav-tab-card"
+                          class="tab-pane fade show active"
+                        >
+                          <form role="form">
+                            <div class="form-group">
+                              <label for="username">
+                                Full name (on the card)
+                              </label>
+                              <input
+                                type="text"
+                                name="username"
+                                placeholder="Your Name"
+                                required
+                                class="form-control"
+                              />
+                            </div>
+                            <div class="form-group">
+                              <label for="cardNumber">Card number</label>
+                              <div class="input-group">
+                                <input
+                                  type="text"
+                                  name="cardNumber"
+                                  placeholder="Your card number"
+                                  class="form-control"
+                                  required
+                                />
+                                <span class="input-group-text text-muted">
+                                  <i class="fa fa-cc-paypal mx-1"></i>
+                                  <i class="fa fa-cc-amex mx-1"></i>
+                                  <i class="fa fa-cc-mastercard mx-1"></i>
+                                </span>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-sm-8">
                                 <div class="form-group">
-                                  <label for="username">Full name (on the card)</label>
-                                  <input type="text" name="username" placeholder="Your Name" required class="form-control" />
-                                </div>
-                                <div class="form-group">
-                                  <label for="cardNumber">Card number</label>
+                                  <label>
+                                    <span class="hidden-xs">Expiration</span>
+                                  </label>
                                   <div class="input-group">
-                                    <input type="text" name="cardNumber" placeholder="Your card number" class="form-control" required />
-                                      <span class="input-group-text text-muted">
-                                          <i class="fa fa-cc-paypal mx-1"></i>
-                                          <i class="fa fa-cc-amex mx-1"></i>
-                                          <i class="fa fa-cc-mastercard mx-1"></i>
-                                      </span>
+                                    <input
+                                      type="number"
+                                      placeholder="MM"
+                                      name=""
+                                      class="form-control"
+                                      required
+                                    />
+                                    <input
+                                      type="number"
+                                      placeholder="YY"
+                                      name=""
+                                      class="form-control"
+                                      required
+                                    />
                                   </div>
                                 </div>
-                                <div class="row">
-                                  <div class="col-sm-8">
-                                    <div class="form-group">
-                                      <label><span class="hidden-xs">Expiration</span></label>
-                                      <div class="input-group">
-                                        <input type="number" placeholder="MM" name="" class="form-control" required />
-                                        <input type="number" placeholder="YY" name="" class="form-control" required />
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="col-sm-4">
-                                    <div class="form-group mb-4">
-                                      <label data-toggle="tooltip" title="Three-digits code on the back of your card">CVV
-                                          <i class="fa fa-question-circle"></i>
-                                      </label>
-                                      <input type="text" required class="form-control" />
-                                    </div>
-                                  </div>
+                              </div>
+                              <div class="col-sm-4">
+                                <div class="form-group mb-4">
+                                  <label
+                                    data-toggle="tooltip"
+                                    title="Three-digits code on the back of your card"
+                                  >
+                                    CVV
+                                    <i class="fa fa-question-circle"></i>
+                                  </label>
+                                  <input
+                                    type="text"
+                                    required
+                                    class="form-control"
+                                  />
                                 </div>
-                              </form>
-                            </div>                               
-                          </div>                    
+                              </div>
+                            </div>
+                          </form>
                         </div>
                       </div>
-                    
                     </div>
-                  </div>               
-                </div>                            
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div class="col-lg-4">
@@ -451,11 +415,17 @@ const passengerSubmit = async (e) => {
 
                 <div className="d-flex">
                   <h5>Total Payment</h5>
-                  <div className="ms-auto">{rupiah(detailproduct?.price * total_passenger)} </div>
+                  <div className="ms-auto">
+                    {rupiah(detailproduct?.price * total_passenger)}{" "}
+                  </div>
                 </div>
                 <hr className="mt-2" />
                 <div class="text-end" className="mb-2 mt-2 text-center">
-                  <button type="submit" class="btn btn-primary" form="passengerForm">
+                  <button
+                    type="submit"
+                    class="btn btn-primary"
+                    form="passengerForm"
+                  >
                     Booking
                   </button>
                 </div>
@@ -481,6 +451,7 @@ const passengerSubmit = async (e) => {
           </div>
         </div>
       </div>
+      <Footer />
     </React.Fragment>
   );
 }
