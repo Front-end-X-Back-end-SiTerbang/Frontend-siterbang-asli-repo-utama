@@ -200,6 +200,12 @@
   cursor: pointer;
 }
 
+.tickets {
+  background-color: rgb(240, 237, 237);
+  padding: 25px;
+  font-size: 13px;
+}
+
 /* handle responsive one width tablet */
 @media (min-width: 768px) and (max-width: 991.98px) {
   .bearer {
