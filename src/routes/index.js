@@ -24,7 +24,7 @@ import BookingProduct from "../component/BookingProduct";
 import MyBooking from "../pages/MyBooking";
 import Profile from "../pages/Profile";
 import Protected from "../component/security/Protected";
-import DetailTicket from "../pages/DetailTicket";
+// import DetailTicket from "../pages/DetailTicket";
 
 function PrivateRoute({ children }) {
   const token = localStorage.getItem("token");
@@ -123,14 +123,14 @@ export default function router() {
           }
         />
 
-        <Route
+        {/* <Route
           path="/detailpesanan/:id"
           element={
             <Protected>
               <DetailTicket />
             </Protected>
           }
-        />
+        /> */}
 
         <Route path="/createmaskapai" element={<CreateMaskapai />} />
         <Route path="/editmaskapai/:id" element={<EditMaskapai />} />
