@@ -8,10 +8,12 @@ import { Table } from "antd";
 import "../assets/css/home.css";
 import { useParams } from "react-router-dom";
 import { getDetailTicket } from "../redux/actions/transaksiActions";
+import axios from "axios";
 
 function DetailTicketPesanan() {
   const dispatch = useDispatch();
-  //   const [data, setDatas] = useState({});
+  const [data, setDatas] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [pagination, setPagination] = useState({
     current: 1,
     pageSize: 10,
@@ -23,14 +25,28 @@ function DetailTicketPesanan() {
     return state.detailPesanan.data;
   });
 
-  console.log(detailPesanan);
+  useEffect(() => {
+    async function fetchData() {
+      const token = localStorage.getItem("token");
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_URL}/transactions/${id}`,
+        {
+          headers: {
+            Authorization: `${token}`,
+          },
+        }
+      );
+      setDatas(response.data.data);
+      setLoading(false);
+    }
+    fetchData();
+  }, []);
 
   useEffect(() => {
     dispatch(getDetailTicket(id));
   }, [dispatch, id]);
 
   // handle table
-
   function convertNumberToTime(number) {
     // Tentukan apakah nilai angka merupakan jam, menit, atau detik
     const hours = Math.floor(number);
@@ -46,6 +62,10 @@ function DetailTicketPesanan() {
     }
 
     return time;
+  }
+
+  if (loading) {
+    return <p>Loading...</p>;
   }
 
   return (
@@ -72,25 +92,26 @@ function DetailTicketPesanan() {
                 <div className="container">
                   <div className="card-body bg-pesanan">
                     <div className="text-center">
-                      {detailPesanan.product.type}
+                      <h4>{data.product.type}</h4>
                       <hr />
                     </div>
 
                     <div className="row ms-5">
                       <div className="col-lg-3 col-sm-6 col-xs-12 ">
-                        <h4>{detailPesanan.product.terminal}</h4>
+                        {/* <h4>{detailPesanan.product.terminal}</h4> */}
                       </div>
                       <div className="col-lg-3 col-sm-6 col-xs-12 ">
-                        <h4>{detailPesanan.product.code}</h4>
+                        {/* <h4>{detailPesanan.product.code}</h4> */}
                       </div>
                       <div className="col-lg-3 col-sm-6 col-xs-12 ">
-                        <h4>{detailPesanan.total_passenger}</h4>
+                        {/* <h4>{detailPesanan.total_passenger}</h4> */}
                       </div>
                       <div className="col-lg-3 col-sm-6 col-xs-12 ">
                         <h4>
-                          {convertNumberToTime(
-                            detailPesanan.product.estimation
-                          )}
+                          {
+                            convertNumberToTime()
+                            // detailPesanan.product.estimation
+                          }
                         </h4>
                       </div>
                     </div>
