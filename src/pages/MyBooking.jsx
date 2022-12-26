@@ -18,9 +18,6 @@ export default function MyBooking() {
   // const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(1);
-  const myBooking = useSelector((state) => {
-    return state.myBooking;
-  });
 
   useEffect(() => {
     const fetchItems = async () => {
