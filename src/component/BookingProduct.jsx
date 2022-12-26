@@ -33,6 +33,8 @@ function DetailProduct() {
     return state.detailByProduct.data;
   });
 
+  console.log(detailproduct);
+
   const onSubmit = async (e) => {
     e.preventDefault();
     if (total_passenger === "") {
@@ -111,6 +113,23 @@ function DetailProduct() {
       currency: "IDR",
     }).format(number);
   };
+
+  function convertNumberToTime(number) {
+    // Tentukan apakah nilai angka merupakan jam, menit, atau detik
+    const hours = Math.floor(number);
+    const minutes = Math.round((number - hours) * 60);
+
+    // Format jam menjadi HH jam MM menit
+    let time = "";
+    if (hours > 0) {
+      time += `${hours} jam `;
+    }
+    if (minutes > 0) {
+      time += `${minutes} menit`;
+    }
+
+    return time;
+  }
 
   return (
     <React.Fragment>
@@ -327,24 +346,24 @@ function DetailProduct() {
                     className="img-fluid"
                     width="200"
                   />
-                  {/* <h5>
-                    {detailproduct?.origin.city} <span>===========</span>
-                    {detailproduct?.destination.city}
-                  </h5> */}
+                  <h5>
+                    {detailproduct.origin.city} <span>🛫</span>
+                    {detailproduct.destination.city}
+                  </h5>
                 </div>
                 <div className="row">
                   <div className="col-lg-6 col-sm-6 col-xs 12 d-flex">
                     <h6 className="font-monospace mt-3 ms-auto">
-                      {detailproduct?.flight_date}
+                      {detailproduct.flight_date}
                     </h6>
                   </div>
                   <div className="col-lg-6 col-sm-6 col-xs 12 d-flex">
                     <h6 className="font-monospace mt-3">
-                      {detailproduct?.depature_hours}
+                      {convertNumberToTime(detailproduct.estimation)}
                     </h6>
                   </div>
                   <div className="text-center mt-3">
-                    <h5>{detailproduct?.type}</h5>
+                    <h5>{detailproduct.type}</h5>
                   </div>
                   <hr className="mt-5" />
                 </div>
@@ -352,7 +371,7 @@ function DetailProduct() {
                 <div className="d-flex">
                   <h5>Total Payment</h5>
                   <div className="ms-auto">
-                    {rupiah(detailproduct?.price * total_passenger)}{" "}
+                    {rupiah(detailproduct.price * total_passenger)}
                   </div>
                 </div>
                 <hr className="mt-2" />

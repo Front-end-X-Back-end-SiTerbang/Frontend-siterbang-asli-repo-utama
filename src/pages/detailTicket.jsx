@@ -21,10 +21,6 @@ function DetailTicketPesanan() {
 
   const { id } = useParams();
 
-  const detailPesanan = useSelector((state) => {
-    return state.detailPesanan.data;
-  });
-
   useEffect(() => {
     async function fetchData() {
       const token = localStorage.getItem("token");
