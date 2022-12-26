@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "../assets/css/mybooking.css";
 import airplane from "../assets/img/airplane.svg";
-import { useDispatch, useSelector } from "react-redux";
-// import { getDetailUser } from "../redux/actions/user";
-import { useNavigate, Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import Navbar from "../component/Navbar2";
-// import Footer from "../components/Footer";
 import { getMyBooking } from "../redux/actions/transaksiActions";
 import axios from "axios";
 import { Pagination } from "react-bootstrap";
@@ -59,7 +57,6 @@ export default function MyBooking() {
   return (
     <>
       <Navbar />
-
       <div class="container mt-5 mb-5">
         <h5>MY BOOKING</h5>
         <div class="d-flex justify-content-center row">
@@ -83,16 +80,25 @@ export default function MyBooking() {
                       <h5>({item.product.destination.iata_code})</h5>
                     </div>
                     <div class="d-flex flex-row">
-                      <img src="https://img.icons8.com/color/48/null/airport-building.png" />
+                      <img
+                        src="https://img.icons8.com/color/48/null/airport-building.png"
+                        alt=""
+                      />
                       <p class="mt-3">{item.product.origin.name}</p>
                     </div>
                     <div class="d-flex flex-row">
-                      <img src="https://img.icons8.com/fluency/48/null/airport-building.png" />
+                      <img
+                        src="https://img.icons8.com/color/48/null/airport-building.png"
+                        alt=""
+                      />
                       <p class="mt-3">{item.product.destination.name}</p>
                     </div>
 
                     <div class="d-flex flex-row">
-                      <img src="https://img.icons8.com/color/48/null/airplane-take-off--v1.png" />
+                      <img
+                        src="https://img.icons8.com/color/48/null/airplane-take-off--v1.png"
+                        alt=""
+                      />
                       <p class="mt-2"> {item.product.airline.name}</p>
                     </div>
 

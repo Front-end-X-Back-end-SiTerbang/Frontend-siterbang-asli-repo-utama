@@ -24,7 +24,8 @@ import BookingProduct from "../component/BookingProduct";
 import MyBooking from "../pages/MyBooking";
 import Profile from "../pages/Profile";
 import Protected from "../component/security/Protected";
-// import DetailTicket from "../pages/DetailTicket";
+import DetailTicket from "../pages/DetailTicket";
+import { Button, Result } from "antd";
 
 function PrivateRoute({ children }) {
   const token = localStorage.getItem("token");
@@ -123,18 +124,32 @@ export default function router() {
           }
         />
 
-        {/* <Route
-          path="/detailpesanan/:id"
+        <Route path="/detailpesanan/:id" element={<DetailTicket />} />
+
+        <Route
+          path="/createmaskapai"
           element={
             <Protected>
-              <DetailTicket />
+              <CreateMaskapai />
             </Protected>
           }
-        /> */}
-
-        <Route path="/createmaskapai" element={<CreateMaskapai />} />
-        <Route path="/editmaskapai/:id" element={<EditMaskapai />} />
-        <Route path="/createairplanes" element={<CreateAirplanes />} />
+        />
+        <Route
+          path="/editmaskapai/:id"
+          element={
+            <Protected>
+              <EditMaskapai />
+            </Protected>
+          }
+        />
+        <Route
+          path="/createairplanes"
+          element={
+            <Protected>
+              <CreateAirplanes />
+            </Protected>
+          }
+        />
         <Route path="/editairplanes/:id" element={<EditAirplanes />} />
         <Route
           path="/airport"
@@ -144,7 +159,14 @@ export default function router() {
             </Protected>
           }
         />
-        <Route path="/createairport" element={<CreateAirports />} />
+        <Route
+          path="/createairport"
+          element={
+            <Protected>
+              <CreateAirports />
+            </Protected>
+          }
+        />
         <Route path="/editairport/:iata_code" element={<EditAirports />} />
         <Route path="/profile" element={<Profile />} />
 
@@ -158,6 +180,17 @@ export default function router() {
             }
           />
         </Route>
+        <Route
+          path="/*"
+          element={
+            <Result
+              status="404"
+              title="404"
+              subTitle="Sorry, the page you visited does not exist."
+              extra={<Button type="primary">Back Home</Button>}
+            />
+          }
+        />
       </Routes>
       <ToastContainer
         closeOnClick
