@@ -1,39 +1,78 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../component/Navbar2";
 import Footer from "../component/Footer";
 import Logo from "../assets/img-plane/Dayss.png";
 import Logo1 from "../assets/img-plane/Day1.png";
-
-import "../assets/css/home.css";
+import { useDispatch, useSelector } from "react-redux";
 import { Table } from "antd";
+import "../assets/css/home.css";
+import { useParams } from "react-router-dom";
+import { getDetailTicket } from "../redux/actions/transaksiActions";
 
-function detailTicket() {
+function DetailTicket() {
+  const dispatch = useDispatch();
+  const [data, setDatas] = useState({});
+  const [pagination, setPagination] = useState({
+    current: 1,
+    pageSize: 10,
+  });
+
+  const { id } = useParams();
+
+  const detailPesanan = useSelector((state) => {
+    return state.detailPesanan.data;
+  });
+
+  useEffect(() => {
+    dispatch(getDetailTicket(id));
+  }, [dispatch, id]);
+
   // handle table
-  const columns = [
+  const colums = [
     {
       key: "1",
-      name: "John Brown",
-      age: 32,
-      address: "New York No. 1 Lake Park",
+      title: "no",
+      render: (text, record, index) => {
+        return index + (pagination.current - 1) * pagination.pageSize + 1;
+      },
+    },
+    {
+      key: "2",
+      title: "NIK",
+      dataIndex: "nik",
+    },
+    {
+      key: "3",
+      title: "Nama Penumpang",
+      dataIndex: "passenger_name",
+    },
+    {
+      key: "4",
+      title: "Nomor Handphone",
+      dataIndex: "passenger_phone",
     },
   ];
 
-  const data = [
-    {
-      title: "Name",
-      dataIndex: "name",
-      filters: [
-        {
-          text: "Joe",
-          value: "Joe",
-        },
-      ],
-    },
-  ];
+  function convertNumberToTime(number) {
+    // Tentukan apakah nilai angka merupakan jam, menit, atau detik
+    const hours = Math.floor(number);
+    const minutes = Math.round((number - hours) * 60);
+
+    // Format jam menjadi HH jam MM menit
+    let time = "";
+    if (hours > 0) {
+      time += `${hours} jam `;
+    }
+    if (minutes > 0) {
+      time += `${minutes} menit`;
+    }
+
+    return time;
+  }
+
   return (
     <React.Fragment>
       <Navbar />
-
       {/* handle detail pemesanan ticket */}
       <div className="container-fluid bg-light mt-5">
         <div className="container mt-2">
@@ -55,22 +94,26 @@ function detailTicket() {
                 <div className="container">
                   <div className="card-body bg-pesanan">
                     <div className="text-center">
-                      <h4>GARUDA | EDYCYC6</h4>
+                      {detailPesanan.product.type}
                       <hr />
                     </div>
 
                     <div className="row ms-5">
                       <div className="col-lg-3 col-sm-6 col-xs-12 ">
-                        <h4>KODE BOOKING</h4>
+                        <h4>{detailPesanan.product.terminal}</h4>
                       </div>
                       <div className="col-lg-3 col-sm-6 col-xs-12 ">
-                        <h4>KODE BOOKING</h4>
+                        <h4>{detailPesanan.product.code}</h4>
                       </div>
                       <div className="col-lg-3 col-sm-6 col-xs-12 ">
-                        <h4>KODE BOOKING</h4>
+                        <h4>{detailPesanan.total_passenger}</h4>
                       </div>
                       <div className="col-lg-3 col-sm-6 col-xs-12 ">
-                        <h4>KODE BOOKING</h4>
+                        <h4>
+                          {convertNumberToTime(
+                            detailPesanan.product.estimation
+                          )}
+                        </h4>
                       </div>
                     </div>
                   </div>
@@ -86,7 +129,15 @@ function detailTicket() {
             </div>
             <div className="mt-5 ms-5 mb-5">
               <h4>Detail Penumpang</h4>
-              <Table columns={data} dataSource={columns} />
+              <Table
+                pagination={{
+                  current: pagination.current,
+                  pageSize: pagination.pageSize,
+                  onChange: (page) =>
+                    setPagination({ ...pagination, current: page }),
+                }}
+                columns={colums}
+              />
             </div>
           </div>
         </div>
@@ -96,4 +147,4 @@ function detailTicket() {
   );
 }
 
-export default detailTicket;
+export default DetailTicket;

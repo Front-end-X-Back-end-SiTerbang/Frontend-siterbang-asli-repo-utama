@@ -11,12 +11,12 @@ import Swal from "sweetalert2";
 import Footer from "./Footer";
 
 <head>
-  {" "}
   <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-  ></link>{" "}
+  ></link>
 </head>;
+
 function DetailProduct() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -25,12 +25,9 @@ function DetailProduct() {
   const { id } = useParams();
 
   //form Contact Person Details
-  const [nik, setNik] = useState("");
-  const [passenger_phone, setNohp] = useState("");
   const [total_passenger, settotal_passenger] = useState(1);
   const [passengers, setPassengers] = useState([]);
   const product_id = id;
-  const [passenger_name, setpassenger_name] = useState("");
 
   const detailproduct = useSelector((state) => {
     return state.detailByProduct.data;
@@ -43,70 +40,9 @@ function DetailProduct() {
       return;
     }
     if (total_passenger !== "") {
-      // const body = {
-      //   id,
-      //   total_passenger,
-      // };
-      // const createTransaksiStatus = await createTransaksi(body, setError);
-      // if (createTransaksiStatus) {
-      //   toast.success("Success");
-      // }
       setTotalPassagerForm(Number(total_passenger));
     }
   };
-
-  // const onSubmit = async (e) => {
-  //   e.preventDefault();
-  //   if (firstName === "") {
-  //     toast.error("First Name Pesawat is required");
-  //     return;
-  //   }
-  //   if (lastName === "") {
-  //     toast.error("Last Name Pesawat is required");
-  //     return;
-  //   }
-  //   if (nik === "") {
-  //     toast.error("nik is required");
-  //     return;
-  //   }
-  //   if (passenger_phone === "") {
-  //     toast.error("Nomor HP is required");
-  //     return;
-  //   }
-  //   if (total_passenger === "") {
-  //     toast.error("Nama maskapai is required");
-  //     return;
-  //   }
-  //   if (firstName !== "" && lastName !== "") {
-  //     const passenger_name = firstName + " " + lastName
-  //     const body = {
-  //       product_id,
-  //       passenger_name,
-  //       nik,
-  //       passenger_phone,
-  //       total_passenger,
-  //     };
-  //     console.log(body)
-  //     const createTransaksiStatus = await createTransaksi(body, setError);
-
-  //     Swal.fire({
-  //       title: "Anda Yakin Memboking Tiket?",
-  //       icon: "Peringatan",
-  //       showCancelButton: true,
-  //       showLoaderOnConfirm: true,
-  //       confirmButtonText: "OK",
-  //     }).then((result) => {
-  //       if (result.isConfirmed) {
-  //             Swal.fire({
-  //               icon: "success",
-  //       }, createTransaksiStatus);
-
-  //       return navigate("/mybooking");
-  //       }
-  //     });
-
-  //   }
-  // };
 
   const passengerSubmit = async (e) => {
     e.preventDefault();

@@ -7,178 +7,87 @@ import { useNavigate, Link } from "react-router-dom";
 import Navbar from "../component/Navbar2";
 // import Footer from "../components/Footer";
 import { getMyBooking } from "../redux/actions/transaksiActions";
-// import { payTicket, deleteTicket } from "../redux/actions/transaction";
-import Swal from "sweetalert2";
 
 export default function MyBooking() {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-    // const detailUser = useSelector((state) => {
-    //     return state.detailUser;
-    // });
+  const myBooking = useSelector((state) => {
+    return state.myBooking;
+  });
 
-    const myBooking = useSelector((state) => {
-        return state.myBooking;
-    });
+  useEffect(() => {
+    dispatch(getMyBooking(navigate));
+  }, [dispatch, navigate]);
 
-    useEffect(() => {
-        dispatch(getMyBooking(navigate));
-    }, [dispatch, navigate]);
+  return (
+    <>
+      <Navbar />
 
-    // const processTicket = (id) => {
-    //     payTicket(id)
-    //         .then((result) => {
-    //             Swal.fire({
-    //                 title: "Success",
-    //                 text: "ticket has been pay",
-    //                 icon: "success",
-    //             });
-    //             dispatch(getMyBooking(navigate));
-    //         })
-    //         .catch((err) => {
-    //             alert(err);
-    //         });
-    // };
-    // const cancelTicket = (id) => {
-    //     Swal.fire({
-    //         title: "Are you sure to cancel this ticket?",
-    //         icon: "warning",
-    //         showCancelButton: true,
-    //         confirmButtonText: "Yes",
-    //     }).then((result) => {
-    //         if (result.isConfirmed) {
-    //             deleteTicket(id, localStorage.getItem("id"))
-    //                 .then((response) => {
-    //                     Swal.fire({
-    //                         title: "Ticket successfully canceled",
-    //                         icon: "success",
-    //                     });
-    //                     dispatch(getMyBooking(navigate));
-    //                 })
-    //                 .catch((err) => {
-    //                     Swal.fire({
-    //                         title: "Cancel ticket failed",
-    //                         icon: "error",
-    //                     });
-    //                 });
-    //         }
-    //     });
-    // };
-
-    // const logout = () => {
-    //     localStorage.clear();
-    //     navigate("/login");
-    // };
-    return (
-        <>
-         <Navbar />
-            {/* <div className="container-fluid hanifMyBooking ml-0 mr-0">
-                <section className="d-flex w-100">
-                    <div className="col-sm-12 col-md-12 col-lg-8 col-12 main-content d-flex flex-column">
-                        <div className="card">
-                            <h3>MY BOOKING</h3>
-                            <div className="header-booking d-flex">
-                                <label className="my-booking">My Booking</label>
-                                <label className="order-history">Order History</label>
-                            </div>
-                        </div>
-                            
-                            {myBooking.data.map((item, index) => {
-                                return (
-                                    <div key={index} className="card">
-                                        <div className="content d-flex flex-column">
-                                            <p className="date-departure">{item.createdAt}</p>
-                                            <div className="destination d-flex flex-row">
-                                                <h5>{item.origin}</h5>
-                                                <img src={airplane} alt="" />
-                                                <h5>{item.destination}</h5>
-                                            </div>
-                                            <p className="code-airplane">
-                                                {item.name} {item.seat}
-                                            </p>
-                                        </div>
-                                        <div className="status">
-                                            <label className="label-status">Status</label>
-                                            {item.is_paid && (
-                                                <>
-                                                    <button className="ticket-iussue">
-                                                        Eticket issued
-                                                    </button>
-                                                </>
-                                            )}
-
-                                            <Link to={`/detail/${item.id}`}>
-                                            <div className="label-viewDetail">
-                                                <label>View Details</label>
-                                            </div>
-                                            </Link>
-
-                                        </div>
-                                    </div>
-                                );
-                            })
-                        }
-                    </div>
-                </section>
-            </div> */}
-
-
-
-
-<div class="container mt-5 mb-5">
-    <h5>MY BOOKING</h5>
-    <div class="d-flex justify-content-center row">
-
-        {myBooking.data.map((item, index) => {
-            return (          
-                <div class="col-md-10" key={index}>
+      <div class="container mt-5 mb-5">
+        <h5>MY BOOKING</h5>
+        <div class="d-flex justify-content-center row">
+          {myBooking.data.map((item, index) => {
+            return (
+              <div class="col-md-10" key={index}>
                 <div class="row p-2 bg-white border rounded mt-2">
-                    <div class="col-md-3 mt-1">
-                        <img class="img-fluid img-responsive rounded product-image" src="https://hangnadim.bpbatam.go.id/wp-content/uploads/2021/05/Garuda-Indonesia-1.png"/>
-                        </div>
-                    <div class="col-md-6 mt-1 ">
-                        <div class= "d-flex flex-row"> 
-                            <h5>{item.product.origin.city}</h5> <h5>({item.product.origin.iata_code})</h5>
-                                <img src={airplane} alt="" class="mx-3" />
-                            <h5>{item.product.destination.city}</h5> <h5>({item.product.destination.iata_code})</h5>
-                        </div>
-                        <div class="d-flex flex-row">
-                        <img src="https://img.icons8.com/color/48/null/airport-building.png"/>
-                            <p class="mt-3">{item.product.origin.name}</p>
-                        </div>
-                        <div class="d-flex flex-row">
-                        <img src="https://img.icons8.com/fluency/48/null/airport-building.png"/>
-                            <p class="mt-3">{item.product.destination.name}</p>
-                        </div>
-
-                        <div class="d-flex flex-row">
-                        <img src="https://img.icons8.com/color/48/null/airplane-take-off--v1.png"/>
-                            <p class="mt-2"> {item.product.airline.name}</p>                          
-                            
-                        </div>
-
-                        <div class="mt-1 mb-1 spec-1"> 
-                            
-                        </div>
+                  <div class="col-md-3 mt-1">
+                    <img
+                      class="img-fluid img-responsive rounded product-image"
+                      src="https://hangnadim.bpbatam.go.id/wp-content/uploads/2021/05/Garuda-Indonesia-1.png"
+                    />
+                  </div>
+                  <div class="col-md-6 mt-1 ">
+                    <div class="d-flex flex-row">
+                      <h5>{item.product.origin.city}</h5>{" "}
+                      <h5>({item.product.origin.iata_code})</h5>
+                      <img src={airplane} alt="" class="mx-3" />
+                      <h5>{item.product.destination.city}</h5>{" "}
+                      <h5>({item.product.destination.iata_code})</h5>
                     </div>
-                    <div class="align-items-center align-content-center col-md-3 border-left mt-1">
-                        <div class="d-flex flex-row align-items-center">
-                            <h4 class="mr-1">Rp.{item.total_order}</h4>
-                        </div>
-                        <h6 class="text-success">{item.product.type}</h6>
-                        <p class="mt-2">{item.product.flight_date}</p>
-                        <div class="d-flex flex-column mt-4"><button class="btn btn-primary btn-sm" type="button">LUNAS</button>
-                        <button class="btn btn-outline-primary btn-sm mt-2" type="button">Detail Ticket</button></div>
+                    <div class="d-flex flex-row">
+                      <img src="https://img.icons8.com/color/48/null/airport-building.png" />
+                      <p class="mt-3">{item.product.origin.name}</p>
                     </div>
+                    <div class="d-flex flex-row">
+                      <img src="https://img.icons8.com/fluency/48/null/airport-building.png" />
+                      <p class="mt-3">{item.product.destination.name}</p>
+                    </div>
+
+                    <div class="d-flex flex-row">
+                      <img src="https://img.icons8.com/color/48/null/airplane-take-off--v1.png" />
+                      <p class="mt-2"> {item.product.airline.name}</p>
+                    </div>
+
+                    <div class="mt-1 mb-1 spec-1"></div>
+                  </div>
+                  <div class="align-items-center align-content-center col-md-3 border-left mt-1">
+                    <div class="d-flex flex-row align-items-center">
+                      <h4 class="mr-1">Rp.{item.total_order}</h4>
+                    </div>
+                    <h6 class="text-success">{item.product.type}</h6>
+                    <p class="mt-2">{item.product.flight_date}</p>
+                    <div class="d-flex flex-column mt-4">
+                      <button class="btn btn-primary btn-sm" type="button">
+                        LUNAS
+                      </button>
+                      <button
+                        class="btn btn-outline-primary btn-sm mt-2"
+                        type="button"
+                        onClick={() => {
+                          navigate(`/detailpesanan/${item.id}`);
+                        }}
+                      >
+                        Detail Ticket
+                      </button>
+                    </div>
+                  </div>
                 </div>
-            </div>
+              </div>
             );
-        })
-        }
+          })}
 
-
-        {/* <div class="col-md-10">
+          {/* <div class="col-md-10">
             <div class="row p-2 bg-white border rounded mt-2">
                 <div class="col-md-3 mt-1">
                     <img class="img-fluid img-responsive rounded product-image" src="https://hangnadim.bpbatam.go.id/wp-content/uploads/2021/05/Garuda-Indonesia-1.png"/>
@@ -201,10 +110,8 @@ export default function MyBooking() {
                 </div>
             </div>
         </div> */}
-
-    </div>
-</div>
-
-</>
-    );
+        </div>
+      </div>
+    </>
+  );
 }
