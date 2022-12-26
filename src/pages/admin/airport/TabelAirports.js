@@ -1,5 +1,5 @@
 import { Space, Table } from "antd";
-import React from "react";
+import React, { useState } from "react";
 import { useEffect } from "react";
 import { Container } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,6 +13,10 @@ import {
 function TabelAirports() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [pagination, setPagination] = useState({
+    current: 1,
+    pageSize: 10,
+  });
   const Airports = useSelector((state) => {
     return state.listAirports.data;
   });
@@ -51,26 +55,33 @@ function TabelAirports() {
   const columns = [
     {
       key: "1",
+      titile: "no",
+      render: (text, record, index) => {
+        return index + (pagination.current - 1) * pagination.pageSize + 1;
+      },
+    },
+    {
+      key: "2",
       title: "IATA",
       dataIndex: "iata_code",
     },
     {
-      key: "2",
+      key: "3",
       title: "Nama Bandara",
       dataIndex: "name",
     },
     {
-      key: "3",
+      key: "4",
       title: "Kota",
       dataIndex: "city",
     },
     {
-      key: "4",
+      key: "5",
       title: "Negara",
       dataIndex: "country",
     },
     {
-      key: "5",
+      key: "6",
       title: "Action",
       render: (item, index) => (
         <Space size="middle">
@@ -144,7 +155,16 @@ function TabelAirports() {
                   </div>
                 </div>
               </div>
-              <Table columns={columns} dataSource={Airports}></Table>
+              <Table
+                pagination={{
+                  current: pagination.current,
+                  pageSize: pagination.pageSize,
+                  onChange: (page) =>
+                    setPagination({ ...pagination, current: page }),
+                }}
+                columns={columns}
+                dataSource={Airports}
+              />
             </div>
           </div>
         </div>
