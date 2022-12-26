@@ -28,7 +28,6 @@ export const getMyBooking = (navigate) => async (dispatch) => {
         },
       }
     );
-    console.log(res);
 
     dispatch({
       type: GET_MYBOOKING_SUCCESS,
