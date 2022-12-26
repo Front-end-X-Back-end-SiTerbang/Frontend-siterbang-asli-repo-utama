@@ -98,7 +98,7 @@ function DetailTicketPesanan() {
                   <div className="ms-5 mt-3">
                     <strong>*Note</strong>
                     <ul>
-                      <li>ahhah</li>
+                      <li>PENUMPANG SATU</li>
                       <li>ahhah</li>
                     </ul>
                   </div>
