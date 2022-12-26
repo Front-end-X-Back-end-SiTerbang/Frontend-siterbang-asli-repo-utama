@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "../assets/css/mybooking.css";
 import airplane from "../assets/img/airplane.svg";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,14 +7,50 @@ import { useNavigate, Link } from "react-router-dom";
 import Navbar from "../component/Navbar2";
 // import Footer from "../components/Footer";
 import { getMyBooking } from "../redux/actions/transaksiActions";
+import axios from "axios";
+import { Pagination } from "react-bootstrap";
+import Footer from "../component/Footer";
 
 export default function MyBooking() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [items, setItems] = useState([]);
+  // const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(1);
 
-  const myBooking = useSelector((state) => {
-    return state.myBooking;
-  });
+  useEffect(() => {
+    const fetchItems = async () => {
+      const token = localStorage.getItem("token");
+
+      const res = await axios.get(
+        `${process.env.REACT_APP_API_URL}/my-transactions`,
+        {
+          headers: {
+            Authorization: `${token}`,
+          },
+        }
+      );
+      setItems(res.data.data);
+    };
+
+    fetchItems();
+  }, []);
+
+  // Logic for displaying current items
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = items.slice(indexOfFirstItem, indexOfLastItem);
+
+  // Logic for displaying page numbers
+  const pageNumbers = [];
+  for (let i = 1; i <= Math.ceil(items.length / itemsPerPage); i++) {
+    pageNumbers.push(i);
+  }
+
+  function handlePageChange(event) {
+    setCurrentPage(Number(event.target.text));
+  }
 
   useEffect(() => {
     dispatch(getMyBooking(navigate));
@@ -27,7 +63,7 @@ export default function MyBooking() {
       <div class="container mt-5 mb-5">
         <h5>MY BOOKING</h5>
         <div class="d-flex justify-content-center row">
-          {myBooking.data.map((item, index) => {
+          {currentItems.map((item, index) => {
             return (
               <div class="col-md-10" key={index}>
                 <div class="row p-2 bg-white border rounded mt-2">
@@ -35,6 +71,7 @@ export default function MyBooking() {
                     <img
                       class="img-fluid img-responsive rounded product-image"
                       src="https://hangnadim.bpbatam.go.id/wp-content/uploads/2021/05/Garuda-Indonesia-1.png"
+                      alt=""
                     />
                   </div>
                   <div class="col-md-6 mt-1 ">
@@ -86,32 +123,39 @@ export default function MyBooking() {
               </div>
             );
           })}
-
-          {/* <div class="col-md-10">
-            <div class="row p-2 bg-white border rounded mt-2">
-                <div class="col-md-3 mt-1">
-                    <img class="img-fluid img-responsive rounded product-image" src="https://hangnadim.bpbatam.go.id/wp-content/uploads/2021/05/Garuda-Indonesia-1.png"/>
-                    </div>
-                <div class="col-md-6 mt-1">
-                    <h5>Quant olap shirts</h5>
-                    <div class="d-flex flex-row">
-                        <div class="ratings mr-2"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div><span>310</span>
-                    </div>
-                    <div class="mt-1 mb-1 spec-1"> <span>100% cotton</span> </div>
-                    <div class="mt-1 mb-1 spec-1"><span class="dot"></span> <span>For men</span><span class="dot"></span><span>Casual</span></div>
-                    <p class="text-justify text-truncate para mb-0">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</p>
-                </div>
-                <div class="align-items-center align-content-center col-md-3 border-left mt-1">
-                    <div class="d-flex flex-row align-items-center">
-                        <h4 class="mr-1">$13.99</h4><span class="strike-text">$20.99</span>
-                    </div>
-                    <h6 class="text-success">Free shipping</h6>
-                    <div class="d-flex flex-column mt-4"><button class="btn btn-primary btn-sm" type="button">Details</button><button class="btn btn-outline-primary btn-sm mt-2" type="button">Add to wishlist</button></div>
-                </div>
-            </div>
-        </div> */}
+        </div>
+        <div className="container mt-5">
+          <div className="d-flex justify-content-center">
+            <Pagination>
+              <Pagination.Prev
+                onClick={() => setCurrentPage(currentPage - 1)}
+              />
+              <Pagination.Item
+                active={currentPage === 1}
+                onClick={handlePageChange}
+              >
+                1
+              </Pagination.Item>
+              <Pagination.Item
+                active={currentPage === 2}
+                onClick={handlePageChange}
+              >
+                2
+              </Pagination.Item>
+              <Pagination.Item
+                active={currentPage === 3}
+                onClick={handlePageChange}
+              >
+                3
+              </Pagination.Item>
+              <Pagination.Next
+                onClick={() => setCurrentPage(currentPage + 1)}
+              />
+            </Pagination>
+          </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 }
