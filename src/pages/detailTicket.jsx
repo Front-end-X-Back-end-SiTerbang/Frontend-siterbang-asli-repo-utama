@@ -23,6 +23,8 @@ function DetailTicketPesanan() {
     return state.detailPesanan.data;
   });
 
+  console.log(detailPesanan);
+
   useEffect(() => {
     dispatch(getDetailTicket(id));
   }, [dispatch, id]);
