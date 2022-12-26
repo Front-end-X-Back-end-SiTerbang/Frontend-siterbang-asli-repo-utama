@@ -24,7 +24,7 @@ import BookingProduct from "../component/BookingProduct";
 import MyBooking from "../pages/MyBooking";
 import Profile from "../pages/Profile";
 import Protected from "../component/security/Protected";
-import DetailTicket from "../pages/DetailTicket";
+import DetailTicket from "../pages/detailTicket";
 import { Button, Result } from "antd";
 
 function PrivateRoute({ children }) {
