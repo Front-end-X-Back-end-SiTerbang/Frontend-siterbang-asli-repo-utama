@@ -4,7 +4,7 @@ import Footer from "../component/Footer";
 import Logo from "../assets/img-plane/Dayss.png";
 import Logo1 from "../assets/img-plane/Day1.png";
 import { useDispatch, useSelector } from "react-redux";
-import { Table } from "antd";
+
 import "../assets/css/home.css";
 import { useParams } from "react-router-dom";
 import { getDetailTicket } from "../redux/actions/transaksiActions";
@@ -14,12 +14,14 @@ function DetailTicketPesanan() {
   const dispatch = useDispatch();
   const [data, setDatas] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [pagination, setPagination] = useState({
-    current: 1,
-    pageSize: 10,
-  });
 
   const { id } = useParams();
+
+  const detailPesanan = useSelector((state) => {
+    return state.detailPesanan.data.booking_details;
+  });
+
+  console.log(detailPesanan);
 
   useEffect(() => {
     async function fetchData() {
@@ -124,14 +126,22 @@ function DetailTicketPesanan() {
             </div>
             <div className="mt-5 ms-5 mb-5">
               <h4>Detail Penumpang</h4>
-              <Table
-                pagination={{
-                  current: pagination.current,
-                  pageSize: pagination.pageSize,
-                  onChange: (page) =>
-                    setPagination({ ...pagination, current: page }),
-                }}
-              />
+              <table className="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>NIK</th>
+                    <th>Nama</th>
+                    <th>Phone</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {detailPesanan?.map((item) => (
+                    <tr>
+                      <td>{item.nik}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
