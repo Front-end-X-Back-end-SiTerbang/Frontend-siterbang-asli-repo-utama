@@ -16,15 +16,17 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import Badge from "@mui/material/Badge";
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import Divider from "@mui/material/Divider";
-import ListItemText from "@mui/material/ListItemText";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
+import Badge from '@mui/material/Badge';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import Divider from '@mui/material/Divider';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
 
 import { getMyBooking } from "../redux/actions/transaksiActions";
+import { letterSpacing } from "@mui/system";
+
 
 function ResponsiveAppBar() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -58,20 +60,42 @@ function ResponsiveAppBar() {
   const home = () => {
     navigate("/");
   };
-  const profile1 = () => {
-    navigate("/profile");
+  const profile1 = ()=> {
+    navigate('/profile')
   };
-  const mybooking = () => {
-    navigate("/mybooking");
+  const mybooking = ()=> {
+    navigate('/mybooking')
   };
 
   const myBooking = useSelector((state) => {
     return state.myBooking;
-  });
+});
 
-  useEffect(() => {
+useEffect(() => {
     dispatch(getMyBooking(navigate));
-  }, [dispatch, navigate]);
+}, [dispatch, navigate]);
+
+console.log(myBooking)
+// const statusLength= myBooking.data
+// console.log("Jumlah : ", statusLength)
+let [jumlahNotif] = useState(0);
+
+
+{myBooking.data.map((item, index) => {
+
+    if(item.is_paid ===  true){
+      console.log("Berhasil")
+      jumlahNotif =+ jumlahNotif + 1  ; 
+    }
+
+}
+)}
+
+const handleNotif= () =>{
+  jumlahNotif =+ jumlahNotif - 1
+  console.log("halo ini delete")
+}
+console.log("Jumlah Notif= ", jumlahNotif)
 
   return (
     // #A178DF
@@ -105,6 +129,7 @@ function ResponsiveAppBar() {
             SiTerbang
           </Typography>
 
+
           <Typography
             variant="h5"
             onClick={home}
@@ -122,59 +147,56 @@ function ResponsiveAppBar() {
 
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}></Box>
           <Box sx={{ flexGrow: 0 }}>
-            <IconButton
+          <IconButton
               size="large"
               aria-label="show 17 new notifications"
               color="blue"
               sx={{ mr: "10px" }}
               onClick={handleOpenUserMenu2}
             >
-              <Badge badgeContent={myBooking.data.length} color="error">
+              <Badge badgeContent={jumlahNotif} color="error">
                 <NotificationsIcon />
               </Badge>
-            </IconButton>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorE2User}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorE2User)}
-              onClose={handleCloseUserMenu2}
-            >
-              {myBooking.data.map((item, index) => {
-                return (
-                  <MenuItem>
-                    <ListItem alignItems="flex-start">
-                      <ListItemAvatar>
-                        <Avatar
-                          alt="Remy Sharp"
-                          src="https://img.icons8.com/nolan/64/appointment-reminders.png"
+              </IconButton>
+              <Menu
+                sx={{ mt: "45px" }}
+                id="menu-appbar"
+                anchorEl={anchorE2User}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorE2User)}
+                onClose={handleCloseUserMenu2}
+              >
+                {myBooking.data.map((item, index)=> {
+                  return(
+                    <MenuItem onClick={handleNotif}>
+                      <ListItem alignItems="flex-start">
+                        <ListItemAvatar>
+                          <Avatar alt="Remy Sharp" src="https://img.icons8.com/nolan/64/appointment-reminders.png" />
+                        </ListItemAvatar>
+                        <ListItemText
+                          primary="Notifikasi"
+                          secondary={
+                            <React.Fragment>
+                  
+                            Transaksi {item.product.origin.city}  ✈️  {item.product.destination.city} Berhasil || Tipe {item.product.type}
+                            </React.Fragment>
+                          }
                         />
-                      </ListItemAvatar>
-                      <ListItemText
-                        primary="Notifikasi"
-                        secondary={
-                          <React.Fragment>
-                            Transaksi {item.product.origin.city} ✈️{" "}
-                            {item.product.destination.city} Berhasil || Tipe{" "}
-                            {item.product.type}
-                          </React.Fragment>
-                        }
-                      />
-                    </ListItem>
-                  </MenuItem>
-                );
-              })}
-            </Menu>
-          </Box>
+                      </ListItem>  
+                    </MenuItem>                 
+                  )
+                })}
+                
+             </Menu>
+            </Box>
           {!token ? (
             <Button
               variant="contained"
