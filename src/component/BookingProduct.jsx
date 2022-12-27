@@ -23,7 +23,6 @@ function DetailProduct() {
   const [totalPassagerForm, setTotalPassagerForm] = useState(0);
   const [error, setError] = useState([]);
   const { id } = useParams();
-
   //form Contact Person Details
   const [total_passenger, settotal_passenger] = useState(1);
   const [passengers, setPassengers] = useState([]);
@@ -32,8 +31,14 @@ function DetailProduct() {
   const detailproduct = useSelector((state) => {
     return state.detailByProduct.data;
   });
+  const detailOrigin = useSelector((state) => {
+    return state.detailByProduct.data.origin;
+  });
+  const detailDestination = useSelector((state) => {
+    return state.detailByProduct.data.destination;
+  });
 
-  console.log(detailproduct);
+  console.log(detailOrigin);
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -347,8 +352,8 @@ function DetailProduct() {
                     width="200"
                   />
                   <h5>
-                    {detailproduct.origin.city} <span>🛫</span>
-                    {detailproduct.destination.city}
+                    {detailOrigin.city} <span>🛫</span>
+                    {detailDestination.city}
                   </h5>
                 </div>
                 <div className="row">

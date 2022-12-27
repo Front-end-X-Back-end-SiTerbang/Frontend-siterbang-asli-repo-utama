@@ -34,7 +34,7 @@ export const getDetailProduct = (id, navigate) => async (dispatch) => {
         },
       }
     );
-    console.log(id);
+
     dispatch({
       type: GET_DETAIL_PRODUCT_SUCCESS,
       payload: results.data,

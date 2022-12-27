@@ -217,6 +217,64 @@
   background: #6c63ff;
 }
 
+.bg-eco h4 {
+  font-weight: 700;
+}
+
+.bg-fonts {
+  background: #6c63ff;
+  padding: 1px;
+  color: #fff;
+  font-size: 10px;
+}
+
+.bg-fonts h1 {
+  font-size: 10px;
+  font-family: "Poppins";
+  font-weight: 400;
+  font-style: italic;
+  text-align: right;
+  margin-right: 5px;
+}
+
+.ticket-fontsy h1 {
+  font-size: 17px;
+  margin: 5px;
+  font-family: sans-serif;
+  font-language-override: normal;
+  font-weight: 700;
+}
+
+.ticket-fontsy span h1 {
+  font-style: italic;
+  line-height: 35px;
+}
+
+#bg-ticket {
+  width: 100%;
+  background-image: url(../img-plane/pngtree-futuristic-perspective-high-tech-blue-technology-background-picture-image_140841.jpg);
+  background-size: cover;
+  background-position: center;
+}
+
+.detail-penumpang {
+  font-size: 12px;
+}
+
+.table-pesanan {
+  background: #6c63ff;
+  color: #fff;
+  font-family: sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  text-align: center;
+}
+
+.notes-siterbang ul li {
+  font-style: italic;
+  font-weight: bold;
+}
+
 /* handle responsive one width tablet */
 @media (min-width: 768px) and (max-width: 991.98px) {
   .bearer {

@@ -16,16 +16,15 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import Badge from '@mui/material/Badge';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import Divider from '@mui/material/Divider';
-import ListItemText from '@mui/material/ListItemText';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
+import Badge from "@mui/material/Badge";
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import Divider from "@mui/material/Divider";
+import ListItemText from "@mui/material/ListItemText";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
 
 import { getMyBooking } from "../redux/actions/transaksiActions";
-
 
 function ResponsiveAppBar() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -59,22 +58,21 @@ function ResponsiveAppBar() {
   const home = () => {
     navigate("/");
   };
-  const profile1 = ()=> {
-    navigate('/profile')
+  const profile1 = () => {
+    navigate("/profile");
   };
-  const mybooking = ()=> {
-    navigate('/mybooking')
+  const mybooking = () => {
+    navigate("/mybooking");
   };
 
   const myBooking = useSelector((state) => {
     return state.myBooking;
-});
+  });
 
-useEffect(() => {
+  useEffect(() => {
     dispatch(getMyBooking(navigate));
-}, [dispatch, navigate]);
+  }, [dispatch, navigate]);
 
-console.log(myBooking)
   return (
     // #A178DF
     <AppBar position="static" sx={{ bgcolor: "white" }}>
@@ -107,7 +105,6 @@ console.log(myBooking)
             SiTerbang
           </Typography>
 
-
           <Typography
             variant="h5"
             onClick={home}
@@ -125,7 +122,7 @@ console.log(myBooking)
 
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}></Box>
           <Box sx={{ flexGrow: 0 }}>
-          <IconButton
+            <IconButton
               size="large"
               aria-label="show 17 new notifications"
               color="blue"
@@ -135,46 +132,49 @@ console.log(myBooking)
               <Badge badgeContent={myBooking.data.length} color="error">
                 <NotificationsIcon />
               </Badge>
-              </IconButton>
-              <Menu
-                sx={{ mt: "45px" }}
-                id="menu-appbar"
-                anchorEl={anchorE2User}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                open={Boolean(anchorE2User)}
-                onClose={handleCloseUserMenu2}
-              >
-                {myBooking.data.map((item, index)=> {
-                  return(
-                    <MenuItem>
-                      <ListItem alignItems="flex-start">
-                        <ListItemAvatar>
-                          <Avatar alt="Remy Sharp" src="https://img.icons8.com/nolan/64/appointment-reminders.png" />
-                        </ListItemAvatar>
-                        <ListItemText
-                          primary="Notifikasi"
-                          secondary={
-                            <React.Fragment>
-                  
-                            Transaksi {item.product.origin.city}  ✈️  {item.product.destination.city} Berhasil || Tipe {item.product.type}
-                            </React.Fragment>
-                          }
+            </IconButton>
+            <Menu
+              sx={{ mt: "45px" }}
+              id="menu-appbar"
+              anchorEl={anchorE2User}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              open={Boolean(anchorE2User)}
+              onClose={handleCloseUserMenu2}
+            >
+              {myBooking.data.map((item, index) => {
+                return (
+                  <MenuItem>
+                    <ListItem alignItems="flex-start">
+                      <ListItemAvatar>
+                        <Avatar
+                          alt="Remy Sharp"
+                          src="https://img.icons8.com/nolan/64/appointment-reminders.png"
                         />
-                      </ListItem>  
-                    </MenuItem>                 
-                  )
-                })}
-                
-             </Menu>
-            </Box>
+                      </ListItemAvatar>
+                      <ListItemText
+                        primary="Notifikasi"
+                        secondary={
+                          <React.Fragment>
+                            Transaksi {item.product.origin.city} ✈️{" "}
+                            {item.product.destination.city} Berhasil || Tipe{" "}
+                            {item.product.type}
+                          </React.Fragment>
+                        }
+                      />
+                    </ListItem>
+                  </MenuItem>
+                );
+              })}
+            </Menu>
+          </Box>
           {!token ? (
             <Button
               variant="contained"
