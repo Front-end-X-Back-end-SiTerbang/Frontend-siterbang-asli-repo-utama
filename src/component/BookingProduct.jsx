@@ -110,7 +110,7 @@ function DetailProduct() {
 
   useEffect(() => {
     dispatch(getDetailProduct(id, navigate));
-  }, [dispatch, id, navigate]);
+  }, [dispatch, id, navigate, detailproduct, detailDestination, detailOrigin]);
 
   const rupiah = (number) => {
     return new Intl.NumberFormat("id-ID", {
@@ -352,8 +352,8 @@ function DetailProduct() {
                     width="200"
                   />
                   <h5>
-                    {detailOrigin.city} <span>🛫</span>
-                    {detailDestination.city}
+                    {detailOrigin?.city} <span>🛫</span>
+                    {detailDestination?.city}
                   </h5>
                 </div>
                 <div className="row">
