@@ -24,6 +24,8 @@ import Divider from '@mui/material/Divider';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 
+import { getMyBooking } from "../redux/actions/transaksiActions";
+
 
 function ResponsiveAppBar() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -64,12 +66,15 @@ function ResponsiveAppBar() {
     navigate('/mybooking')
   };
 
-  // useEffect(() => {
-  //   if (localStorage.getItem("token")) {
-  //     dispatch(getDetailUser(localStorage.getItem("id"), navigate));
-  //   }
-  // }, [dispatch, navigate]);
+  const myBooking = useSelector((state) => {
+    return state.myBooking;
+});
 
+useEffect(() => {
+    dispatch(getMyBooking(navigate));
+}, [dispatch, navigate]);
+
+console.log(myBooking)
   return (
     // #A178DF
     <AppBar position="static" sx={{ bgcolor: "white" }}>
@@ -127,7 +132,7 @@ function ResponsiveAppBar() {
               sx={{ mr: "10px" }}
               onClick={handleOpenUserMenu2}
             >
-              <Badge badgeContent={2} color="error">
+              <Badge badgeContent={myBooking.data.length} color="error">
                 <NotificationsIcon />
               </Badge>
               </IconButton>
@@ -147,41 +152,28 @@ function ResponsiveAppBar() {
                 open={Boolean(anchorE2User)}
                 onClose={handleCloseUserMenu2}
               >
-                <MenuItem>
-                <ListItem alignItems="flex-start">
-                  <ListItemAvatar>
-                    <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary="Notifikasi"
-                    secondary={
-                      <React.Fragment>
-             
-                        {"Selamat Datang di Aplikasi SiTerbang"}
-                      </React.Fragment>
-                    }
-                  />
-                </ListItem>  
-                </MenuItem>
+                {myBooking.data.map((item, index)=> {
+                  return(
+                    <MenuItem>
+                      <ListItem alignItems="flex-start">
+                        <ListItemAvatar>
+                          <Avatar alt="Remy Sharp" src="https://img.icons8.com/nolan/64/appointment-reminders.png" />
+                        </ListItemAvatar>
+                        <ListItemText
+                          primary="Notifikasi"
+                          secondary={
+                            <React.Fragment>
+                  
+                            Transaksi {item.product.origin.city}  ✈️  {item.product.destination.city} Berhasil || Tipe {item.product.type}
+                            </React.Fragment>
+                          }
+                        />
+                      </ListItem>  
+                    </MenuItem>                 
+                  )
+                })}
                 
-                <MenuItem>
-                <ListItem alignItems="flex-start">
-                  <ListItemAvatar>
-                    <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary="Notifikasi"
-                    secondary={
-                      <React.Fragment>
-             
-                        {"Selamat Transaksi Anda Berhasil"}
-                      </React.Fragment>
-                    }
-                  />
-                </ListItem>  
-                </MenuItem>
-               
-              </Menu>
+             </Menu>
             </Box>
           {!token ? (
             <Button
