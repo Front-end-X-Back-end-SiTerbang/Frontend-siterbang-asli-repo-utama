@@ -23,7 +23,7 @@ export const getListProduct = (url) => async (dispatch) => {
   }
 };
 
-export const getDetailProduct = (id, navigate) => async (dispatch) => {
+export const getDetailProduct = (id) => async (dispatch) => {
   try {
     const token = localStorage.getItem("token");
     const results = await axios.get(
