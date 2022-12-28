@@ -109,82 +109,84 @@ export default function Profile() {
                     <div className="col-12 form-input">
                       <img class="card-img-top" alt="Card image cap" src={bg} />
                       <div class="card-body little-profile text-center">
-                      <form
-                        onSubmit={(e) => onSubmit(e)}
-                        className=" d-flex flex-row"
-                      >
-                        <div className=" pro-img">
-                          {
-                            <div>
-                              {detailUser.data.photo && (
-                                <>
-                                  <img
-                                    width={"50px"}
-                                    height={"200px"}
-                                    className="card-img-top"
-                                    src={`${detailUser.data.photo}`}
-                                    alt="Fotonya Mana Woyy"
-                                  />
-                                </>
-                              )}
-                              <label className="select-foto" htmlFor="files">
-                                Select Photo
-                              </label>
-                              <input
-                                className="hidden"
-                                hidden
-                                type="file"
-                                id="files"
-                                onChange={(e) => {
-                                  setPhoto(e.target.files[0]);
-                                  setIsChangePhoto(true);
-                                }}
-                              />
-                              {isLoading ? (
-                                <button
-                                  className="btn btn-success btn-lg ms-2"
-                                  type="button"
-                                  disabled
-                                >
-                                  <span
-                                    className="spinner-border spinner-border-sm"
-                                    role="status"
-                                    aria-hidden="true"
-                                  ></span>{" "}
-                                  Loading...
-                                </button>
-                              ) : (
-                                isChangePhoto && (
-                                  <button onClick={handleChangeImage} type="submit" class="m-t-10 waves-effect waves-dark btn btn-primary btn-md btn-rounded" data-abc="true">
-                                    Save
+                        <form
+                          onSubmit={(e) => onSubmit(e)}
+                          className=" d-flex flex-row"
+                        >
+                          <div className=" pro-img">
+                            {
+                              <div>
+                                {detailUser.data.photo && (
+                                  <>
+                                    <img
+                                      width={"50px"}
+                                      height={"200px"}
+                                      className="card-img-top"
+                                      src={`${detailUser.data.photo}`}
+                                      alt="Fotonya Mana Woyy"
+                                    />
+                                  </>
+                                )}
+                                <label className="select-foto" htmlFor="files">
+                                  Select Photo
+                                </label>
+                                <input
+                                  className="hidden"
+                                  hidden
+                                  type="file"
+                                  id="files"
+                                  onChange={(e) => {
+                                    setPhoto(e.target.files[0]);
+                                    setIsChangePhoto(true);
+                                  }}
+                                />
+                                {isLoading ? (
+                                  <button
+                                    className="btn btn-success btn-lg ms-2"
+                                    type="button"
+                                    disabled
+                                  >
+                                    <span
+                                      className="spinner-border spinner-border-sm"
+                                      role="status"
+                                      aria-hidden="true"
+                                    ></span>{" "}
+                                    Loading...
                                   </button>
-                                )
-                              )}
-                            </div>
-                          }
-                        </div>
-                        <div className="spaci-content"></div>
-                        <div className="d-flex flex-column w-100 detail-profile ">
-                          {<h4>{detailUser.data.name}</h4>}
-                          {<p>{detailUser.data.phone}</p>}
-                          <div>
-                            <button onClick={logout}>
-                              <img src={iconLogout} alt="" />
-                              <label htmlFor="">Logout</label>
-                            </button>
+                                ) : (
+                                  isChangePhoto && (
+                                    <button
+                                      onClick={handleChangeImage}
+                                      type="submit"
+                                      class="m-t-10 waves-effect waves-dark btn btn-primary btn-md btn-rounded"
+                                      data-abc="true"
+                                    >
+                                      Save
+                                    </button>
+                                  )
+                                )}
+                              </div>
+                            }
                           </div>
-                        </div>
-                      </form>
+                          <div className="spaci-content"></div>
+                          <div className="d-flex flex-column w-100 detail-profile ">
+                            {<h4>{detailUser.data.name}</h4>}
+                            {<p>{detailUser.data.phone}</p>}
+                            <div>
+                              <button onClick={logout}>
+                                <img src={iconLogout} alt="" />
+                                <label htmlFor="">Logout</label>
+                              </button>
+                            </div>
+                          </div>
+                        </form>
                       </div>
-                     
                     </div>
                   </div>
                 </div>
-                <div className="col-lg-4 col-12 side-content">
-                </div>
+                <div className="col-lg-4 col-12 side-content"></div>
                 <div className="row">
-                  <div className="col-12">
-                  </div>
+                  <div className="col-12"></div>
                   <div className="col-12 fill-profile">
                     <div className="title d-flex flex-row">
                       <div className="col-6 contact">

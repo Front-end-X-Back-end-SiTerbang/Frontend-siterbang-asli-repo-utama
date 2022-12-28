@@ -347,6 +347,12 @@
   }
 }
 
+@media (min-width: 156px) and (max-width: 576px) {
+  .brand-siterbang {
+    margin-top: 100%;
+  }
+}
+
 /* handle responsive Handphone */
 @media (max-width: 599px) {
   #bg-sIterbang {

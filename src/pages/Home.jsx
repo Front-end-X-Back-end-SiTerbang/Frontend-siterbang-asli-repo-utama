@@ -22,7 +22,7 @@ function Home() {
 
       <div className="container-fluid mt-5 bg-white">
         <div className="container mt-5">
-          <div className="row">
+          <div className="row sledir">
             <div className="col-lg-3 col-sm-6 col-xs-12">
               <div className="card brand-siterbang">
                 <img className="card-img-top" alt="brand siterbang" src={bn1} />
