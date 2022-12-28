@@ -5,6 +5,7 @@ import "../assets/css/styleku.css";
 import Logo from "../assets/img-plane/siterbang.png";
 import Banner from "../assets/img/undraw_connected_world_wuay.svg";
 import { login } from "../redux/actions/auth";
+import GoogleLogin from "../component/security/GoogleLogin";
 
 function Login() {
   const navigate = useNavigate();
@@ -126,6 +127,7 @@ function Login() {
                             </button>
                           )}
                         </div>
+                        <GoogleLogin />
                         <div class="d-flex align-items-center justify-content-center pb-4">
                           <p class="mb-0 me-2">Don't have an account?</p>
                           <button
