@@ -33,7 +33,7 @@ function PrivateRoute({ children }) {
   if (token) {
     return children;
   }
-  return <Navigate to="/loginAdmin" />;
+  return <Navigate to="/login" />;
 }
 
 function PublicRoute({ children }) {
@@ -54,7 +54,14 @@ export default function router() {
         </Route>
 
         <Route path="/products/search">
-          <Route index element={<SearchProduct />} />
+          <Route
+            index
+            element={
+              <PrivateRoute>
+                <SearchProduct />
+              </PrivateRoute>
+            }
+          />
         </Route>
 
         <Route path="/productdetail/:id">
