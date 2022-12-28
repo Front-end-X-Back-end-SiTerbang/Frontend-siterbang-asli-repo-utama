@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "../../../assets/css/styleku.css";
 import { Space, Table } from "antd";
 import { Container } from "react-bootstrap";
@@ -14,6 +14,10 @@ import Swal from "sweetalert2";
 function TableAir() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [pagination, setPagination] = useState({
+    current: 1,
+    pageSize: 10,
+  });
   const Airplanes = useSelector((state) => {
     return state.listAirplanes.data;
   });
@@ -53,26 +57,33 @@ function TableAir() {
   const columns = [
     {
       key: "1",
+      titile: "no",
+      render: (text, record, index) => {
+        return index + (pagination.current - 1) * pagination.pageSize + 1;
+      },
+    },
+    {
+      key: "2",
       title: "Nama Airport",
       dataIndex: "name",
     },
     {
-      key: "2",
+      key: "3",
       title: "type",
       dataIndex: "type",
     },
     {
-      key: "3",
+      key: "4",
       title: "capacity",
       dataIndex: "capacity",
     },
     {
-      key: "4",
+      key: "5",
       title: "Nama Maskapai",
       dataIndex: "airline_id",
     },
     {
-      key: "5",
+      key: "6",
       title: "Action",
       render: (item, index) => (
         <Space size="middle">
@@ -146,7 +157,16 @@ function TableAir() {
                   </div>
                 </div>
               </div>
-              <Table columns={columns} dataSource={Airplanes}></Table>
+              <Table
+                pagination={{
+                  current: pagination.current,
+                  pageSize: pagination.pageSize,
+                  onChange: (page) =>
+                    setPagination({ ...pagination, current: page }),
+                }}
+                columns={columns}
+                dataSource={Airplanes}
+              ></Table>
             </div>
           </div>
         </div>
