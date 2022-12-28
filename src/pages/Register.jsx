@@ -60,6 +60,52 @@ function Register() {
     }
   };
 
+  const validatePassword = (password) => {
+    // Regex untuk password yang harus memiliki:
+    // - Setidaknya 8 karakter
+    // - Setidaknya 1 huruf kecil
+    // - Setidaknya 1 huruf besar
+    // - Setidaknya 1 angka
+    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+
+    if (!regex.test(password)) {
+      // cek apakah password kurang dari 8
+      if (password.length < 8) {
+        setErrors("Password Minimal 8 Karakter");
+      } else {
+        // cek apakah password tidak memiliki huruf kecil
+        if (!/[a-z]/.test(password)) {
+          setErrors("Password harus memiliki huruf kecil");
+        } else {
+          // cek apakah password tidak memiliki huruf besar
+          if (!/[A-Z]/.test(password)) {
+            setErrors("Password harus memiliki huruf besar");
+          } else {
+            // cek apakah password tidak memiliki angka
+            if (!/\d/.test(password)) {
+              setErrors("Password harus memiliki angka");
+            }
+          }
+        }
+      }
+      return false;
+    }
+    return true;
+  };
+
+  const handleChangePassword = (e) => {
+    // ambil nilai dari password yang ingin kita masukan
+    const inputPassword = e.target.value;
+    // validasi password menggunakan regex yang kita buat
+    const isValid = validatePassword(inputPassword);
+    setPassword(inputPassword);
+
+    if (!isValid) {
+      return;
+    }
+    setErrors("");
+  };
+
   return (
     <>
       <section class="h-100 gradient-form">
@@ -103,7 +149,7 @@ function Register() {
                             name="password"
                             class="form-control input-login"
                             placeholder="Password"
-                            onChange={(e) => setPassword(e.target.value)}
+                            onChange={handleChangePassword}
                           />
                         </div>
 

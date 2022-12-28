@@ -25,6 +25,8 @@ import MyBooking from "../pages/MyBooking";
 import Profile from "../pages/Profile";
 import Protected from "../component/security/Protected";
 import DetailTicket from "../pages/detailTicket";
+import Admins from "../pages/admin/admins/Admin";
+import CreateUsers from "../pages/admin/admins/CreateUsers";
 import { Button, Result } from "antd";
 
 function PrivateRoute({ children }) {
@@ -118,6 +120,24 @@ export default function router() {
           element={
             <Protected>
               <Maskapai />
+            </Protected>
+          }
+        />
+
+        <Route
+          path="/createadmin"
+          element={
+            <Protected>
+              <CreateUsers />
+            </Protected>
+          }
+        />
+
+        <Route
+          path="/admin"
+          element={
+            <Protected>
+              <Admins />
             </Protected>
           }
         />

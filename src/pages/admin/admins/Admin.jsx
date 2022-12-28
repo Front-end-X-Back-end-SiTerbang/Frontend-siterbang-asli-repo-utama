@@ -3,6 +3,7 @@ import "../../../assets/css/styleku.css";
 import Logo from "../../../assets/admin-img/undraw_aircraft_re_m05i.svg";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import TableAdmins from "./TableAdmins";
 
 function Admins() {
   const navigate = useNavigate();
@@ -29,7 +30,14 @@ function Admins() {
               <i className="fal fa-home bear"></i> Dashboard
             </li>
             <li className="beruang px-3 py-2">
-              <i className="fal fa-user-headset bear"></i> Admin
+              <i
+                className="fal fa-user-headset bear"
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigate("/admin");
+                }}
+              ></i>
+              Admin
             </li>
             <li
               className="beruang px-3 py-2"
@@ -87,7 +95,13 @@ function Admins() {
                   <li className="nav-item nav-link  phone d-md-none yui">
                     Dashboard
                   </li>
-                  <li className="nav-item nav-link phone d-md-none yui">
+                  <li
+                    className="nav-item nav-link phone d-md-none yui"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigate("/admin");
+                    }}
+                  >
                     Admin
                   </li>
                   <li
@@ -113,6 +127,7 @@ function Admins() {
           </nav>
           <div className="dashboard-content px-3 pt-4 my-content">
             {/* content */}
+            <TableAdmins />
           </div>
         </div>
       </div>

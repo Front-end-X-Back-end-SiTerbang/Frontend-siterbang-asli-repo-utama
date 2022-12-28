@@ -29,7 +29,13 @@ function Airport() {
             >
               <i className="fal fa-home bear"></i> Dashboard
             </li>
-            <li className="beruang px-3 py-2">
+            <li
+              className="beruang px-3 py-2"
+              onClick={(e) => {
+                e.preventDefault();
+                navigate("/admin");
+              }}
+            >
               <i className="fal fa-user-headset bear"></i> Admin
             </li>
             <li
