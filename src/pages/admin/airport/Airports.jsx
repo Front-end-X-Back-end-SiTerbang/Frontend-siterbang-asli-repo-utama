@@ -7,6 +7,12 @@ import TableAirports from "./TabelAirports";
 
 function Airports() {
   const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate("/login");
+  };
+
   return (
     <React.Fragment>
       <div className="main-container d-flex">
@@ -28,8 +34,15 @@ function Airports() {
             >
               <i className="fal fa-home bear"></i> Dashboard
             </li>
-            <li className="beruang px-3 py-2">
-              <i className="fal fa-user-headset bear"></i> Admin
+            <li
+              className="beruang px-3 py-2"
+              onClick={(e) => {
+                e.preventDefault();
+                navigate("/admin");
+              }}
+            >
+              <i className="fal fa-user-headset bear"></i>
+              Admin
             </li>
             <li
               className="beruang px-3 py-2"
@@ -87,7 +100,13 @@ function Airports() {
                   <li className="nav-item nav-link  phone d-md-none yui">
                     Dashboard
                   </li>
-                  <li className="nav-item nav-link phone d-md-none yui">
+                  <li
+                    className="nav-item nav-link phone d-md-none yui"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigate("/admin");
+                    }}
+                  >
                     Admin
                   </li>
                   <li
@@ -103,7 +122,11 @@ function Airports() {
                     Airport
                   </li>
                   <li className="nav-item nav-link phone">
-                    <button className="btn btn-danger btn-sm">
+                    <button
+                      className="btn btn-danger btn-sm"
+                      type="submit"
+                      onClick={handleLogout}
+                    >
                       <i className="fal fa-power-off text-light"></i>
                     </button>
                   </li>

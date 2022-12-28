@@ -45,11 +45,9 @@ function Dahsboard() {
   }, [dispatch]);
 
   // handle logout
-  const handleLogout = (e) => {
-    e.preventDefault();
-    // dispatch(logout());
-    // navigate("/loginAdmin");
-    console.log("adaahha");
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate("/login");
   };
 
   return (
@@ -73,7 +71,13 @@ function Dahsboard() {
             >
               <i className="fal fa-home bear"></i> Dashboard
             </li>
-            <li className="beruang px-3 py-2">
+            <li
+              className="beruang px-3 py-2"
+              onClick={(e) => {
+                e.preventDefault();
+                navigate("/admin");
+              }}
+            >
               <i className="fal fa-user-headset bear"></i> Admin
             </li>
             <li
@@ -132,7 +136,13 @@ function Dahsboard() {
                   <li className="nav-item nav-link  phone d-md-none yui">
                     Dashboard
                   </li>
-                  <li className="nav-item nav-link phone d-md-none yui">
+                  <li
+                    className="nav-item nav-link phone d-md-none yui"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigate("/admin");
+                    }}
+                  >
                     Admin
                   </li>
                   <li

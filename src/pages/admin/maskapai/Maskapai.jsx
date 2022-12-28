@@ -7,6 +7,10 @@ import { useNavigate } from "react-router-dom";
 function Maskapai() {
   const navigate = useNavigate();
 
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate("/login");
+  };
   return (
     <React.Fragment>
       <div className="main-container d-flex">
@@ -28,7 +32,13 @@ function Maskapai() {
             >
               <i className="fal fa-home bear"></i> Dashboard
             </li>
-            <li className="beruang px-3 py-2">
+            <li
+              className="beruang px-3 py-2"
+              onClick={(e) => {
+                e.preventDefault();
+                navigate("/admin");
+              }}
+            >
               <i className="fal fa-user-headset bear"></i> Admin
             </li>
             <li
@@ -103,7 +113,11 @@ function Maskapai() {
                     Airport
                   </li>
                   <li className="nav-item nav-link phone">
-                    <button className="btn btn-danger btn-sm">
+                    <button
+                      className="btn btn-danger btn-sm"
+                      type="submit"
+                      onClick={handleLogout}
+                    >
                       <i className="fal fa-power-off text-light"></i>
                     </button>
                   </li>
