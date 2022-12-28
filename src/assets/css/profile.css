@@ -1,5 +1,5 @@
 @media screen and (max-width: 700px) {
-    .hanifProfile .side-content .card .card-setting button {
+    .profile .side-content .card .card-setting button {
         left: -8% !important;
         border: none;
         border-radius: none;
@@ -11,31 +11,31 @@
     height: auto;
 }
 
-.hanifProfile section {
+.profile section {
     padding: 0px !important;
     display: flex;
     justify-content: center;
 }
 
-.hanifProfile .row {
+ .profile .row {
     display: flex !important;
     justify-content: center !important;
 }
 
-.hanifProfile .side-content {
+.profile .side-content {
     padding: 20px;
     display: flex;
     justify-content: center;
 }
 
-.hanifProfile .side-content .card {
+.profile .side-content .card {
     width: 23rem;
     text-align: center;
     height: auto;
     position: relative;
 }
 
-.hanifProfile .side-content .card .select-foto {
+.profile .side-content .card .select-foto {
     border-radius: 6px;
     background-color: white;
     border: 3px solid #2395FF;
@@ -48,7 +48,7 @@
 }
 
 /* detail profile */
-.hanifProfile .side-content .card img {
+.profile .side-content .card img {
     text-align: center;
     width: 50%;
     border-radius: 100%;
@@ -61,40 +61,40 @@
 
 }
 
-.hanifProfile .side-content .card button {
+.profile .side-content .card button {
     width: 50%;
     height: 50px;
     position: relative;
     left: 25%;
     border-radius: 6px;
-    background-color: white;
+    background-color: rgb(23, 215, 20);
     border: 3px solid #2395FF;
     color: #2395FF;
     margin-bottom: 15px;
 
 }
 
-.hanifProfile .side-content .card .detail-profile {
+.profile .side-content .card .detail-profile {
     margin-bottom: 0px !important;
 }
 
-.hanifProfile .side-content .card .detail-profile h4 {
+.profile .side-content .card .detail-profile h4 {
     font-weight: bold;
     color: black;
 }
 
-.hanifProfile .side-content .card .detail-profile p {
+.profile .side-content .card .detail-profile p {
     color: #6B6B6B;
 }
 
-.hanifProfile .side-content .card .label .label-card {
+.profile .side-content .card .label .label-card {
     text-align: left;
     margin-left: 25px;
     color: black;
     font-weight: bold;
 }
 
-.hanifProfile .side-content .card .label .add-card {
+.profile .side-content .card .label .add-card {
     position: absolute;
     right: 0px;
     margin-right: 25px;
@@ -102,7 +102,7 @@
     font-weight: bold;
 }
 
-.hanifProfile .side-content .card .credit-card {
+.profile .side-content .card .credit-card {
     background-color: #2395FF;
     width: 80%;
     position: relative;
@@ -111,20 +111,20 @@
     margin-top: 10px;
 }
 
-.hanifProfile .side-content .card .credit-card label {
+.profile .side-content .card .credit-card label {
     font-weight: bold;
+    color: rgb(221, 25, 25);
+    text-align: left;
+    margin-left: 25px;
+}
+
+.profile .side-content .card .credit-card .detail-cc .type-card {
     color: white;
     text-align: left;
     margin-left: 25px;
 }
 
-.hanifProfile .side-content .card .credit-card .detail-cc .type-card {
-    color: white;
-    text-align: left;
-    margin-left: 25px;
-}
-
-.hanifProfile .side-content .card .credit-card .detail-cc .balance {
+.profile .side-content .card .credit-card .detail-cc .balance {
     position: absolute;
     right: 0px;
     margin-right: 25px;
@@ -132,7 +132,7 @@
 }
 
 /* card setting */
-.hanifProfile .side-content .card .card-setting {
+.profile .side-content .card .card-setting {
     margin-top: 25px;
     text-align: left;
     margin-left: 45px;
@@ -141,19 +141,19 @@
     /* bottom: 0px; */
 }
 
-.hanifProfile .side-content .card .card-setting i {
+.profile .side-content .card .card-setting i {
     margin: 10px 0px 10px 0px;
     color: #979797;
 }
 
-.hanifProfile .side-content .card .card-setting i a {
+.profile .side-content .card .card-setting i a {
     margin-left: 30px;
     text-decoration: none !important;
     text-transform: lowercase;
     color: black;
 }
 
-.hanifProfile .side-content .card .card-setting img {
+.profile .side-content .card .card-setting img {
     width: 30px;
     height: 30px;
     left: 0px;
@@ -162,94 +162,117 @@
     margin-right: 5px;
 }
 
-.hanifProfile .side-content .card .card-setting button {
+.profile .side-content .card .card-setting button {
     left: -12%;
     border: none;
     border-radius: none;
 }
 
-.hanifProfile .side-content .card .fa-right-from-bracket {
+.profile .side-content .card .fa-right-from-bracket {
     color: #F24545 !important;
 }
 
-.hanifProfile .side-content .card .fa-right-from-bracket a {
+.profile .side-content .card .fa-right-from-bracket a {
     color: #F24545 !important;
 }
 
-.hanifProfile .main-content {
+.profile .main-content {
     padding: 20px;
     display: flex;
     position: relative;
 }
 
-.hanifProfile .main-content .card {
+.profile .main-content .card {
     height: auto;
     border-radius: 5px;
     margin-bottom: 30px;
 }
 
-.hanifProfile .main-content .card h3 {
+.profile .main-content .card h3 {
     color: #2395FF;
 }
 
-.hanifProfile .main-content .card h5 {
+.profile .main-content .card h5 {
     color: #2395FF;
     font-weight: bold;
     margin-right: 10px;
 }
 
-.hanifProfile .main-content .card h6 {
+.profile .main-content .card h6 {
     color: black;
     font-weight: bold;
 }
 
-.hanifProfile .main-content .card label {
+.profile .main-content .card label {
     color: #9B96AB;
 }
 
-.hanifProfile .main-content .card input {
+.profile .main-content .card input {
     border: none;
     border-bottom: 1px solid #9B96AB;
     margin-bottom: 20px;
 }
 
-.hanifProfile .main-content .card .row {
+.profile .main-content .card .row {
     margin-top: 20px;
     margin-left: 10px;
     margin-right: 10px;
 }
 
-.hanifProfile .main-content .card input:focus {
+.profile .main-content .card input:focus {
     outline: none;
 }
 
-.hanifProfile .main-content .card .header-booking {
+.profile .main-content .card .header-booking {
     margin-bottom: 20px;
 }
 
-.hanifProfile .main-content .card .header-booking .my-booking {
+.profile .main-content .card .header-booking .my-booking {
     font-size: 30px;
     color: black;
     font-weight: bold;
 }
 
-.hanifProfile .main-content .card .row .fill-profile .title .spaci-header {
+.profile .main-content .card .row .fill-profile .title .spaci-header {
     margin-right: 10px;
 }
 
-.hanifProfile .main-content .card .row .fill-profile .form-input form .spaci-content {
+.profile .main-content .card .row .fill-profile .form-input form .spaci-content {
     margin-right: 10px;
 }
 
-.hanifProfile .main-content .card .row .fill-profile .form-input {
+.profile .main-content .card .row .fill-profile .form-input {
     margin-bottom: 30px;
 }
 
-.hanifProfile .main-content .card .row .fill-profile .form-input form button {
+.profile .main-content .card .row .fill-profile .form-input form button {
     width: 120px;
     height: 45px;
     border-radius: 10px;
     background-color: #2395FF;
     border: none;
     color: #F5F6FA;
+} 
+.pro-img {
+    margin-top: -100px;
+    margin-bottom: 10px
+}
+.padding {
+    padding: 3rem !important;
+    margin-left: 200px
+}
+.card-img-top{
+    height:300px;
+}
+.card-body {
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 1.25rem
+}
+.little-profile .pro-img img {
+    width: 128px;
+    height: 128px;
+    -webkit-box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    border-radius: 100%
 }
