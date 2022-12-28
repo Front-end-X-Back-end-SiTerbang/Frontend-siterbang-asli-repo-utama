@@ -48,6 +48,7 @@ function Dahsboard() {
   const handleLogout = () => {
     localStorage.clear();
     navigate("/login");
+    // handle logout
   };
 
   return (
