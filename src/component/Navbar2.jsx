@@ -1,3 +1,4 @@
+import axios from "axios";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -13,7 +14,7 @@ import uLOGO from "../assets/img/man.png";
 import Button from "@mui/material/Button";
 
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import Badge from "@mui/material/Badge";
@@ -24,12 +25,7 @@ import Divider from "@mui/material/Divider";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 
-import {
-  getMyBooking,
-  updateNotifikasi,
-} from "../redux/actions/transaksiActions";
-import { letterSpacing } from "@mui/system";
-import axios from "axios";
+import { getMyBooking } from "../redux/actions/transaksiActions";
 
 function ResponsiveAppBar() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -57,7 +53,9 @@ function ResponsiveAppBar() {
     fetchData();
   }, []);
 
-  async function handleNotificationClick(id) {
+  async function handleNotificationClick(event, id) {
+    event.preventDefault();
+    event.stopPropagation();
     const token = localStorage.getItem("token");
     const response = await axios.put(
       `${process.env.REACT_APP_API_URL}/transactions/notif/${id}`,
@@ -70,6 +68,7 @@ function ResponsiveAppBar() {
     );
     setJumlahNotif(response.data.data);
     setUnreadCount(response.data.data.filter((notif) => !notif.is_read));
+    navigate(`/detailpesanan/${id}`);
   }
 
   const handleOpenUserMenu = (event) => {
@@ -108,10 +107,6 @@ function ResponsiveAppBar() {
     console.log("ini Home");
     navigate("/mybooking");
   };
-
-  const myBooking = useSelector((state) => {
-    return state.myBooking;
-  });
 
   useEffect(() => {
     dispatch(getMyBooking(navigate));
@@ -215,16 +210,15 @@ function ResponsiveAppBar() {
               {jumlahNotif.map((notifikasi) => (
                 <MenuItem
                   key={notifikasi.id}
-                  onClick={() => handleNotificationClick(notifikasi.id)}
+                  onClick={(event) => {
+                    handleNotificationClick(event, notifikasi.id);
+                  }}
                 >
-                  <ListItemText
-                    Notifikasi="primary"
-                    secondary={
-                      <React.Fragment>
-                        {notifikasi.product.destination.city}
-                      </React.Fragment>
-                    }
-                  />
+                  <ListItem alignItems="flex-start">
+                    Transaksi {notifikasi?.product.origin.city} ✈️
+                    {notifikasi?.product.destination.city} Berhasil || Tipe
+                    {notifikasi?.product.type}
+                  </ListItem>
                 </MenuItem>
               ))}
               {/* {myBooking.data.map((item, index) => {
