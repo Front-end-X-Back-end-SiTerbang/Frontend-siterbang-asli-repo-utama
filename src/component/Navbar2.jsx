@@ -92,9 +92,10 @@ function ResponsiveAppBar() {
   }
 
 
-  // const handleNotif = () => {
+  // const handleNotif = (id) => {
   //  console.log("Yey Berhasil")
   //   console.log("halo ini ID: ");
+  //   updateNotifikasi(id)
   // };
   // console.log("Jumlah Notif= ", jumlahNotif);
 
@@ -180,7 +181,9 @@ function ResponsiveAppBar() {
                   onClick={(e) => {
                     console.log("ini ID transaksi: ", item.id)
                     updateNotifikasi(item.id)
-                    // navigate(`/detailpesanan/${item.id}`)
+                    navigate(`/detailpesanan/${item.id}`)
+                    // handleNotif(item.id)
+
                   }}>
                     <ListItem alignItems="flex-start" >
                       {item.is_read === false ? (
@@ -200,12 +203,6 @@ function ResponsiveAppBar() {
                         </ListItemAvatar> 
 
                       )}
-                      {/* <ListItemAvatar>
-                        <Avatar
-                          alt="Remy Sharp"
-                          src="https://img.icons8.com/nolan/64/appointment-reminders.png"
-                        />
-                      </ListItemAvatar> */}
                       <ListItemText
                         primary="Notifikasi"
                         secondary={
