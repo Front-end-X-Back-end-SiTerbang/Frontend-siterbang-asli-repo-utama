@@ -179,7 +179,7 @@ function ResponsiveAppBar() {
                 return (
                   <MenuItem key={index} 
                   onClick={(e) => {
-                    console.log("ini ID transaksi: ", item.id)
+                    // console.log("ini ID transaksi: ", item.id)
                     updateNotifikasi(item.id)
                     navigate(`/detailpesanan/${item.id}`)
                     // handleNotif(item.id)
