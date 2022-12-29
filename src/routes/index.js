@@ -27,6 +27,8 @@ import Protected from "../component/security/Protected";
 import DetailTicket from "../pages/detailTicket";
 import Admins from "../pages/admin/admins/Admin";
 import CreateUsers from "../pages/admin/admins/CreateUsers";
+import Products from "../pages/admin/products/Products";
+import CreateProductions from "../pages/admin/products/CreateProducts";
 import { Button, Result } from "antd";
 
 function PrivateRoute({ children }) {
@@ -116,10 +118,28 @@ export default function router() {
         />
 
         <Route
+          path="/createproductions"
+          element={
+            <Protected>
+              <CreateProductions />
+            </Protected>
+          }
+        />
+
+        <Route
           path="/maskapai"
           element={
             <Protected>
               <Maskapai />
+            </Protected>
+          }
+        />
+
+        <Route
+          path="/productions"
+          element={
+            <Protected>
+              <Products />
             </Protected>
           }
         />

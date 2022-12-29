@@ -6,11 +6,8 @@ import { getListAirline } from "../../redux/actions/airlineActions";
 import { getListAirplanes } from "../../redux/actions/airplanesActions";
 import { getListAllAdmin } from "../../redux/actions/adminActions";
 
-import Logo from "../../assets/admin-img/undraw_aircraft_re_m05i.svg";
+import Logo from "../../assets/img-plane/siterbang.png";
 import LogoAdmin from "../../assets/admin-img/undraw_metrics_re_6g90.svg";
-import LogoAirplanes from "../../assets/admin-img/undraw_light_the_fire_gt58.svg";
-import LogoAirport from "../../assets/admin-img/undraw_airport_re_oqk1.svg";
-import LogoAllAdmin from "../../assets/admin-img/undraw_designer_re_5v95.svg";
 
 import "../../assets/css/styleku.css";
 import { getListAirports } from "../../redux/actions/airportActions";
@@ -34,8 +31,6 @@ function Dahsboard() {
   const admin = useSelector((state) => {
     return state.listAdmin.data;
   });
-
-  console.log(airline);
 
   useEffect(() => {
     dispatch(getListAirline());
@@ -85,6 +80,15 @@ function Dahsboard() {
               className="beruang px-3 py-2"
               onClick={(e) => {
                 e.preventDefault();
+                navigate("/productions");
+              }}
+            >
+              <i class="fal fa-shopping-cart bear"></i> Productions
+            </li>
+            <li
+              className="beruang px-3 py-2"
+              onClick={(e) => {
+                e.preventDefault();
                 navigate("/maskapai");
               }}
             >
@@ -117,7 +121,7 @@ function Dahsboard() {
                 <img
                   src={Logo}
                   alt=""
-                  width="100px"
+                  width="70px"
                   class="navbar-brand fs-4 px-2 py-0"
                 />
               </div>
@@ -163,6 +167,15 @@ function Dahsboard() {
                     }}
                   >
                     Airport
+                  </li>
+                  <li
+                    className="nav-item nav-link phone d-md-none yui"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigate("/productions");
+                    }}
+                  >
+                    Production
                   </li>
                   <li className="nav-item nav-link phone">
                     <button

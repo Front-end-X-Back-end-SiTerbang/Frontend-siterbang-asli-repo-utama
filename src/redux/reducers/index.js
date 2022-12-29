@@ -12,6 +12,7 @@ import listMyBookingReducer from "./transaksiReducers";
 import detailUserReducer from "./userReducers";
 import detailTicketPesananReducers from "./detailPesananReducers";
 import listUserAll from "./listUsersReducers";
+import listProduk from "./productionsReducers";
 
 export default combineReducers({
   listAirline: listAirlineReducer,
@@ -27,4 +28,5 @@ export default combineReducers({
   detailUser: detailUserReducer,
   detailPesanan: detailTicketPesananReducers,
   listAllUser: listUserAll,
+  listProductions: listProduk,
 });

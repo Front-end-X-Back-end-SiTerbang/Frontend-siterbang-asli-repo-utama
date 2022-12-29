@@ -1,16 +1,20 @@
-import LogoAdmin from "../../../assets/admin-img/undraw_metrics_re_6g90.svg";
-import "../../../assets/css/styleku.css";
-import Logo from "../../../assets/img-plane/siterbang.png";
-import TableMaskapai from "../maskapai/TableMaskapai";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-function Maskapai() {
+import Logo from "../../../assets/img-plane/siterbang.png";
+import LogoAdmin from "../../../assets/admin-img/undraw_metrics_re_6g90.svg";
+import "../../../assets/css/styleku.css";
+import TableProducts from "./TableProducts";
+
+function Products() {
   const navigate = useNavigate();
 
+  // handle logout
   const handleLogout = () => {
     localStorage.clear();
     navigate("/login");
+    // handle logout
   };
+
   return (
     <React.Fragment>
       <div className="main-container d-flex">
@@ -106,7 +110,13 @@ function Maskapai() {
                   <li className="nav-item nav-link  phone d-md-none yui">
                     Dashboard
                   </li>
-                  <li className="nav-item nav-link phone d-md-none yui">
+                  <li
+                    className="nav-item nav-link phone d-md-none yui"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigate("/admin");
+                    }}
+                  >
                     Admin
                   </li>
                   <li
@@ -118,7 +128,13 @@ function Maskapai() {
                   >
                     Maskapai
                   </li>
-                  <li className="nav-item nav-link phone d-md-none yui">
+                  <li
+                    className="nav-item nav-link phone d-md-none yui"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigate("/airport");
+                    }}
+                  >
                     Airport
                   </li>
                   <li className="nav-item nav-link phone">
@@ -135,7 +151,8 @@ function Maskapai() {
             </div>
           </nav>
           <div className="dashboard-content px-3 pt-4 my-content">
-            <TableMaskapai />
+            {/* content */}
+            <TableProducts />
           </div>
         </div>
       </div>
@@ -143,4 +160,4 @@ function Maskapai() {
   );
 }
 
-export default Maskapai;
+export default Products;
