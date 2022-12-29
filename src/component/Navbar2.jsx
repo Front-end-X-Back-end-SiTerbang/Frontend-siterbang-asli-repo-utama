@@ -1,4 +1,3 @@
-import axios from "axios";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -14,7 +13,7 @@ import uLOGO from "../assets/img/man.png";
 import Button from "@mui/material/Button";
 
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import Badge from "@mui/material/Badge";
@@ -25,51 +24,12 @@ import Divider from "@mui/material/Divider";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 
-import { getMyBooking } from "../redux/actions/transaksiActions";
+import { getMyBooking, updateNotifikasi } from "../redux/actions/transaksiActions";
+import { letterSpacing } from "@mui/system";
 
 function ResponsiveAppBar() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [anchorE2User, setAnchorE2User] = React.useState(null);
-  const [jumlahNotif, setJumlahNotif] = useState([]);
-  const [unreadCount, setUnreadCount] = useState(0);
-
-  useEffect(() => {
-    // Ambil data notifikasi dari API menggunakan Axios
-    async function fetchData() {
-      const token = localStorage.getItem("token");
-      const response = await axios.get(
-        `${process.env.REACT_APP_API_URL}/my-transactions`,
-        {
-          headers: {
-            Authorization: `${token}`,
-          },
-        }
-      );
-      setJumlahNotif(response.data.data);
-      setUnreadCount(
-        response.data.data.filter((notif) => !notif.is_read).length
-      );
-    }
-    fetchData();
-  }, []);
-
-  async function handleNotificationClick(event, id) {
-    event.preventDefault();
-    event.stopPropagation();
-    const token = localStorage.getItem("token");
-    const response = await axios.put(
-      `${process.env.REACT_APP_API_URL}/transactions/notif/${id}`,
-      { is_read: true },
-      {
-        headers: {
-          Authorization: `${token}`,
-        },
-      }
-    );
-    setJumlahNotif(response.data.data);
-    setUnreadCount(response.data.data.filter((notif) => !notif.is_read));
-    navigate(`/detailpesanan/${id}`);
-  }
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -104,9 +64,14 @@ function ResponsiveAppBar() {
     navigate("/profile");
   };
   const mybooking = () => {
-    console.log("ini Home");
+    console.log("ini Home")
     navigate("/mybooking");
+    
   };
+
+  const myBooking = useSelector((state) => {
+    return state.myBooking;
+  });
 
   useEffect(() => {
     dispatch(getMyBooking(navigate));
@@ -114,20 +79,23 @@ function ResponsiveAppBar() {
 
   // console.log(myBooking);
 
-  // let [jumlahNotif] = useState(0);
+  let [jumlahNotif] = useState(0);
 
-  // {
-  //   myBooking.data.map((item, index) => {
-  //     if (item.is_read === false) {
-  //       // console.log("Berhasil");
-  //       jumlahNotif = +jumlahNotif + 1;
-  //     }
-  //   });
-  // }
 
-  // const handleNotif = () => {
+  {
+    myBooking.data.map((item, index) => {
+      if (item.is_read === false) {
+        // console.log("Berhasil");
+        jumlahNotif = +jumlahNotif + 1;
+      }
+    });
+  }
+
+
+  // const handleNotif = (id) => {
   //  console.log("Yey Berhasil")
   //   console.log("halo ini ID: ");
+  //   updateNotifikasi(id)
   // };
   // console.log("Jumlah Notif= ", jumlahNotif);
 
@@ -187,7 +155,7 @@ function ResponsiveAppBar() {
               sx={{ mr: "10px" }}
               onClick={handleOpenUserMenu2}
             >
-              <Badge badgeContent={unreadCount} color="error">
+              <Badge badgeContent={jumlahNotif} color="error">
                 <NotificationsIcon />
               </Badge>
             </IconButton>
@@ -207,53 +175,35 @@ function ResponsiveAppBar() {
               open={Boolean(anchorE2User)}
               onClose={handleCloseUserMenu2}
             >
-              {jumlahNotif.map((notifikasi) => (
-                <MenuItem
-                  key={notifikasi.id}
-                  onClick={(event) => {
-                    handleNotificationClick(event, notifikasi.id);
-                  }}
-                >
-                  <ListItem alignItems="flex-start">
-                    Transaksi {notifikasi?.product.origin.city} ✈️
-                    {notifikasi?.product.destination.city} Berhasil || Tipe
-                    {notifikasi?.product.type}
-                  </ListItem>
-                </MenuItem>
-              ))}
-              {/* {myBooking.data.map((item, index) => {
+              {myBooking.data.map((item, index) => {
                 return (
-                  <MenuItem
-                    key={index}
-                    onClick={(e) => {
-                      console.log("ini ID transaksi: ", item.id);
-                      updateNotifikasi(item.id);
-                      // navigate(`/detailpesanan/${item.id}`)
-                    }}
-                  >
-                    <ListItem alignItems="flex-start">
+                  <MenuItem key={index} 
+                  onClick={(e) => {
+                    console.log("ini ID transaksi: ", item.id)
+                    updateNotifikasi(item.id)
+                    navigate(`/detailpesanan/${item.id}`)
+                    // handleNotif(item.id)
+
+                  }}>
+                    <ListItem alignItems="flex-start" >
                       {item.is_read === false ? (
-                        <ListItemAvatar>
-                          <Avatar
-                            alt="Remy Sharp"
-                            src="https://img.icons8.com/ios-filled/50/FA5252/alarm.png"
-                          />
-                        </ListItemAvatar>
+                       <ListItemAvatar>
+                         <Avatar
+                           alt="Remy Sharp"
+                           src="https://img.icons8.com/ios-filled/50/FA5252/alarm.png"
+                         />
+                       </ListItemAvatar> 
+
                       ) : (
                         <ListItemAvatar>
                           <Avatar
                             alt="Remy Sharp"
                             src="https://img.icons8.com/nolan/64/appointment-reminders.png"
                           />
-                        </ListItemAvatar>
-                      )} */}
-              {/* <ListItemAvatar>
-                        <Avatar
-                          alt="Remy Sharp"
-                          src="https://img.icons8.com/nolan/64/appointment-reminders.png"
-                        />
-                      </ListItemAvatar> */}
-              {/* <ListItemText
+                        </ListItemAvatar> 
+
+                      )}
+                      <ListItemText
                         primary="Notifikasi"
                         secondary={
                           <React.Fragment>
@@ -265,8 +215,8 @@ function ResponsiveAppBar() {
                       />
                     </ListItem>
                   </MenuItem>
-                ); */}
-              {/* })} */}
+                );
+              })}
             </Menu>
           </Box>
           {!token ? (
