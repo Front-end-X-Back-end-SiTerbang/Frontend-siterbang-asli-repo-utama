@@ -15,7 +15,7 @@ function TableMaskapai() {
   const dispatch = useDispatch();
   const [pagination, setPagination] = useState({
     current: 1,
-    pageSize: 10,
+    pageSize: 5,
   });
   const airline = useSelector((state) => {
     return state.listAirline.result;
@@ -56,7 +56,7 @@ function TableMaskapai() {
   const columns = [
     {
       key: "1",
-      titile: "no",
+      title: "no",
       render: (text, record, index) => {
         return index + (pagination.current - 1) * pagination.pageSize + 1;
       },
@@ -65,6 +65,7 @@ function TableMaskapai() {
       key: "2",
       title: "Nama Maskapai",
       dataIndex: "name",
+      sorter: (a, b) => a.name.localeCompare(b.name),
     },
     {
       key: "3",

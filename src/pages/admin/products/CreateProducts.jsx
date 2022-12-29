@@ -1,85 +1,82 @@
-import React, { useState } from "react";
-import { toast } from "react-toastify";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import LogoAdmin from "../../../assets/admin-img/undraw_metrics_re_6g90.svg";
 import Logo from "../../../assets/img-plane/siterbang.png";
-import { useNavigate, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import {
-  getDetailAirports,
-  updateAirports,
-} from "../../../redux/actions/airportActions";
-function EditAirports() {
+import { useState } from "react";
+import { toast } from "react-toastify";
+import { createproductions } from "../../../redux/actions/productionActions";
+
+function CreateProductionss() {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const [origin_id, setOrigin_id] = useState("");
+  const [destination_id, setDestination_id] = useState("");
+  const [price, setPrice] = useState("");
+  const [transit_total, setTransit_total] = useState("");
+  const [flight_date, setFlight_date] = useState("");
+  const [depature_hours, setDepature_hours] = useState("");
+  const [airplane_id, setAirplane_id] = useState("");
+  const [estimation, setEstimation] = useState("");
+  const [type, setType] = useState("");
   const [error, setError] = useState([]);
-  const [iatacode, setiata_code] = useState("");
-  const [name, setname] = useState("");
-  const [city, setcity] = useState("");
-  const [country, setcountry] = useState("");
-  const { iata_code } = useParams();
-
-  const detailAiports = useSelector((state) => {
-    return state.detailAirports;
-  });
-
-  console.log(detailAiports);
-
-  useEffect(() => {
-    dispatch(getDetailAirports(iata_code, navigate));
-
-    // menyimpan data detail di setter
-    setiata_code(detailAiports.data.iata_code);
-    setname(detailAiports.data.name);
-    setcity(detailAiports.data.city);
-    setcountry(detailAiports.data.country);
-  }, [
-    detailAiports.data.iata_code,
-    detailAiports.data.name,
-    detailAiports.data.city,
-    detailAiports.data.country,
-    dispatch,
-    iata_code,
-    navigate,
-  ]);
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    if (iatacode === "") {
-      toast.error("IATA is required");
+    if (origin_id === "") {
+      toast.error("oirigin is required");
       return;
     }
-    if (name === "") {
-      toast.error("Nama Bandara is required");
+    if (destination_id === "") {
+      toast.error("destination is required");
       return;
     }
-    if (city === "") {
-      toast.error("Kota is required");
+    if (price === "") {
+      toast.error("price is required");
       return;
     }
-    if (country === "") {
-      toast.error("Negara is required");
+    if (transit_total === "") {
+      toast.error("transit is required");
       return;
     }
-    if (iatacode !== "" && name !== "") {
+    if (flight_date === "") {
+      toast.error("tanggal penerbangan is required");
+      return;
+    }
+    if (depature_hours === "") {
+      toast.error("depature_hours is required");
+      return;
+    }
+    if (airplane_id === "") {
+      toast.error("airplane is required");
+      return;
+    }
+    if (estimation === "") {
+      toast.error("estimation is required");
+      return;
+    }
+    if (type === "") {
+      toast.error("type is required");
+      return;
+    }
+    if (origin_id !== "" && destination_id !== "") {
       const body = {
-        iatacode,
-        name,
-        city,
-        country,
+        origin_id,
+        destination_id,
+        price,
+        transit_total,
+        flight_date,
+        depature_hours,
+        airplane_id,
+        estimation,
+        type,
       };
-      const updateAirportStatus = await updateAirports(
-        iata_code,
-        body,
-        setError
-      );
-      if (updateAirportStatus) {
-        toast.success("Berhasil Mengubah Data Aiports");
+      const createProductionTouser = await createproductions(body, setError);
+      if (createProductionTouser) {
+        toast.success("Berhasil Menambah Data Users");
+        return navigate("/admin");
       }
-      dispatch(getDetailAirports(iata_code, navigate));
-      return navigate("/airport");
     }
   };
+
   return (
     <React.Fragment>
       <div className="main-container d-flex">
@@ -202,13 +199,13 @@ function EditAirports() {
           <div className="dashboard-content px-3 pt-4 my-content">
             <div className="card">
               <div className="card-header">
-                <div className="card-title text-center">Tambahkan Airports</div>
+                <div className="card-title text-center">Tambahkan User</div>
                 <div className="ms-3">
                   <button
                     className="btn btn-danger btn-sm"
                     onClick={(e) => {
                       e.preventDefault();
-                      navigate("/airport");
+                      navigate("/productions");
                     }}
                   >
                     Back
@@ -219,64 +216,125 @@ function EditAirports() {
                 <form onSubmit={(e) => onSubmit(e)}>
                   <div className="row mb-3">
                     <div className="col-lg-3">
-                      <label className="form-label">IATA</label>
+                      <label className="form-label">Origin</label>
                     </div>
                     <div className="col-lg-9">
                       <input
-                        type="text"
+                        type="number"
                         className="form-control"
                         name="name"
-                        value={iatacode}
-                        placeholder="Masukkan kode Bandara"
-                        onChange={(e) =>
-                          setiata_code(e.target.value.toUpperCase())
-                        }
+                        placeholder="Jakarta"
+                        onChange={(e) => setOrigin_id(e.target.value)}
                       />
                       <br />
                     </div>
                     <div className="col-lg-3">
-                      <label className="form-label">Nama Bandara</label>
+                      <label className="form-label">Email</label>
                     </div>
                     <div className="col-lg-9">
                       <input
-                        type="text"
-                        value={name}
+                        type="number"
                         className="form-control"
                         name=""
-                        placeholder="Masukkan Nama Bandara"
-                        onChange={(e) => setname(e.target.value.toUpperCase())}
+                        placeholder="Destination"
+                        onChange={(e) => setDestination_id(e.target.value)}
                       />
                       <br />
                     </div>
                     <div className="col-lg-3">
-                      <label className="form-label">Nama Kota</label>
+                      <label className="form-label">Price</label>
                     </div>
                     <div className="col-lg-9">
                       <input
-                        type="text"
-                        value={city}
+                        type="number"
                         className="form-control"
                         name="airline"
-                        placeholder="Masukkan Nama Kota"
-                        onChange={(e) => setcity(e.target.value.toUpperCase())}
+                        placeholder="500000"
+                        onChange={(e) => setPrice(e.target.value)}
                       />
                       <br />
                     </div>
                     <div className="col-lg-3">
-                      <label className="form-label">Nama Negara</label>
+                      <label className="form-label">Transit</label>
+                    </div>
+                    <div className="col-lg-9">
+                      <input
+                        type="number"
+                        className="form-control"
+                        name="airline"
+                        placeholder="2"
+                        onChange={(e) => setTransit_total(e.target.value)}
+                      />
+                      <br />
+                    </div>
+                    <div className="col-lg-3">
+                      <label className="form-label">Flight Date</label>
+                    </div>
+                    <div className="col-lg-9">
+                      <input
+                        type="date"
+                        className="form-control"
+                        name="airline"
+                        placeholder="Masukkan Alamat"
+                        onChange={(e) => setFlight_date(e.target.value)}
+                      />
+                      <br />
+                    </div>
+                    <div className="col-lg-3">
+                      <label className="form-label">
+                        Flight Depature Hours
+                      </label>
                     </div>
                     <div className="col-lg-9">
                       <input
                         type="text"
                         className="form-control"
                         name="airline"
-                        value={country}
-                        placeholder="Masukkan Nama Negara"
+                        placeholder="20:45"
+                        onChange={(e) => setDepature_hours(e.target.value)}
+                      />
+                      <br />
+                    </div>
+                    <div className="col-lg-3">
+                      <label className="form-label">Airplanes</label>
+                    </div>
+                    <div className="col-lg-9">
+                      <input
+                        type="number"
+                        className="form-control"
+                        name="airline"
+                        placeholder="3"
+                        onChange={(e) => setAirplane_id(e.target.value)}
+                      />
+                      <br />
+                    </div>
+                    <div className="col-lg-3">
+                      <label className="form-label">Estimation</label>
+                    </div>
+                    <div className="col-lg-9">
+                      <input
+                        type="text"
+                        className="form-control"
+                        name="airline"
+                        placeholder="2.5"
                         onChange={(e) =>
-                          setcountry(e.target.value.toUpperCase())
+                          setEstimation(e.target.value.toUpperCase())
                         }
                       />
-                      <h6 className="err">{error}</h6>
+                      <br />
+                    </div>
+                    <div className="col-lg-3">
+                      <label className="form-label">type</label>
+                    </div>
+                    <div className="col-lg-9">
+                      <input
+                        type="text"
+                        className="form-control"
+                        name="airline"
+                        placeholder="2.5"
+                        onChange={(e) => setType(e.target.value.toUpperCase())}
+                      />
+                      <h6 class="err">{error}</h6>
                       <br />
                     </div>
                     <div className="text-end">
@@ -300,4 +358,4 @@ function EditAirports() {
   );
 }
 
-export default EditAirports;
+export default CreateProductionss;

@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import LogoAdmin from "../../../assets/admin-img/undraw_metrics_re_6g90.svg";
-import Logo from "../../../assets/admin-img/undraw_aircraft_re_m05i.svg";
+import Logo from "../../../assets/img-plane/siterbang.png";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { createAirplanes } from "../../../redux/actions/airplanesActions";
@@ -67,8 +67,23 @@ function CreateAirport() {
             >
               <i className="fal fa-home bear"></i> Dashboard
             </li>
-            <li className="beruang px-3 py-2">
+            <li
+              className="beruang px-3 py-2"
+              onClick={(e) => {
+                e.preventDefault();
+                navigate("/admin");
+              }}
+            >
               <i className="fal fa-user-headset bear"></i> Admin
+            </li>
+            <li
+              className="beruang px-3 py-2"
+              onClick={(e) => {
+                e.preventDefault();
+                navigate("/productions");
+              }}
+            >
+              <i class="fal fa-shopping-cart bear"></i> Productions
             </li>
             <li
               className="beruang px-3 py-2"
@@ -106,7 +121,7 @@ function CreateAirport() {
                 <img
                   src={Logo}
                   alt=""
-                  width="100px"
+                  width="70px"
                   class="navbar-brand fs-4 px-2 py-0"
                 />
               </div>

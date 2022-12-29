@@ -1,126 +1,70 @@
+import { Table } from "antd";
 import React, { useEffect, useState } from "react";
-import "../../../assets/css/styleku.css";
-import { Space, Table } from "antd";
 import { Container } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  deleteAirplanes,
-  getListAirplanes,
-} from "../../../redux/actions/airplanesActions";
-import Swal from "sweetalert2";
-import { getListAirline } from "../../../redux/actions/airlineActions";
+import { useNavigate } from "react-router-dom";
+import { getListProductions } from "../../../redux/actions/productionActions";
 
-function TableAir() {
-  const navigate = useNavigate();
+function TableProducts(props) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [pagination, setPagination] = useState({
     current: 1,
     pageSize: 10,
   });
-  const Airplanes = useSelector((state) => {
-    return state.listAirplanes.data;
-  });
-  const Maskapai = useSelector((state) => {
-    return state.listAirline.result;
-  });
-  console.log(Maskapai);
 
-  const onDelete = (id) => {
-    Swal.fire({
-      title: "Anda Yakin Ingin Menghapus Airline ini?",
-      icon: "Peringatan",
-      showCancelButton: true,
-      showLoaderOnConfirm: true,
-      confirmButtonText: "OK",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        deleteAirplanes(id)
-          .then((response) => {
-            Swal.fire({
-              title: response.message,
-              icon: "success",
-            });
-            dispatch(getListAirplanes());
-          })
-          .catch((err) => {
-            Swal.fire({
-              title: "Delete failed!",
-              icon: "error",
-            });
-          });
-      }
-    });
-  };
-
-  useEffect(() => {
-    dispatch(getListAirplanes());
-    dispatch(getListAirline());
-  }, [dispatch]);
+  const productions = useSelector((state) => {
+    return state.listProductions.data;
+  });
 
   const columns = [
     {
       key: "1",
-      titile: "no",
+      title: "no",
       render: (text, record, index) => {
         return index + (pagination.current - 1) * pagination.pageSize + 1;
       },
     },
     {
       key: "2",
-      title: "Nama Airport",
-      dataIndex: "name",
-      sorter: (a, b) => a.name.localeCompare(b.name),
+      title: "gate",
+      dataIndex: "gate",
     },
     {
       key: "3",
-      title: "type",
+      title: "Penerbangan",
+      render: (item, index) => (
+        <div key={index}>
+          {item.origin_id} 🛬 {item.destination_id}
+        </div>
+      ),
+    },
+    {
+      key: "4",
+      title: "Kode",
+      dataIndex: "code",
+    },
+    {
+      key: "5",
+      title: "Airport",
+      dataIndex: "terminal",
+    },
+    {
+      key: "6",
+      title: "Jenis Pesawat",
       dataIndex: "type",
       sorter: (a, b) => a.type.localeCompare(b.type),
     },
     {
-      key: "4",
-      title: "capacity",
-      dataIndex: "capacity",
-    },
-    {
-      key: "5",
-      title: "Nama Maskapai",
-      sorter: (a, b) => a.name.localeCompare(b.name),
-      render: (item, index) => {
-        const airline = Maskapai.find(
-          (airline) => airline.id === item.airline_id
-        );
-        return airline ? airline.name : item.airline_id;
-      },
-    },
-    {
-      key: "6",
-      title: "Action",
-      render: (item, index) => (
-        <Space size="middle">
-          <div key={index}>
-            <button
-              className="btn btn-warning"
-              onClick={() => {
-                navigate(`/editairplanes/${item.id}`);
-              }}
-            >
-              Edit
-            </button>
-            <button
-              className="btn btn-danger"
-              onClick={() => {
-                onDelete(item.id);
-              }}
-            >
-              Delete
-            </button>
-          </div>
-        </Space>
-      ),
+      key: "7",
+      title: "Keberangkatan",
+      dataIndex: "depature_hours",
     },
   ];
+
+  useEffect(() => {
+    dispatch(getListProductions());
+  }, [dispatch]);
   return (
     <React.Fragment>
       <Container>
@@ -129,7 +73,7 @@ function TableAir() {
             <div className="card">
               <div className="card-header">
                 <h3 className="text-center card-title font-weight-bold">
-                  Airplanes
+                  Productions
                 </h3>
               </div>
               <div className="card-body">
@@ -139,7 +83,7 @@ function TableAir() {
                       className="btn btn-primary"
                       onClick={(e) => {
                         e.preventDefault();
-                        navigate("/createairplanes");
+                        navigate("/createproductions");
                       }}
                     >
                       <i className="fal fa-plus"></i> Create
@@ -177,8 +121,8 @@ function TableAir() {
                     setPagination({ ...pagination, current: page }),
                 }}
                 columns={columns}
-                dataSource={Airplanes}
-              ></Table>
+                dataSource={productions}
+              />
             </div>
           </div>
         </div>
@@ -187,4 +131,4 @@ function TableAir() {
   );
 }
 
-export default TableAir;
+export default TableProducts;

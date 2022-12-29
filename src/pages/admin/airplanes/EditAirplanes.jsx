@@ -1,5 +1,5 @@
 import LogoAdmin from "../../../assets/admin-img/undraw_metrics_re_6g90.svg";
-import Logo from "../../../assets/admin-img/undraw_aircraft_re_m05i.svg";
+import Logo from "../../../assets/img-plane/siterbang.png";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -90,8 +90,23 @@ export default function EditAirport() {
             >
               <i className="fal fa-home bear"></i> Dashboard
             </li>
-            <li className="beruang px-3 py-2">
+            <li
+              className="beruang px-3 py-2"
+              onClick={(e) => {
+                e.preventDefault();
+                navigate("/admin");
+              }}
+            >
               <i className="fal fa-user-headset bear"></i> Admin
+            </li>
+            <li
+              className="beruang px-3 py-2"
+              onClick={(e) => {
+                e.preventDefault();
+                navigate("/productions");
+              }}
+            >
+              <i class="fal fa-shopping-cart bear"></i> Productions
             </li>
             <li
               className="beruang px-3 py-2"
@@ -129,7 +144,7 @@ export default function EditAirport() {
                 <img
                   src={Logo}
                   alt=""
-                  width="100px"
+                  width="70px"
                   class="navbar-brand fs-4 px-2 py-0"
                 />
               </div>
