@@ -177,7 +177,7 @@ function ResponsiveAppBar() {
             >
               {myBooking.data.map((item, index) => {
                 return (
-                  <MenuItem key={index} 
+                  <MenuItem key={item.id} 
                   onClick={(e) => {
                     // console.log("ini ID transaksi: ", item.id)
                     updateNotifikasi(item.id)
