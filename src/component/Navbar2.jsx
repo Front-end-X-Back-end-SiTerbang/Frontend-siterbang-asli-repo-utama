@@ -24,7 +24,7 @@ import Divider from "@mui/material/Divider";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 
-import { getMyBooking } from "../redux/actions/transaksiActions";
+import { getMyBooking, updateNotifikasi } from "../redux/actions/transaksiActions";
 import { letterSpacing } from "@mui/system";
 
 function ResponsiveAppBar() {
@@ -59,11 +59,14 @@ function ResponsiveAppBar() {
   const home = () => {
     navigate("/");
   };
+
   const profile1 = () => {
     navigate("/profile");
   };
   const mybooking = () => {
+    console.log("ini Home")
     navigate("/mybooking");
+    
   };
 
   const myBooking = useSelector((state) => {
@@ -74,25 +77,26 @@ function ResponsiveAppBar() {
     dispatch(getMyBooking(navigate));
   }, [dispatch, navigate]);
 
-  console.log(myBooking);
-  // const statusLength= myBooking.data
-  // console.log("Jumlah : ", statusLength)
+  // console.log(myBooking);
+
   let [jumlahNotif] = useState(0);
+
 
   {
     myBooking.data.map((item, index) => {
-      if (item.is_paid === true) {
-        console.log("Berhasil");
+      if (item.is_read === false) {
+        // console.log("Berhasil");
         jumlahNotif = +jumlahNotif + 1;
       }
     });
   }
 
-  const handleNotif = () => {
-    jumlahNotif = +jumlahNotif - 1;
-    console.log("halo ini delete");
-  };
-  console.log("Jumlah Notif= ", jumlahNotif);
+
+  // const handleNotif = () => {
+  //  console.log("Yey Berhasil")
+  //   console.log("halo ini ID: ");
+  // };
+  // console.log("Jumlah Notif= ", jumlahNotif);
 
   return (
     // #A178DF
@@ -172,14 +176,36 @@ function ResponsiveAppBar() {
             >
               {myBooking.data.map((item, index) => {
                 return (
-                  <MenuItem onClick={handleNotif}>
-                    <ListItem alignItems="flex-start">
-                      <ListItemAvatar>
+                  <MenuItem key={index} 
+                  onClick={(e) => {
+                    console.log("ini ID transaksi: ", item.id)
+                    updateNotifikasi(item.id)
+                    // navigate(`/detailpesanan/${item.id}`)
+                  }}>
+                    <ListItem alignItems="flex-start" >
+                      {item.is_read === false ? (
+                       <ListItemAvatar>
+                         <Avatar
+                           alt="Remy Sharp"
+                           src="https://img.icons8.com/ios-filled/50/FA5252/alarm.png"
+                         />
+                       </ListItemAvatar> 
+
+                      ) : (
+                        <ListItemAvatar>
+                          <Avatar
+                            alt="Remy Sharp"
+                            src="https://img.icons8.com/nolan/64/appointment-reminders.png"
+                          />
+                        </ListItemAvatar> 
+
+                      )}
+                      {/* <ListItemAvatar>
                         <Avatar
                           alt="Remy Sharp"
                           src="https://img.icons8.com/nolan/64/appointment-reminders.png"
                         />
-                      </ListItemAvatar>
+                      </ListItemAvatar> */}
                       <ListItemText
                         primary="Notifikasi"
                         secondary={

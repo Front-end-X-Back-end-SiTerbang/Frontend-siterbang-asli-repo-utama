@@ -59,3 +59,22 @@ export const getDetailTicket = (id) => async (dispatch) => {
     console.log(error.response.data.message);
   }
 };
+
+
+export const updateNotifikasi = async (id) => {
+
+  try { 
+    const token = localStorage.getItem("token");
+    console.log("Token Notif: ", token)
+    console.log("Token ID: ", id)
+    await axios.put(`${process.env.REACT_APP_API_URL}/transactions/notif/${id}`,{
+      headers: {
+        Authorization: `${token}`,
+      },
+    });
+    
+    return true;
+  } catch (error) {
+    throw error;
+  }
+};
