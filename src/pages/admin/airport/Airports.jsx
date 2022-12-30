@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import LogoAdmin from "../../../assets/admin-img/undraw_metrics_re_6g90.svg";
 import "../../../assets/css/styleku.css";
@@ -12,6 +12,11 @@ function Airports() {
     localStorage.clear();
     navigate("/login");
   };
+
+  useEffect(() => {
+    document.title = `Airport`;
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <React.Fragment>

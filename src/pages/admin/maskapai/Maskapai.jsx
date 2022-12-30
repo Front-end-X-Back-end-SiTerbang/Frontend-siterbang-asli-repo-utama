@@ -2,7 +2,7 @@ import LogoAdmin from "../../../assets/admin-img/undraw_metrics_re_6g90.svg";
 import "../../../assets/css/styleku.css";
 import Logo from "../../../assets/img-plane/siterbang.png";
 import TableMaskapai from "../maskapai/TableMaskapai";
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 function Maskapai() {
   const navigate = useNavigate();
@@ -11,6 +11,11 @@ function Maskapai() {
     localStorage.clear();
     navigate("/login");
   };
+
+  useEffect(() => {
+    document.title = `Maskapai`;
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <React.Fragment>
       <div className="main-container d-flex">

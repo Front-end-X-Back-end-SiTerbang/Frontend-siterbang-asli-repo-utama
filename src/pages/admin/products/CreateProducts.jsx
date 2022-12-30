@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import LogoAdmin from "../../../assets/admin-img/undraw_metrics_re_6g90.svg";
 import Logo from "../../../assets/img-plane/siterbang.png";
@@ -156,6 +156,11 @@ function CreateProductionss() {
     setError("");
   };
 
+  useEffect(() => {
+    document.title = `Createproduct`;
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <React.Fragment>
       <div className="main-container d-flex">
@@ -193,7 +198,7 @@ function CreateProductionss() {
                 navigate("/productions");
               }}
             >
-              <i class="fal fa-shopping-cart bear"></i> Productions
+              <i class="fal fa-shopping-cart bear"></i> Product
             </li>
             <li
               className="beruang px-3 py-2"

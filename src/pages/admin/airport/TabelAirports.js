@@ -13,6 +13,8 @@ import {
 function TabelAirports() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [filteredData, setFilteredData] = useState([]);
+  const [searchText, setSearchText] = useState("");
   const [pagination, setPagination] = useState({
     current: 1,
     pageSize: 10,
@@ -20,6 +22,15 @@ function TabelAirports() {
   const Airports = useSelector((state) => {
     return state.listAirports.data;
   });
+
+  // handle searching
+  const handleSearch = (value) => {
+    setSearchText(value);
+    const filteredData = Airports.filter((item) => {
+      return item.city.toLowerCase().includes(value.toLowerCase());
+    });
+    setFilteredData(filteredData);
+  };
 
   useEffect(() => {
     dispatch(getListAirports());
@@ -139,7 +150,8 @@ function TabelAirports() {
                             type="search"
                             className="form-control search"
                             name="search"
-                            placeholder="Search...."
+                            placeholder="Search Kota..."
+                            onChange={(e) => handleSearch(e.target.value)}
                           />
                         </div>
                         <div className="d-flex justify-content-end">
@@ -163,7 +175,7 @@ function TabelAirports() {
                     setPagination({ ...pagination, current: page }),
                 }}
                 columns={columns}
-                dataSource={Airports}
+                dataSource={searchText ? filteredData : Airports}
               />
             </div>
           </div>

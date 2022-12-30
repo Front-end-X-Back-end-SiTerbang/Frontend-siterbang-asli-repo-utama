@@ -14,6 +14,8 @@ import { getListAirline } from "../../../redux/actions/airlineActions";
 function TableAir() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [filteredData, setFilteredData] = useState([]);
+  const [searchText, setSearchText] = useState("");
   const [pagination, setPagination] = useState({
     current: 1,
     pageSize: 10,
@@ -24,7 +26,15 @@ function TableAir() {
   const Maskapai = useSelector((state) => {
     return state.listAirline.result;
   });
-  console.log(Maskapai);
+
+  // handle searching
+  const handleSearch = (value) => {
+    setSearchText(value);
+    const filteredData = Airplanes.filter((item) => {
+      return item.name.toLowerCase().includes(value.toLowerCase());
+    });
+    setFilteredData(filteredData);
+  };
 
   const onDelete = (id) => {
     Swal.fire({
@@ -68,7 +78,7 @@ function TableAir() {
     },
     {
       key: "2",
-      title: "Nama Airport",
+      title: "Nama Pesawat",
       dataIndex: "name",
       sorter: (a, b) => a.name.localeCompare(b.name),
     },
@@ -153,7 +163,10 @@ function TableAir() {
                             type="search"
                             className="form-control search"
                             name="search"
-                            placeholder="Search...."
+                            placeholder="Search Nama Pesawat...."
+                            onChange={(e) =>
+                              handleSearch(e.target.value.toUpperCase())
+                            }
                           />
                         </div>
                         <div className="d-flex justify-content-end">
@@ -177,7 +190,7 @@ function TableAir() {
                     setPagination({ ...pagination, current: page }),
                 }}
                 columns={columns}
-                dataSource={Airplanes}
+                dataSource={searchText ? filteredData : Airplanes}
               ></Table>
             </div>
           </div>

@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import LogoAdmin from "../../../assets/admin-img/undraw_metrics_re_6g90.svg";
 import "../../../assets/css/styleku.css";
@@ -7,6 +8,11 @@ import TableAirplanes from "./TableAirplanes";
 
 function Airport() {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    document.title = `Airplanes`;
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <React.Fragment>

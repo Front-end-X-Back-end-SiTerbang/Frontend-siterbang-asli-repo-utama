@@ -9,6 +9,8 @@ import { getListAllUserss } from "../../../redux/actions/listAllUserActions";
 function TableAir() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [filteredData, setFilteredData] = useState([]);
+  const [searchText, setSearchText] = useState("");
   const [pagination, setPagination] = useState({
     current: 1,
     pageSize: 10,
@@ -16,7 +18,15 @@ function TableAir() {
   const allUsers = useSelector((state) => {
     return state.listAllUser.data;
   });
-  console.log(allUsers);
+
+  // handle searching
+  const handleSearch = (value) => {
+    setSearchText(value);
+    const filteredData = allUsers.filter((item) => {
+      return item.name.toLowerCase().includes(value.toLowerCase());
+    });
+    setFilteredData(filteredData);
+  };
 
   useEffect(() => {
     dispatch(getListAllUserss());
@@ -90,7 +100,10 @@ function TableAir() {
                             type="search"
                             className="form-control search"
                             name="search"
-                            placeholder="Search...."
+                            placeholder="Search Nama...."
+                            onChange={(e) =>
+                              handleSearch(e.target.value.toUpperCase())
+                            }
                           />
                         </div>
                         <div className="d-flex justify-content-end">
@@ -114,7 +127,7 @@ function TableAir() {
                     setPagination({ ...pagination, current: page }),
                 }}
                 columns={columns}
-                dataSource={allUsers}
+                dataSource={searchText ? filteredData : allUsers}
               />
             </div>
           </div>

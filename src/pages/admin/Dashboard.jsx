@@ -5,12 +5,12 @@ import { useEffect } from "react";
 import { getListAirline } from "../../redux/actions/airlineActions";
 import { getListAirplanes } from "../../redux/actions/airplanesActions";
 import { getListAllAdmin } from "../../redux/actions/adminActions";
-
 import Logo from "../../assets/img-plane/siterbang.png";
 import LogoAdmin from "../../assets/admin-img/undraw_metrics_re_6g90.svg";
-
+import { getListAllTransaksiBerhasil } from "../../redux/actions/listTransaksiBerhasil";
 import "../../assets/css/styleku.css";
 import { getListAirports } from "../../redux/actions/airportActions";
+import { Bar, ComposedChart, Line, Tooltip, XAxis, YAxis } from "recharts";
 
 function Dahsboard() {
   const navigate = useNavigate();
@@ -32,11 +32,34 @@ function Dahsboard() {
     return state.listAdmin.data;
   });
 
+  const TransaksiBerhasil = useSelector((state) => {
+    return state.listTransaksiBerhasil.data;
+  });
+
+  const counts = TransaksiBerhasil.filter(
+    (item) => item.product.type === "ECONOMY CLASS"
+  ).length;
+
+  const countP = TransaksiBerhasil.filter(
+    (item) => item.product.type === "BUSINESS CLASS"
+  ).length;
+
+  const countF = TransaksiBerhasil.filter(
+    (item) => item.product.type === "FIRST CLASS"
+  ).length;
+
+  const chartData = [
+    { name: "ECONOMY CLASS", count: counts, color: "#FFFF00" },
+    { name: "BUSINESS CLASS", count: countP, color: "#FFFF34" },
+    { name: "FIRST CLASS", count: countF, color: "#FFFF50" },
+  ];
+
   useEffect(() => {
     dispatch(getListAirline());
     dispatch(getListAirports());
     dispatch(getListAirplanes());
     dispatch(getListAllAdmin());
+    dispatch(getListAllTransaksiBerhasil());
   }, [dispatch]);
 
   // handle logout
@@ -45,6 +68,11 @@ function Dahsboard() {
     navigate("/login");
     // handle logout
   };
+
+  useEffect(() => {
+    document.title = `Dashboard`;
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <React.Fragment>
@@ -83,7 +111,7 @@ function Dahsboard() {
                 navigate("/productions");
               }}
             >
-              <i class="fal fa-shopping-cart bear"></i> Productions
+              <i class="fal fa-shopping-cart bear"></i> Product
             </li>
             <li
               className="beruang px-3 py-2"
@@ -346,7 +374,24 @@ function Dahsboard() {
                 </div>
               </div>
             </div>
+            <div className="mt-5 container">
+              <h6 className="text-center">Ticket Terbanyak Yang Terjual</h6>
+              <ComposedChart width={900} height={400} data={chartData}>
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Bar dataKey="count" fill="#8884d8" />
+                <Line type="monotone" dataKey="count" stroke="#82ca9d" />
+              </ComposedChart>
+            </div>
           </div>
+          <footer className="bg-light text-center text-white">
+            <div class="text-center p-3" style={{ backgroundColor: "#FBFBFB" }}>
+              <h6 className="text-dark">
+                © 2022 Copyright: By designed siterbang FExBE
+              </h6>
+            </div>
+          </footer>
         </div>
       </div>
     </React.Fragment>
