@@ -54,21 +54,21 @@ export const logout = () => {
 };
 
 // handle login Google
-export const GoogleAuth = async (token, setErrors) => {
-  try {
-    const res = await axios.post(
-      `${process.env.REACT_APP_API_URL}/auth/google`,
-      JSON.stringify({ access_token: token }),
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    localStorage.setItem("token", res.data.data.token);
-    localStorage.setItem("role", res.data.data.role);
-    return true;
-  } catch (error) {
-    throw error;
-  }
-};
+// export const GoogleAuth = async (token, setErrors) => {
+//   try {
+//     const res = await axios.post(
+//       `${process.env.REACT_APP_API_URL}/auth/google`,
+//       JSON.stringify({ access_token: token }),
+//       {
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//       }
+//     );
+//     localStorage.setItem("token", res.data.data.token);
+//     localStorage.setItem("role", res.data.data.role);
+//     return true;
+//   } catch (error) {
+//     throw error;
+//   }
+// };
