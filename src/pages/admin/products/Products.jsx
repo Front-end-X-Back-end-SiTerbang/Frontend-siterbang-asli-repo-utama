@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Logo from "../../../assets/img-plane/siterbang.png";
 import LogoAdmin from "../../../assets/admin-img/undraw_metrics_re_6g90.svg";
@@ -14,6 +14,11 @@ function Products() {
     navigate("/login");
     // handle logout
   };
+
+  useEffect(() => {
+    document.title = `Product`;
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <React.Fragment>
@@ -52,7 +57,7 @@ function Products() {
                 navigate("/productions");
               }}
             >
-              <i class="fal fa-shopping-cart bear"></i> Productions
+              <i class="fal fa-shopping-cart bear"></i> Product
             </li>
             <li
               className="beruang px-3 py-2"

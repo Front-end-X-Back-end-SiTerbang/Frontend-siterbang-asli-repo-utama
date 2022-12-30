@@ -1,12 +1,17 @@
 import LogoAdmin from "../../../assets/admin-img/undraw_metrics_re_6g90.svg";
 import "../../../assets/css/styleku.css";
 import Logo from "../../../assets/img-plane/siterbang.png";
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import TableAdmins from "./TableAdmins";
 
 function Admins() {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    document.title = `Admin`;
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <React.Fragment>

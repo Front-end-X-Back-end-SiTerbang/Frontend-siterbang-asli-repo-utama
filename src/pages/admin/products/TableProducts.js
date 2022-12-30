@@ -5,9 +5,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getListProductions } from "../../../redux/actions/productionActions";
 
-function TableProducts(props) {
+function TableProducts() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [filteredData, setFilteredData] = useState([]);
+  const [searchText, setSearchText] = useState("");
   const [pagination, setPagination] = useState({
     current: 1,
     pageSize: 10,
@@ -17,7 +19,9 @@ function TableProducts(props) {
     return state.listProductions.data;
   });
 
-  console.log(productions);
+  const Airports = useSelector((state) => {
+    return state.listAirports.data;
+  });
 
   const columns = [
     {
@@ -30,7 +34,7 @@ function TableProducts(props) {
     {
       key: "airline_id",
       title: "Nama Maskapai",
-      dataIndex: "airline_id",
+      render: (item) => <div>{item.airline.name}</div>,
     },
     {
       key: "2",
@@ -40,16 +44,20 @@ function TableProducts(props) {
     {
       key: "3",
       title: "Penerbangan",
-      render: (item, index) => (
-        <div key={index}>
-          {item.origin_id} 🛬 {item.destination_id}
-        </div>
-      ),
+      render: (item, index) => {
+        const origin = Airports.find((origin) => origin.id === item.origin_id);
+        const destination = Airports.find(
+          (destination) => destination.id === item.destination_id
+        );
+        return origin && destination
+          ? `${origin.city} 🛫 ${destination.city}`
+          : `${item.origin_id} - ${item.destination_id}`;
+      },
     },
     {
       key: "airplane_id",
       title: "Nama Pesawat",
-      dataIndex: "airplane_id",
+      render: (item) => <div>{item.airplane.name}</div>,
     },
     {
       key: "4",
@@ -77,6 +85,14 @@ function TableProducts(props) {
   useEffect(() => {
     dispatch(getListProductions());
   }, [dispatch]);
+
+  const handleSearch = (value) => {
+    setSearchText(value);
+    const filteredData = productions.filter((item) => {
+      return item.airline.name.toLowerCase().includes(value.toLowerCase());
+    });
+    setFilteredData(filteredData);
+  };
   return (
     <React.Fragment>
       <Container>
@@ -102,14 +118,15 @@ function TableProducts(props) {
                     </button>
                   </div>
                   <div className="col-sm">
-                    <form action="">
+                    <form onSubmit={handleSearch}>
                       <div className="d-flex justify-content-sm-end">
                         <div className="search-box ms-2">
                           <input
                             type="search"
                             className="form-control search"
                             name="search"
-                            placeholder="Search...."
+                            placeholder="Search Nama Maskapai..."
+                            onChange={(e) => handleSearch(e.target.value)}
                           />
                         </div>
                         <div className="d-flex justify-content-end">
@@ -133,7 +150,7 @@ function TableProducts(props) {
                     setPagination({ ...pagination, current: page }),
                 }}
                 columns={columns}
-                dataSource={productions}
+                dataSource={searchText ? filteredData : productions}
               />
             </div>
           </div>

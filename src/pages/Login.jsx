@@ -133,7 +133,12 @@ function Login() {
                             </button>
                           )}
                         </div>
-                        {/* <GoogleLogin setToken={setToken} /> */}
+                        <div className="text-center mt-2 mb-3">
+                          <GoogleLogin
+                            setToken={setToken}
+                            label="Login with Google"
+                          />
+                        </div>
                         <div class="d-flex align-items-center justify-content-center pb-4">
                           <p class="mb-0 me-2">Don't have an account?</p>
                           <button
@@ -145,7 +150,6 @@ function Login() {
                           >
                             Create new
                           </button>
-                          <GoogleLogin setToken={setToken} label="Login with Google" />
                         </div>
                       </form>
                     </div>

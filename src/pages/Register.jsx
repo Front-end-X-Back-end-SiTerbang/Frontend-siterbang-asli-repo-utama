@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { register } from "../redux/actions/auth";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
+import GoogleLogin from "../component/security/GoogleLogin";
 
 function Register() {
   const navigate = useNavigate();
@@ -13,6 +14,7 @@ function Register() {
   const [isLoading, setIsLoading] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [token, setToken] = useState(null);
   const [password, setPassword] = useState("");
   const [confirm_password, setconfirm_password] = useState("");
 
@@ -185,6 +187,12 @@ function Register() {
                               Register
                             </button>
                           )}
+                        </div>
+                        <div className="text-center mt-2 mb-3">
+                          <GoogleLogin
+                            setToken={setToken}
+                            label="Login with Google"
+                          />
                         </div>
                         <div class="d-flex align-items-center justify-content-center pb-4">
                           <p class="mb-0 me-2">Have already an account?</p>

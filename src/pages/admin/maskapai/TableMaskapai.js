@@ -13,6 +13,8 @@ import Swal from "sweetalert2";
 function TableMaskapai() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [filteredData, setFilteredData] = useState([]);
+  const [searchText, setSearchText] = useState("");
   const [pagination, setPagination] = useState({
     current: 1,
     pageSize: 5,
@@ -101,6 +103,14 @@ function TableMaskapai() {
     },
   ];
 
+  // handle searching
+  const handleSearch = (value) => {
+    setSearchText(value);
+    const filteredData = airline.filter((item) => {
+      return item.name.toLowerCase().includes(value.toLowerCase());
+    });
+    setFilteredData(filteredData);
+  };
   return (
     <React.Fragment>
       <Container>
@@ -126,14 +136,15 @@ function TableMaskapai() {
                     </button>
                   </div>
                   <div className="col-sm">
-                    <form action="">
+                    <form onSubmit={(e) => handleSearch(e.target.value)}>
                       <div className="d-flex justify-content-sm-end">
                         <div className="search-box ms-2">
                           <input
                             type="search"
                             className="form-control search"
                             name="search"
-                            placeholder="Search...."
+                            placeholder="Search Nama Maskapai..."
+                            onChange={(e) => handleSearch(e.target.value)}
                           />
                         </div>
                         <div className="d-flex justify-content-end">
@@ -157,8 +168,8 @@ function TableMaskapai() {
                     setPagination({ ...pagination, current: page }),
                 }}
                 columns={columns}
-                dataSource={airline}
-              ></Table>
+                dataSource={searchText ? filteredData : airline}
+              />
             </div>
           </div>
         </div>
