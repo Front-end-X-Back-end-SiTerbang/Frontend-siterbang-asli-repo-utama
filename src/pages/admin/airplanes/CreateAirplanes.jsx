@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import LogoAdmin from "../../../assets/admin-img/undraw_metrics_re_6g90.svg";
 import Logo from "../../../assets/img-plane/siterbang.png";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { createAirplanes } from "../../../redux/actions/airplanesActions";
+import { Select } from "antd";
+import { useSelector } from "react-redux";
 function CreateAirport() {
   const navigate = useNavigate();
   const [name, setName] = useState("");
@@ -12,6 +14,15 @@ function CreateAirport() {
   const [type, setType] = useState("");
   const [capacity, setCapacity] = useState("");
   const [error, setError] = useState([]);
+
+  const Maskapai = useSelector((state) => {
+    return state.listAirline.result;
+  });
+
+  useEffect(() => {
+    document.title = `Create Airplanes`;
+    window.scrollTo(0, 0);
+  }, []);
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -45,6 +56,19 @@ function CreateAirport() {
       }
     }
   };
+
+  const onChangeAirlineId = (value) => {
+    setAirline_id(value);
+  };
+
+  const options = [];
+  Maskapai &&
+    Maskapai.map((item) => {
+      return options.push({
+        label: `${item.name}`,
+        value: `${item.id}`,
+      });
+    });
 
   return (
     <React.Fragment>
@@ -193,7 +217,7 @@ function CreateAirport() {
                         className="form-control"
                         name="name"
                         placeholder="Masukkan Nama Pesawat"
-                        onChange={(e) => setName(e.target.value)}
+                        onChange={(e) => setName(e.target.value.toUpperCase())}
                       />
                       <br />
                     </div>
@@ -206,7 +230,7 @@ function CreateAirport() {
                         className="form-control"
                         name=""
                         placeholder="Masukkan Type Pesawat"
-                        onChange={(e) => setType(e.target.value)}
+                        onChange={(e) => setType(e.target.value.toUpperCase())}
                       />
                       <br />
                     </div>
@@ -227,12 +251,24 @@ function CreateAirport() {
                       <label className="form-label">Nama Maskapai</label>
                     </div>
                     <div className="col-lg-9">
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="airline"
-                        placeholder="Masukkan Nama Maskapai"
-                        onChange={(e) => setAirline_id(e.target.value)}
+                      <Select
+                        showSearch
+                        placeholder="Pilih Nama Maskapai"
+                        optionFilterProp="children"
+                        filterOption={(input, option) =>
+                          (option?.label ?? "")
+                            .toLowerCase()
+                            .includes(input.toLowerCase())
+                        }
+                        filterSort={(optionA, optionB) =>
+                          (optionA?.label ?? "")
+                            .toLowerCase()
+                            .localeCompare((optionB?.label ?? "").toLowerCase())
+                        }
+                        onChange={onChangeAirlineId}
+                        options={options}
+                        listHeight={500}
+                        style={{ width: 730 }}
                       />
                       <h6 className="err">{error}</h6>
                       <br />

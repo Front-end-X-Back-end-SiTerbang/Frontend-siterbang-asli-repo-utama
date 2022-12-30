@@ -17,6 +17,8 @@ function TableProducts(props) {
     return state.listProductions.data;
   });
 
+  console.log(productions);
+
   const columns = [
     {
       key: "1",
@@ -24,6 +26,11 @@ function TableProducts(props) {
       render: (text, record, index) => {
         return index + (pagination.current - 1) * pagination.pageSize + 1;
       },
+    },
+    {
+      key: "airline_id",
+      title: "Nama Maskapai",
+      dataIndex: "airline_id",
     },
     {
       key: "2",
@@ -38,6 +45,11 @@ function TableProducts(props) {
           {item.origin_id} 🛬 {item.destination_id}
         </div>
       ),
+    },
+    {
+      key: "airplane_id",
+      title: "Nama Pesawat",
+      dataIndex: "airplane_id",
     },
     {
       key: "4",
