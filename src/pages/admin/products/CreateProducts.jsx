@@ -5,6 +5,8 @@ import Logo from "../../../assets/img-plane/siterbang.png";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { createproductions } from "../../../redux/actions/productionActions";
+import { Select } from "antd";
+import { useSelector } from "react-redux";
 
 function CreateProductionss() {
   const navigate = useNavigate();
@@ -15,9 +17,47 @@ function CreateProductionss() {
   const [flight_date, setFlight_date] = useState("");
   const [depature_hours, setDepature_hours] = useState("");
   const [airplane_id, setAirplane_id] = useState("");
+  const [airline_id, setAirline_id] = useState("");
+  const [code, setCode] = useState("");
   const [estimation, setEstimation] = useState("");
+  const [terminal, setTerminal] = useState("");
   const [type, setType] = useState("");
+  const [stock, setStock] = useState("");
   const [error, setError] = useState([]);
+
+  const Airplanes = useSelector((state) => {
+    return state.listAirplanes.data;
+  });
+
+  const Maskapai = useSelector((state) => {
+    return state.listAirline.result;
+  });
+
+  const onChangeAirplanesId = (value) => {
+    setAirplane_id(value);
+  };
+
+  const onChangeAirlineId = (value) => {
+    setAirline_id(value);
+  };
+
+  const options = [];
+  Airplanes &&
+    Airplanes.map((item) => {
+      return options.push({
+        label: `${item.name}`,
+        value: `${item.id}`,
+      });
+    });
+
+  const optionsGetAirlineId = [];
+  Maskapai &&
+    Maskapai.map((item) => {
+      return optionsGetAirlineId.push({
+        label: `${item.name}`,
+        value: `${item.id}`,
+      });
+    });
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -66,8 +106,12 @@ function CreateProductionss() {
         flight_date,
         depature_hours,
         airplane_id,
+        airline_id,
+        code,
         estimation,
+        terminal,
         type,
+        stock,
       };
       const createProductionTouser = await createproductions(body, setError);
       if (createProductionTouser) {
@@ -75,6 +119,41 @@ function CreateProductionss() {
         return navigate("/admin");
       }
     }
+  };
+
+  const validateCodePenerbangan = (coders) => {
+    const regex = /^(?=.*\d)[A-Z]{4,5}$/;
+    if (!regex.test(coders)) {
+      if (coders.length < 4) {
+        setError("Kode Minimal 4 Karakter");
+      } else {
+        if (coders.length > 5) {
+          setError("Kode Maksimal 5 Karakter");
+        } else {
+          if (!/[A-Z]/.test(coders)) {
+            setError("Kode Harus Huruf Besar Semua");
+          } else {
+            if (!/\d/.test(coders)) {
+              setError("Kode Harus Memiliki Angka");
+            }
+          }
+        }
+      }
+      return false;
+    }
+    return true;
+  };
+
+  const HandleCodePenerbangan = (e) => {
+    const inputCode = e.target.value;
+
+    const isValid = validateCodePenerbangan(inputCode);
+    setCode(inputCode);
+
+    if (!isValid) {
+      return;
+    }
+    setError("");
   };
 
   return (
@@ -229,7 +308,7 @@ function CreateProductionss() {
                       <br />
                     </div>
                     <div className="col-lg-3">
-                      <label className="form-label">Email</label>
+                      <label className="form-label">Destination</label>
                     </div>
                     <div className="col-lg-9">
                       <input
@@ -299,13 +378,52 @@ function CreateProductionss() {
                       <label className="form-label">Airplanes</label>
                     </div>
                     <div className="col-lg-9">
-                      <input
-                        type="number"
-                        className="form-control"
-                        name="airline"
-                        placeholder="3"
-                        onChange={(e) => setAirplane_id(e.target.value)}
+                      <Select
+                        showSearch
+                        placeholder="Pilih Nama Maskapai"
+                        optionFilterProp="children"
+                        filterOption={(input, option) =>
+                          (option?.label ?? "")
+                            .toLowerCase()
+                            .includes(input.toLowerCase())
+                        }
+                        filterSort={(optionA, optionB) =>
+                          (optionA?.label ?? "")
+                            .toLowerCase()
+                            .localeCompare((optionB?.label ?? "").toLowerCase())
+                        }
+                        onChange={onChangeAirplanesId}
+                        options={options}
+                        listHeight={500}
+                        style={{ width: 730 }}
                       />
+                      <br />
+                      <br />
+                    </div>
+                    <div className="col-lg-3">
+                      <label className="form-label">Airline</label>
+                    </div>
+                    <div className="col-lg-9">
+                      <Select
+                        showSearch
+                        placeholder="Pilih Nama Pesawat"
+                        optionFilterProp="children"
+                        filterOption={(input, option) =>
+                          (option?.label ?? "")
+                            .toLowerCase()
+                            .includes(input.toLowerCase())
+                        }
+                        filterSort={(optionA, optionB) =>
+                          (optionA?.label ?? "")
+                            .toLowerCase()
+                            .localeCompare((optionB?.label ?? "").toLowerCase())
+                        }
+                        onChange={onChangeAirlineId}
+                        options={optionsGetAirlineId}
+                        listHeight={500}
+                        style={{ width: 730 }}
+                      />
+                      <br />
                       <br />
                     </div>
                     <div className="col-lg-3">
@@ -324,6 +442,34 @@ function CreateProductionss() {
                       <br />
                     </div>
                     <div className="col-lg-3">
+                      <label className="form-label">Code</label>
+                    </div>
+                    <div className="col-lg-9">
+                      <input
+                        type="text"
+                        className="form-control"
+                        name="airline"
+                        placeholder="BH56"
+                        onChange={HandleCodePenerbangan}
+                      />
+                      <br />
+                    </div>
+                    <div className="col-lg-3">
+                      <label className="form-label">Terminal</label>
+                    </div>
+                    <div className="col-lg-9">
+                      <input
+                        type="text"
+                        className="form-control"
+                        name="airline"
+                        placeholder="Terminal"
+                        onChange={(e) =>
+                          setTerminal(e.target.value.toUpperCase())
+                        }
+                      />
+                      <br />
+                    </div>
+                    <div className="col-lg-3">
                       <label className="form-label">type</label>
                     </div>
                     <div className="col-lg-9">
@@ -331,8 +477,21 @@ function CreateProductionss() {
                         type="text"
                         className="form-control"
                         name="airline"
-                        placeholder="2.5"
+                        placeholder="First Class"
                         onChange={(e) => setType(e.target.value.toUpperCase())}
+                      />
+                      <br />
+                    </div>
+                    <div className="col-lg-3">
+                      <label className="form-label">Stock Ticket</label>
+                    </div>
+                    <div className="col-lg-9">
+                      <input
+                        type="number"
+                        className="form-control"
+                        name="airline"
+                        placeholder="5000"
+                        onChange={(e) => setType(e.target.value)}
                       />
                       <h6 class="err">{error}</h6>
                       <br />

@@ -20,7 +20,6 @@ function TableMaskapai() {
   const airline = useSelector((state) => {
     return state.listAirline.result;
   });
-  console.log(airline);
 
   useEffect(() => {
     dispatch(getListAirline());
