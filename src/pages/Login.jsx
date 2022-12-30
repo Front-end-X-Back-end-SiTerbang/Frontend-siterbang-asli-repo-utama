@@ -5,7 +5,7 @@ import "../assets/css/styleku.css";
 import Logo from "../assets/img-plane/siterbang.png";
 import Banner from "../assets/img/undraw_connected_world_wuay.svg";
 import { login } from "../redux/actions/auth";
-// import GoogleLogin from "../component/security/GoogleLogin";
+import GoogleLogin from "../component/security/GoogleLogin";
 
 function Login() {
   const navigate = useNavigate();
@@ -14,10 +14,16 @@ function Login() {
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [token, setToken] = useState(null);
 
   useEffect(() => {
     document.title = `Login`;
     window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
+    const getToken = localStorage.getItem("token");
+    setToken(getToken);
   }, []);
 
   const onSubmitted = (e) => {
@@ -127,7 +133,7 @@ function Login() {
                             </button>
                           )}
                         </div>
-                        {/* <GoogleLogin /> */}
+                        {/* <GoogleLogin setToken={setToken} /> */}
                         <div class="d-flex align-items-center justify-content-center pb-4">
                           <p class="mb-0 me-2">Don't have an account?</p>
                           <button
@@ -139,6 +145,7 @@ function Login() {
                           >
                             Create new
                           </button>
+                          <GoogleLogin setToken={setToken} label="Login with Google" />
                         </div>
                       </form>
                     </div>
