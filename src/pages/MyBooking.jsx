@@ -4,10 +4,14 @@ import airplane from "../assets/img/airplane.svg";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../component/Navbar2";
-import { getMyBooking } from "../redux/actions/transaksiActions";
+import {
+  getMyBooking,
+  deleteTransaksi,
+} from "../redux/actions/transaksiActions";
 import axios from "axios";
 import { Pagination } from "react-bootstrap";
 import Footer from "../component/Footer";
+import Swal from "sweetalert2";
 
 export default function MyBooking() {
   const dispatch = useDispatch();
@@ -53,6 +57,34 @@ export default function MyBooking() {
   useEffect(() => {
     dispatch(getMyBooking(navigate));
   }, [dispatch, navigate]);
+
+  const onDelete = (id) => {
+    Swal.fire({
+      title: "Anda Yakin Ingin Mengcancel Ticket ?",
+      icon: "Peringatan",
+      showCancelButton: true,
+      showLoaderOnConfirm: true,
+      confirmButtonText: "OK",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteTransaksi(id)
+          .then((response) => {
+            Swal.fire({
+              title: "Cancel Success",
+              icon: "success",
+            });
+            dispatch(getMyBooking());
+          })
+          .catch((err) => {
+            Swal.fire({
+              title: "Cancel failed!",
+              icon: "error",
+            });
+          });
+        navigate("/");
+      }
+    });
+  };
 
   return (
     <>
@@ -122,6 +154,16 @@ export default function MyBooking() {
                         }}
                       >
                         Detail Ticket
+                      </button>
+                      <button
+                        class="btn btn-outline-danger btn-sm mt-2"
+                        type="button"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          onDelete(item.id);
+                        }}
+                      >
+                        Cancel
                       </button>
                     </div>
                   </div>

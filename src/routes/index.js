@@ -29,6 +29,7 @@ import Admins from "../pages/admin/admins/Admin";
 import CreateUsers from "../pages/admin/admins/CreateUsers";
 import Products from "../pages/admin/products/Products";
 import CreateProductions from "../pages/admin/products/CreateProducts";
+import HistoryBooking from "../pages/admin/HistoryBooking/HistoryBooking";
 import { Button, Result } from "antd";
 
 function PrivateRoute({ children }) {
@@ -131,6 +132,15 @@ export default function router() {
           element={
             <Protected>
               <Maskapai />
+            </Protected>
+          }
+        />
+
+        <Route
+          path="/historybooking"
+          element={
+            <Protected>
+              <HistoryBooking />
             </Protected>
           }
         />

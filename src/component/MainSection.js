@@ -17,7 +17,7 @@ const SearchFlightForm = ({ isSearchPage }) => {
   const [departureDate, setDepartureDate] = useState("");
   const [returnDate, setReturnDate] = useState("");
   const [dateFlexible, setDateFlexible] = useState("");
-  const [tripType, setTripType] = useState("");
+  const [tripType, setTripType] = useState(true);
   const [originId, setOriginId] = useState("");
   const [destinationId, setDestinationId] = useState("");
   const Airports = useSelector((state) => {
