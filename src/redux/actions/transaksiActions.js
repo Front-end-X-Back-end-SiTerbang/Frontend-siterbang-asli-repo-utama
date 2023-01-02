@@ -78,3 +78,22 @@ export const updateNotifikasi = async (id) => {
     throw error;
   }
 };
+
+// handle delete
+export const deleteTransaksi = (id) => {
+  const token = localStorage.getItem("token");
+  return new Promise((resolve, reject) => {
+    axios
+      .delete(`${process.env.REACT_APP_API_URL}/transactions/${id}`, {
+        headers: {
+          Authorization: `${token}`,
+        },
+      })
+      .then((res) => {
+        resolve(res);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};

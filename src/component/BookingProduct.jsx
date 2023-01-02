@@ -356,17 +356,15 @@ function DetailProduct() {
                     {detailDestination?.city}
                   </h5>
                 </div>
-                <div className="row">
-                  <div className="col-lg-6 col-sm-6 col-xs 12 d-flex">
-                    <h6 className="font-monospace mt-3 ms-auto">
-                      {detailproduct.flight_date}
-                    </h6>
-                  </div>
-                  <div className="col-lg-6 col-sm-6 col-xs 12 d-flex">
-                    <h6 className="font-monospace mt-3">
+                <h6 className="font-monospace mt-3">
+                  <div className="text-center">
+                    <strong>
                       {convertNumberToTime(detailproduct.estimation)}
-                    </h6>
+                    </strong>
                   </div>
+                </h6>
+                <div className="row">
+                  <div className="col-lg-6 col-sm-6 col-xs 12 d-flex"></div>
                   <div className="text-center mt-3">
                     <h5>{detailproduct.type}</h5>
                   </div>
@@ -402,8 +400,16 @@ function DetailProduct() {
                   />
                 </div>
                 <div className="mt-5">
-                  <ul id="refund">
-                    <li>Menerima Refound</li>
+                  <ul>
+                    <li>
+                      <strong>Menerima Refound</strong>
+                    </li>
+                    <li>
+                      <strong>Aman Terpercaya</strong>
+                    </li>
+                    <li>
+                      <strong>Ramah Dikantong</strong>
+                    </li>
                   </ul>
                 </div>
               </div>
