@@ -82,6 +82,15 @@ function Maskapai() {
             >
               <i class="fal fa-place-of-worship bear"></i> Airport
             </li>
+            <li
+              className="beruang px-3 py-2"
+              onClick={(e) => {
+                e.preventDefault();
+                navigate("/historybooking");
+              }}
+            >
+              <i class="fal fa-place-of-worship bear"></i> History Booking
+            </li>
           </ul>
         </div>
         <div className="content">
