@@ -1,64 +1,91 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
+// Komponen ini akan membuat logout setelah 2 menit tidak ada aktivitas
 function InactiveTimeout() {
+  // Digunakan untuk mengarahkan pengguna ke halaman login
   const navigate = useNavigate();
-  const inactiveTimeout = 2 * 60 * 1000; // 2 minutes in milisecond
+  // Durasi timeout, 2 menit dalam milidetik
+  const inactiveTimeout = 2 * 60 * 1000;
+
+  // Fungsi untuk logout pengguna
   const logout = () => {
     console.log("Logging out...");
+    // Hapus token yang tersimpan di localStorage
     localStorage.removeItem("token");
+    // Bersihkan semua item yang tersimpan di localStorage
     localStorage.clear();
+    // Arahkan pengguna ke halaman login
     navigate("/login");
   };
 
   useEffect(() => {
     let activityTimeout;
     let inactivityTimeout;
+    let logoutTimeout;
 
+    // Fungsi untuk reset timeout
     function resetTimeout() {
       console.error("Error: something went wrong");
-      // menghapus seluruh timeout yang ada
+      // Hapus semua timeout yang ada
       clearTimeout(activityTimeout);
       clearTimeout(inactivityTimeout);
+      clearInterval(logoutTimeout);
 
-      // Set a new timeout
+      // Buat timeout baru
       activityTimeout = setTimeout(() => {
-        // pengguna selama 2 menit tidak melakukan apa apa akan terlogout
+        // Jika tidak ada aktivitas selama 2 menit, lakukan logout
         logout();
       }, inactiveTimeout);
     }
 
+    // Fungsi untuk menangani perubahan visibilitas browser
     function handleVisibilityChange() {
       if (document.visibilityState === "visible") {
         console.log(`Browser visibility: ${document.visibilityState}`);
-        // reset timeout selama pengguna melalkukan interaksi terhadap halaman siterbang
+        // Jika browser kembali ke posisi visible, reset timeout
         resetTimeout();
       } else {
-        // dan jika tidak ada interaksi diclose dan semacamnya selama 2 menit maka terlogout
+        // Jika tidak, mulai hitung mundur timeout untuk logout jika tidak ada aktivitas selama 2 menit
         inactivityTimeout = setTimeout(() => {
-          logout();
+          // Mulai countdown sampai waktu logout
+          let timeLeft = inactiveTimeout;
+          logoutTimeout = setInterval(() => {
+            timeLeft -= 1000;
+            if (timeLeft <= 0) {
+              // Waktu habis, lakukan logout
+              logout();
+            }
+          }, 1000);
         }, inactiveTimeout);
       }
     }
 
-    // Reset the timeout whenever the user is active
+    // Reset timeout setiap ada aktivitas pengguna
     document.addEventListener("click", resetTimeout);
     document.addEventListener("keydown", resetTimeout);
+    window.addEventListener("focus", resetTimeout);
 
-    // Set a timeout to log out the user if they are inactive for 2 minutes
-    // while the window is not focused
+    // Buat timeout untuk logout jika tidak ada aktivitas selama 2 menit saat browser tidak fokus
     document.addEventListener("visibilitychange", handleVisibilityChange);
+    window.addEventListener("blur", handleVisibilityChange);
 
-    // Clean up event listeners when the component unmounts
+    // Bersihkan event listeners saat komponen dihapus
     return () => {
       clearTimeout(activityTimeout);
       clearTimeout(inactivityTimeout);
+      clearInterval(logoutTimeout);
       document.removeEventListener("click", resetTimeout);
       document.removeEventListener("keydown", resetTimeout);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
+      window.removeEventListener("focus", resetTimeout);
+      window.removeEventListener("blur", resetTimeout);
+      window.removeEventListener("focus", handleVisibilityChange);
+      window.removeEventListener("blur", handleVisibilityChange);
     };
   }, []);
 
+  // Komponen ini tidak menampilkan apa-apa
   return null;
 }
 
