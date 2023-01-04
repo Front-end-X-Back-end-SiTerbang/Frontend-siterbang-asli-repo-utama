@@ -299,7 +299,7 @@ body {
     opacity: 0;
   }
   .card-phone {
-    height: 0;
+    height: 290px;
   }
   .card-phone-xs {
     width: 100%;
@@ -338,6 +338,28 @@ body {
     text-decoration: none;
     width: 100%;
   }
+  .btn-searchings {
+    color: white;
+    background: #6c63ff;
+    width: 150px;
+    font-size: 12px;
+    height: 40px;
+    border-radius: 15px;
+    border: none;
+    text-align: center;
+    margin-right: 13px;
+  }
+
+  .btn-searchings:hover {
+    color: white;
+    background: #35405a;
+    width: 120px;
+    height: 40px;
+    border-radius: 15px;
+    border: none;
+    text-align: center;
+    margin-right: 13px;
+  }
 }
 
 @media (min-width: 768px) {
@@ -351,5 +373,27 @@ body {
   .gradient-custom-2 {
     border-top-right-radius: 0.3rem;
     border-bottom-right-radius: 0.3rem;
+  }
+  .btn-searchings {
+    color: white;
+    background: #6c63ff;
+    width: 150px;
+    font-size: 12px;
+    height: 40px;
+    border-radius: 15px;
+    border: none;
+    text-align: center;
+    margin-right: 13px;
+  }
+
+  .btn-searchings:hover {
+    color: white;
+    background: #35405a;
+    width: 120px;
+    height: 40px;
+    border-radius: 15px;
+    border: none;
+    text-align: center;
+    margin-right: 13px;
   }
 }

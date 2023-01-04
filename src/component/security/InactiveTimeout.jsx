@@ -26,8 +26,6 @@ function InactiveTimeout() {
 
     // Fungsi untuk reset timeout
     function resetTimeout() {
-      console.error("Error: something went wrong");
-      // Hapus semua timeout yang ada
       clearTimeout(activityTimeout);
       clearTimeout(inactivityTimeout);
       clearInterval(logoutTimeout);
@@ -42,7 +40,6 @@ function InactiveTimeout() {
     // Fungsi untuk menangani perubahan visibilitas browser
     function handleVisibilityChange() {
       if (document.visibilityState === "visible") {
-        console.log(`Browser visibility: ${document.visibilityState}`);
         // Jika browser kembali ke posisi visible, reset timeout
         resetTimeout();
       } else {

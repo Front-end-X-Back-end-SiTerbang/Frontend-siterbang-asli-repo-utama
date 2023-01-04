@@ -159,15 +159,6 @@ export default function Profile() {
                   </div>
                 }
                 <div className="card-setting d-flex flex-column justify-content-start">
-                  <div className="">
-                    <img src={iconMyTwiter} alt="" />
-                  </div>
-                  <div>
-                    <img src={iconIg} alt="" />
-                  </div>
-                  <div>
-                    <img src={iconFb} alt="" />
-                  </div>
                   <div>
                     <button onClick={logout}>
                       <img src={iconLogout} alt="" />
