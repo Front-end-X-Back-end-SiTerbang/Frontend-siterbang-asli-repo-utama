@@ -79,8 +79,6 @@ function InactiveTimeout() {
       document.removeEventListener("keydown", resetTimeout);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
       window.removeEventListener("focus", resetTimeout);
-      window.removeEventListener("blur", resetTimeout);
-      window.removeEventListener("focus", handleVisibilityChange);
       window.removeEventListener("blur", handleVisibilityChange);
     };
   }, []);
