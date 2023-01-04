@@ -213,7 +213,7 @@ function Register() {
                     <div class="text-white px-3 py-4 p-md-5 mx-md-4 real">
                       <h4>This Choice Is Yours</h4>
                       <p>
-                        <img src={Banner} alt="" width={400} />
+                        <img src={Banner} alt="" width={355} />
                       </p>
                     </div>
                   </div>
