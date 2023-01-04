@@ -4,7 +4,6 @@ import { GET_DETAIL_PRODUCT_SUCCESS, GET_PRODUCT_SUCCESS } from "../types";
 export const getListProduct = (url) => async (dispatch) => {
   try {
     const token = localStorage.getItem("token");
-    console.log(url);
     const results = await axios.get(url, {
       headers: {
         Authorization: `${token}`,

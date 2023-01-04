@@ -38,8 +38,6 @@ function DetailProduct() {
     return state.detailByProduct.data.destination;
   });
 
-  console.log(detailOrigin);
-
   const onSubmit = async (e) => {
     e.preventDefault();
     if (total_passenger === "") {

@@ -16,8 +16,6 @@ const SearchFlightForm = ({ isSearchPage }) => {
   const listProduct = useSelector((state) => {
     return state.listProduct;
   });
-  console.log(listProduct);
-
   const navigate = useNavigate();
   const [queryParams] = useSearchParams();
 

@@ -22,8 +22,6 @@ function DetailTicketPesanan() {
     return state.detailPesanan.data.booking_details;
   });
 
-  console.log(detailPesanan);
-
   useEffect(() => {
     async function fetchData() {
       const token = localStorage.getItem("token");
