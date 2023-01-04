@@ -96,7 +96,8 @@
 .btn-searchings {
   color: white;
   background: #6c63ff;
-  width: 120px;
+  width: 150px;
+  font-size: 12px;
   height: 40px;
   border-radius: 15px;
   border: none;

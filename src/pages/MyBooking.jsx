@@ -81,6 +81,8 @@ export default function MyBooking() {
               icon: "error",
             });
           });
+
+        navigate("/");
       }
     });
   };

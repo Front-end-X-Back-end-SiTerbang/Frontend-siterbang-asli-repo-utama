@@ -31,7 +31,7 @@ export const forgot = async (data, setErrors) => {
     );
     return true;
   } catch (error) {
-    setErrors(error.response.data.message);
+    throw error;
   }
 };
 
