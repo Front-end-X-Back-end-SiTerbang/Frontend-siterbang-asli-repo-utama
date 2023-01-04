@@ -70,6 +70,10 @@ function DetailProduct() {
       confirmButtonText: "OK",
     }).then((result) => {
       if (result.isConfirmed) {
+        const audio = new Audio(
+          "https://drive.google.com/file/d/1qOsGT43XRXuMfiVHRe_muSAT2KbPD42D/view?usp=share_link"
+        );
+        audio.play();
         Swal.fire(
           {
             icon: "success",

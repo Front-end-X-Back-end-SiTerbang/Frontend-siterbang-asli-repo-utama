@@ -10,10 +10,12 @@ import bn3 from "../assets/img-plane/fly_img05.jpg";
 import bn4 from "../assets/img-plane/fly_img08.jpg";
 import btnBanner from "../assets/img-plane/siterbang.png";
 import { CarouselMitra } from "../component/CarouselMitra";
+import InactiveTimeout from "../component/security/InactiveTimeout";
 
 function Home() {
   return (
     <React.Fragment>
+      <InactiveTimeout />
       <Navbar2 />
       <div id="ticket">
         <Header />

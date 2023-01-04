@@ -31,6 +31,7 @@ import Products from "../pages/admin/products/Products";
 import CreateProductions from "../pages/admin/products/CreateProducts";
 import HistoryBooking from "../pages/admin/HistoryBooking/HistoryBooking";
 import { Button, Result } from "antd";
+import InactiveTimeout from "../component/security/InactiveTimeout";
 
 function PrivateRoute({ children }) {
   const token = localStorage.getItem("token");
@@ -53,6 +54,7 @@ function PublicRoute({ children }) {
 export default function router() {
   return (
     <BrowserRouter>
+      <InactiveTimeout />
       <Routes>
         <Route path="/">
           <Route index element={<Landing />} />
