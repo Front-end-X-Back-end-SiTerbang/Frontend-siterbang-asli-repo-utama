@@ -7,11 +7,9 @@ import { toast } from "react-toastify";
 import { GoogleAuth } from "../../redux/actions/auth";
 import axios from "axios";
 
-
 function GoogleLogin({ setToken, label }) {
   const navigate = useNavigate();
-  console.log("HALO GOOGLE")
-  
+
   const googleLogin = useGoogleLogin({
     onSuccess: async (response) => {
       // Send access token to backend
@@ -19,7 +17,6 @@ function GoogleLogin({ setToken, label }) {
         const data = {
           access_token: response.access_token,
         };
-        console.log(data)
         const result = await axios.post(
           `${process.env.REACT_APP_API_URL}/auth/google`,
           data,
@@ -29,7 +26,6 @@ function GoogleLogin({ setToken, label }) {
             },
           }
         );
-        console.log(result)
         if (result.data.data.token) {
           // Set token from backend to local storage
           // {"data": { "token": "ini token" }}
@@ -37,7 +33,6 @@ function GoogleLogin({ setToken, label }) {
           localStorage.setItem("role", result.data.data.role);
           setToken(result.data.data.token);
           navigate("/");
-
         }
       } catch (error) {
         // If there are any error it will show the error message from backend
@@ -64,4 +59,3 @@ function GoogleLogin({ setToken, label }) {
 }
 
 export default GoogleLogin;
-
